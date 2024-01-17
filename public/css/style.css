@@ -1,0 +1,74 @@
+body {
+    cursor: default;
+}
+
+
+/* GENERAL THEME */
+.bg_theme {
+    background-color: #201d1e
+}
+
+.app_theme_org {
+    background-color: #d36617;
+    border: 2px solid white;
+}
+
+.txt_theme_org {
+    color: #d36617;
+}
+
+.txt_theme_wht {
+    color: white;
+}
+
+/* COMPONENETS */
+.app_button__icon {
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    padding: 5px
+}
+
+
+/* HOME */
+.planet {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transform: rotate(-45deg);
+    border: 2px solid white;
+}
+
+.ring {
+    width: 250px;
+    height: 205px;
+    border: solid 6px #b8b08d;
+    border-radius: 50%;
+    top: -40px;
+    left: -60px;
+    border-bottom-style: hidden !important;
+    position: absolute;
+    transform: rotate3d(1, 0, 0, 80deg);
+}
+
+.fluid-color {
+    background: radial-gradient(circle at 30% 107%, #d36617 0%, #d36617 50%, #e59357 60%, #733d15 100%);
+    background-size: 200% 200%;
+    animation: rotateGradient 20s linear infinite;
+}
+
+@keyframes rotateGradient {
+    5%, 100% {
+        background-position: 10% 0%;
+    }
+    50% {
+        background-position: 50% 15%;
+    }
+}
+
+.app-promo-prods {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
