@@ -24,3 +24,11 @@ Route::get('/menu', function () {
 Route::get('/order', function () {
     return view('order.index');
 });
+
+Route::get('/summary', function () {
+    return view('summary.index');
+});
+
+Route::get('/order', function () {
+    return view('order.index');
+});

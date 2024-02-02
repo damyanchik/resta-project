@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mt-5">
     <div class="txt_theme_org">
         <h1 class="display-1">Jupiter Pizza</h1>
     </div>

@@ -13,12 +13,21 @@ body {
     border: 2px solid white;
 }
 
+.app_theme_wht {
+    background-color: white;
+}
+
 .txt_theme_org {
     color: #d36617;
 }
 
 .txt_theme_wht {
     color: white;
+}
+
+.focus-border:focus {
+    border-color: rgba(40, 167, 69, 0);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0);
 }
 
 /* COMPONENETS */
@@ -53,9 +62,9 @@ body {
 }
 
 .fluid-color {
-    background: radial-gradient(circle at 30% 107%, #d36617 0%, #d36617 50%, #e59357 60%, #733d15 100%);
+    background: radial-gradient(circle at 40% 107%, #d36617 20%, #d36617 50%, #e59357 60%, #733d15 100%);
     background-size: 200% 200%;
-    animation: rotateGradient 20s linear infinite;
+    animation: rotateGradient 10s linear infinite;
 }
 
 @keyframes rotateGradient {
