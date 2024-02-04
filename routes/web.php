@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AuthController::class, 'index'])
+        ->name('admin.index');
+
+    Route::post('/login', [AuthController::class, 'login'])
+        ->name('admin.login');
+
+    Route::get('/logout', [AuthController::class, 'logout'])
+        ->name('admin.logout');
+
+
+    Route::get('/', [DashboardController::class, 'index']);
+});
+
+
 
 Route::get('/', function () {
     return view('home.index');
