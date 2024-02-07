@@ -31,11 +31,14 @@ class AuthController extends Controller
             ->route('admin.dashboard');
     }
 
-    public function logout(Request $request): void
+    public function logout(Request $request): RedirectResponse
     {
         auth()->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
+        return redirect()
+            ->route('admin.index');
     }
 }
