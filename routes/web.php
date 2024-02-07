@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,9 +28,10 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
+
+    Route::get('/products', [ProductController::class, 'index'])
+        ->name('admin.product.index');
 });
-
-
 
 Route::get('/', function () {
     return view('home.index');
