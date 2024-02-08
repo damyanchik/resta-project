@@ -4,30 +4,24 @@ declare(strict_types=1);
 
 namespace App\Models\Traits;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Schema;
+
 trait SortableTrait
 {
-    public function scopeSortBy($query, string $column, string $direction)
+    public function scopeSortBy(Builder $query, string $column, string $direction): Builder
     {
         $defaultColumn = 'id';
-        $defaultOrder = 'ASC';
 
-        if (
-            $this->isSortingInputValid($column, $direction)
-        ) {
-            return $query->orderBy($defaultColumn, $defaultOrder);
+        if ($this->hasColumn($column)) {
+            return $query->orderBy($defaultColumn, $direction);
         }
 
         return $query->orderBy($column, $direction);
     }
 
-    private function isSortingInputValid(string $column, string $direction): bool
+    private function hasColumn(string $column): bool
     {
-        $allowedColumns = array_merge(['id', 'created_at', 'updated_at'], $this->fillable);
-        $allowedDirections = ['ASC', 'DESC'];
-
-        return (
-            !in_array(strtolower($column), $allowedColumns) ||
-            !in_array(strtoupper($direction), $allowedDirections)
-        );
+        return !Schema::hasColumn($this->table, $column);
     }
 }

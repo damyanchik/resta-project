@@ -6,11 +6,11 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
-use App\Repositories\Traits\SearchableTrait;
+use App\Repositories\Traits\IndexHandling;
 
 class ProductRepository implements ProductRepositoryInterface
 {
-    use SearchableTrait;
+    use IndexHandling;
 
     public function __construct(private Product $model)
     {
@@ -33,11 +33,15 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function update(int $id, array $data): bool
     {
-        return $this->model->updateOrFail($data);
+        $model = $this->model->findOrFail($id);
+
+        return $model->update($data);
     }
 
     public function delete(int $id)
     {
-        // TODO: Implement delete() method.
+        $model = $this->model->findOrFail($id);
+
+        return $model->destroy();
     }
 }

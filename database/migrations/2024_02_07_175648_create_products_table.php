@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->tinyInteger('availability')->unsigned()->default(0);
             $table->integer('stock')->unsigned();
             $table->integer('price')->unsigned();
-            $table->tinyInteger('is_unlimited_stock')->unsigned()->default(0);
+            $table->tinyInteger('is_unlimited')->unsigned()->default(0);
             $table->tinyInteger('is_vegetarian')->unsigned()->default(0);
             $table->tinyInteger('is_spicy')->unsigned()->default(0);
+            $table->tinyInteger('is_availability')->unsigned()->default(0);
+            $table->integer('category_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

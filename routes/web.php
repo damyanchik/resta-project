@@ -29,8 +29,21 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
 
+
     Route::get('/products', [ProductController::class, 'index'])
         ->name('admin.product.index');
+
+    Route::get('/products/create', [ProductController::class, 'create'])
+        ->name('admin.product.create');
+
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])
+        ->name('admin.product.edit');
+
+    Route::post('/products', [ProductController::class, 'store'])
+        ->name('admin.product.store');
+
+    Route::put('/products/{id}', [ProductController::class, 'update'])
+        ->name('admin.product.update');
 });
 
 Route::get('/', function () {

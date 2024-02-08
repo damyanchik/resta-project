@@ -19,11 +19,12 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->word(),
             'description' => fake()->text(),
-            'availability' => fake()->numberBetween(0,3),
             'stock' => fake()->numberBetween(0, 80),
             'price' => fake()->numberBetween(250, 8000),
             'is_vegetarian' => fake()->numberBetween(0,1),
             'is_spicy' => fake()->numberBetween(0,1),
+            'is_availability' => fake()->numberBetween(0,1),
+            'is_unlimited' => fake()->numberBetween(0,1),
         ];
     }
 }

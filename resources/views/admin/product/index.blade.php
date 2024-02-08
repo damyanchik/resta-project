@@ -26,6 +26,7 @@
                 <th scope="col">Vegetarian</th>
                 <th scope="col">Spicy</th>
                 <th scope="col">Availability</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -33,11 +34,12 @@
             <tr>
                 <th scope="row">{{ $product['id'] }}</th>
                 <td>{{ $product['name'] }}</td>
-                <td>{{ $product['stock'] }}</td>
-                <td>{{ $product['price'] }}</td>
+                <td>{{ $product['formatted_stock'] }}</td>
+                <td>{{ $product['formatted_price'] }}</td>
                 <td>{{ $product['is_vegetarian'] }}</td>
                 <td>{{ $product['is_spicy'] }}</td>
-                <td>{{ $product['availability'] }}</td>
+                <td>{{ $product['formatted_availability'] }}</td>
+                <td><a href="{{ route('admin.product.edit', $product['id']) }}" class="btn">Show</a></td>
             </tr>
             @endforeach
             </tbody>
