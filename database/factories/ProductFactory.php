@@ -23,8 +23,8 @@ class ProductFactory extends Factory
             'price' => fake()->numberBetween(250, 8000),
             'is_vegetarian' => fake()->numberBetween(0,1),
             'is_spicy' => fake()->numberBetween(0,1),
-            'is_availability' => fake()->numberBetween(0,1),
             'is_unlimited' => fake()->numberBetween(0,1),
+            'is_available' => fake()->numberBetween(0,1),
         ];
     }
 }

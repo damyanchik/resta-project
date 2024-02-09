@@ -6,6 +6,7 @@ use App\Enums\ProductAvailabilityEnum;
 use App\Helpers\PriceHelper;
 use App\Helpers\StockHelper;
 use App\Models\Traits\SortableTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,20 +19,20 @@ class Product extends Model
     protected $fillable = [
         'name',
         'description',
-        'availability',
         'stock',
         'price',
         'is_unlimited',
         'is_vegetarian',
         'is_spicy',
+        'is_available',
         'category_id',
     ];
 
     protected $casts = [
-        'availability' => ProductAvailabilityEnum::class,
+        'is_available' => ProductAvailabilityEnum::class,
     ];
 
-    public function scopeSearch($query, string $searchTerm)
+    public function scopeSearch(Builder $query, string $searchTerm): Builder
     {
         return $query
             ->where(function ($query) use ($searchTerm) {
@@ -44,7 +45,12 @@ class Product extends Model
 
     public function getFormattedPriceAttribute(): string
     {
-        return PriceHelper::formatPrice($this->attributes['price'], 'PLN');
+        return PriceHelper::formatPrice($this->attributes['price'], 'PLN');;
+    }
+
+    public function getFormattedPriceToFormAttribute(): string
+    {
+        return PriceHelper::convertIntToFloatPrice($this->attributes['price']);
     }
 
     public function getFormattedStockAttribute(): string
@@ -52,9 +58,9 @@ class Product extends Model
         return StockHelper::formatStock($this->attributes['stock']);
     }
 
-    public function getFormattedAvailabilityAttribute(): string
+    public function getFormattedIsAvailableAttribute(): string
     {
-        return $this->availability->name();
+        return $this->is_available->name();
     }
 
 }

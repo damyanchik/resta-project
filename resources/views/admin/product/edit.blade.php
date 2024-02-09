@@ -36,7 +36,7 @@
                 </div>
                 <div class="col">
                     <div class="form-floating">
-                        <input name="price" type="number" id="price" value="{{ $product['price'] }}" class="form-control" />
+                        <input name="price" type="number" id="price" step="0.01" value="{{ $product['formatted_price_to_form'] }}" class="form-control" />
                         <label for="price">Price</label>
                     </div>
                 </div>

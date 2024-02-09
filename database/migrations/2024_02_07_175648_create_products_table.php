@@ -20,7 +20,7 @@ return new class extends Migration
             $table->tinyInteger('is_unlimited')->unsigned()->default(0);
             $table->tinyInteger('is_vegetarian')->unsigned()->default(0);
             $table->tinyInteger('is_spicy')->unsigned()->default(0);
-            $table->tinyInteger('is_availability')->unsigned()->default(0);
+            $table->tinyInteger('is_available')->unsigned()->default(0);
             $table->integer('category_id')->unsigned()->nullable();
             $table->timestamps();
         });

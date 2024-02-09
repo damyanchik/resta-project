@@ -38,7 +38,7 @@
                 <td>{{ $product['formatted_price'] }}</td>
                 <td>{{ $product['is_vegetarian'] }}</td>
                 <td>{{ $product['is_spicy'] }}</td>
-                <td>{{ $product['formatted_availability'] }}</td>
+                <td>{{ $product['formatted_is_available'] }}</td>
                 <td><a href="{{ route('admin.product.edit', $product['id']) }}" class="btn">Show</a></td>
             </tr>
             @endforeach

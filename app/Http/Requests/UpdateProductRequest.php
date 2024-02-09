@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Helpers\PriceHelper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductRequest extends FormRequest
@@ -13,6 +14,13 @@ class UpdateProductRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        if ($this->has('price')) {
+            $this->merge(['price' => PriceHelper::convertFloatToIntPrice((float) $this->input('price'))]);
+        }
+    }
+
     public function rules(): array
     {
         return [
@@ -20,10 +28,11 @@ class UpdateProductRequest extends FormRequest
             'description' => ['string', 'required'],
             'stock' => ['integer', 'required', 'min:0'],
             'price' => ['integer', 'required', 'min:0'],
-            'is_unlimited' => ['integer', 'nullable'],
-            'is_vegetarian' => ['integer', 'nullable'],
-            'is_spicy' => ['integer', 'nullable'],
-            'is_availability' => ['integer', 'nullable'],
+            'is_unlimited' => ['integer', 'nullable', 'min:0', 'max:1'],
+            'is_vegetarian' => ['integer', 'nullable', 'min:0', 'max:1'],
+            'is_spicy' => ['integer', 'nullable', 'min:0', 'max:1'],
+            'is_available' => ['integer', 'nullable', 'min:0', 'max:1'],
+            'category_id' => ['integer', 'nullable', 'min:0'],
         ];
     }
 }
