@@ -13,15 +13,10 @@ trait SortableTrait
     {
         $defaultColumn = 'id';
 
-        if ($this->hasColumn($column)) {
+        if (!Schema::hasColumn($this->table, $column)) {
             return $query->orderBy($defaultColumn, $direction);
         }
 
         return $query->orderBy($column, $direction);
-    }
-
-    private function hasColumn(string $column): bool
-    {
-        return !Schema::hasColumn($this->table, $column);
     }
 }

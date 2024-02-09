@@ -30,7 +30,9 @@ class IndexRequest extends FormRequest
     {
         $order = (string) $this->input('order', self::DEFAULT_ORDER);
 
-        return in_array(strtoupper($order), self::ALLOWED_ORDERS) ? $order : self::DEFAULT_ORDER;
+        return in_array(strtoupper($order), self::ALLOWED_ORDERS)
+            ? $order
+            : self::DEFAULT_ORDER;
     }
 
     private function validateDisplay(): int
