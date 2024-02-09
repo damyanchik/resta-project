@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index(IndexRequest $request): View
     {
         return View('admin.product.index', [
-            'products' => $this->productRepository->paginateSearchAndSort($request->data())
+            'products' => $this->productRepository->getDataForIndex($request->data())
         ]);
     }
 

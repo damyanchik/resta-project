@@ -14,5 +14,5 @@ interface ProductRepositoryInterface
     public function delete(int $id);
     public function create(array $data);
     public function update(int $id, array $data);
-    public function paginateSearchAndSort(IndexDTO $indexDTO): LengthAwarePaginator;
+    public function getDataForIndex(IndexDTO $indexDTO): LengthAwarePaginator;
 }

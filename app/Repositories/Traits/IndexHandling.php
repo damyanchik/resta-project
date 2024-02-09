@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 trait IndexHandling
 {
-    public function paginateSearchAndSort(IndexDTO $indexDTO): LengthAwarePaginator
+    public function getDataForIndex(IndexDTO $indexDTO): LengthAwarePaginator
     {
         $query = $this->model
             ->search($indexDTO->getSearch())
