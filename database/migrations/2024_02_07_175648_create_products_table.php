@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->longText('description')->nullable();
-            $table->integer('stock')->unsigned();
-            $table->integer('price')->unsigned();
-            $table->tinyInteger('is_unlimited')->unsigned()->default(0);
-            $table->tinyInteger('is_vegetarian')->unsigned()->default(0);
-            $table->tinyInteger('is_spicy')->unsigned()->default(0);
-            $table->tinyInteger('is_available')->unsigned()->default(0);
-            $table->integer('category_id')->unsigned()->nullable();
+            $table->text('description')->nullable();
+            $table->unsignedInteger('stock');
+            $table->unsignedInteger('price');
+            $table->boolean('is_unlimited')->default(false);
+            $table->boolean('is_vegetarian')->default(false);
+            $table->boolean('is_spicy')->default(false);
+            $table->boolean('is_available');
+            $table->foreignId('category_id')->nullable();
+            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }
