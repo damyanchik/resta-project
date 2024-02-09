@@ -15,6 +15,7 @@
             </button>
         </div>
     </div>
+    <x-admin-search-order-table :list="$products">
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -45,4 +46,5 @@
             </tbody>
         </table>
     </div>
+    </x-admin-search-order-table>
 @endsection

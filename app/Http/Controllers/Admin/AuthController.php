@@ -6,12 +6,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginAuthRequest;
+use App\Services\AuthService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AuthController extends Controller
 {
+    public function __construct(private AuthService $authService)
+    {
+    }
+
     public function index(): View
     {
         return View('admin.auth.index');
@@ -25,7 +30,7 @@ class AuthController extends Controller
                 ->onlyInput('email');
         }
 
-        $authRequest->session()->regenerate();
+        $this->authService->logout($authRequest->session());
 
         return redirect()
             ->route('admin.dashboard');
@@ -33,12 +38,10 @@ class AuthController extends Controller
 
     public function logout(Request $request): RedirectResponse
     {
-        auth()->logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $this->authService->logout($request->session());
 
         return redirect()
-            ->route('admin.index');
+            ->route('admin.auth.index')
+            ->with('message', 'User is logout.');
     }
 }

@@ -17,13 +17,13 @@ use App\Http\Controllers\Admin\ProductController;
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])
-        ->name('admin.index');
+        ->name('admin.auth.index');
 
     Route::post('/login', [AuthController::class, 'login'])
-        ->name('admin.login');
+        ->name('admin.auth.login');
 
     Route::get('/logout', [AuthController::class, 'logout'])
-        ->name('admin.logout');
+        ->name('admin.auth.logout');
 
 
     Route::get('/', [DashboardController::class, 'index'])
