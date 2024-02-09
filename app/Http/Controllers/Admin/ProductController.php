@@ -38,7 +38,9 @@ class ProductController extends Controller
             return back()->with('message', 'An error occurred while processing the data. Please try again later.');
         }
 
-        return redirect()->route('admin.product.index')->with('message', 'Record created successfully.');
+        return redirect()
+            ->route('admin.product.index')
+            ->with('message', 'Record created successfully.');
     }
 
     public function edit(int $id): View
@@ -57,5 +59,16 @@ class ProductController extends Controller
         }
 
         return back()->with('message', 'Record updated successfully.');
+    }
+
+    public function destroy(int $id): RedirectResponse
+    {
+        try {
+            $this->productRepository->delete($id);
+        } catch (\Exception) {
+            return back()->with('message', 'An error occurred while processing the data. Please try again later.');
+        }
+
+        return redirect()->route('admin.product.index')->with('message', 'Record deleted successfully.');
     }
 }
