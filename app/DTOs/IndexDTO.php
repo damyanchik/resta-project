@@ -13,10 +13,10 @@ class IndexDTO
 
     public function __construct(array $data)
     {
-        $this->search = $data['search'];
-        $this->column = $data['column'];
-        $this->order = $data['order'];
-        $this->display = $data['display'];
+        $this->search = (string) ($data['search'] ?? '');
+        $this->column = (string) ($data['column'] ?? '');
+        $this->order = (string) ($data['order'] ?? '');
+        $this->display = (int) ($data['display'] ?? 0);
     }
 
     public function getSearch(): string

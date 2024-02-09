@@ -45,10 +45,10 @@ class Product extends Model
 
     public function getFormattedPriceAttribute(): string
     {
-        return PriceHelper::formatPrice($this->attributes['price'], 'PLN');;
+        return PriceHelper::formatPrice($this->attributes['price'], 'PLN');
     }
 
-    public function getFormattedPriceToFormAttribute(): string
+    public function getFormattedPriceToFormAttribute(): float
     {
         return PriceHelper::convertIntToFloatPrice($this->attributes['price']);
     }
