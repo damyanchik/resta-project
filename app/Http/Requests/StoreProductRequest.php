@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Helpers\PriceHelper;
+use App\Http\Requests\Traits\PricePreparing;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProductRequest extends FormRequest
 {
+    use PricePreparing;
+
     public function authorize(): bool
     {
         return true;
@@ -16,9 +18,7 @@ class StoreProductRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        if ($this->has('price')) {
-            $this->merge(['price' => PriceHelper::convertFloatToIntPrice((float) $this->input('price'))]);
-        }
+        $this->preparePriceForValidation();
     }
 
     public function rules(): array
