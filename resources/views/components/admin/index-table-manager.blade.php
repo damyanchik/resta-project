@@ -1,8 +1,8 @@
-@if(!empty($list))
+@if(!empty($collection))
     <form method="get" class="my-2 mt-4 row" id="listManager">
         <div class="col-6">
             <div class="input-group mb-3 pageSearch__input">
-                <input type="text" name="search" class="form-control" placeholder="Wyszukaj..." value="{{ request()->input(['search']) }}">
+                <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ request()->input(['search']) }}">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-search"></i>
                 </button>
@@ -24,9 +24,11 @@
         <input name="column" value="{{ request()->input(['column']) }}" readonly hidden>
         <input name="order" value="{{ request()->input(['order']) }}" onchange="$(this).closest('form').submit();" readonly hidden>
     </form>
-    {{ $slot }}
+    <x-admin.index-table-form :headers="$headers">
+        {{ $slot }}
+    </x-admin.index-table-form>
     <div class="mt-4 mb-5 p-1 d-flex justify-content-center">
-        {{ $list->appends([
+        {{ $collection->appends([
         'search' => request()->input('search'),
         'display' => request()->input('display'),
         'column' => request()->input('column'),

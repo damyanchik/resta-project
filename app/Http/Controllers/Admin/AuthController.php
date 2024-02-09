@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function index(): View
     {
-        return View('admin.auth.index');
+        return view('admin.auth.index');
     }
 
     public function login(LoginAuthRequest $authRequest): RedirectResponse

@@ -15,16 +15,16 @@ class UserController extends Controller
     {
     }
 
-    public function index(IndexRequest $request)
+    public function index(IndexRequest $request): View
     {
-        return View('admin.user.index', [
+        return view('admin.user.index', [
             'users' => $this->userRepository->getDataForIndex($request->data())
         ]);
     }
 
-    public function create()
+    public function create(): View
     {
-
+        return view('admin.user.create');
     }
 
     public function store()
@@ -32,9 +32,11 @@ class UserController extends Controller
 
     }
 
-    public function edit()
+    public function edit(int $id): View
     {
-
+        return view('admin.user.edit', [
+            'user' => $this->userRepository->getById($id)
+        ]);
     }
 
     public function update()

@@ -20,14 +20,14 @@ class ProductController extends Controller
 
     public function index(IndexRequest $request): View
     {
-        return View('admin.product.index', [
+        return view('admin.product.index', [
             'products' => $this->productRepository->getDataForIndex($request->data())
         ]);
     }
 
     public function create(): View
     {
-        return View('admin.product.create');
+        return view('admin.product.create');
     }
 
     public function store(StoreProductRequest $storeProductRequest): RedirectResponse
@@ -45,7 +45,7 @@ class ProductController extends Controller
 
     public function edit(int $id): View
     {
-        return View('admin.product.edit', [
+        return view('admin.product.edit', [
             'product' => $this->productRepository->getById($id)
         ]);
     }
