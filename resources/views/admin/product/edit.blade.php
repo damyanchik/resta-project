@@ -22,32 +22,29 @@
             </div>
 
             <div class="row mb-5 d-flex justify-content-center">
-                <x-admin.hidden-input name="is_vegetarian" value="0" />
                 <x-admin.input-checkbox
                     :name="'is_vegetarian'"
                     :label="'Vegetarian'"
-                    :value="$product['is_vegetarian']"
+                    :check="$product['is_vegetarian']"
+                    :isHidden="1"
                 />
 
-                <x-admin.hidden-input name="is_spicy" value="0" />
                 <x-admin.input-checkbox
                     :name="'is_spicy'"
                     :label="'Spicy'"
-                    :value="$product['is_spicy']"
+                    :check="$product['is_spicy']"
+                    :isHidden="1"
                 />
 
-                <x-admin.hidden-input name="is_unlimited" value="0" />
                 <x-admin.input-checkbox
                     :name="'is_unlimited'"
                     :label="'Unlimited'"
-                    :value="$product['is_unlimited']"
+                    :check="$product['is_unlimited']"
+                    :isHidden="1"
                 />
             </div>
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-block">Update product</button>
-                <button type="button" class="btn btn-primary btn-block">Go back</button>
-            </div>
+            <x-admin.form-buttons :back="'admin.product.index'"/>
         </x-admin.page-form>
     </div>
 @endsection

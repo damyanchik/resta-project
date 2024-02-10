@@ -1,7 +1,11 @@
 <div class="col">
     <div class="form-floating">
-        <input {{ $attributes->merge(['class' => 'form-check-input', 'name' => $name, 'id' => $name, 'type' => 'checkbox']) }}
-            {{ $value ? 'checked' : '' }}
+        @if($isHidden)
+            <x-admin.input-hidden name="{{ $name }}" value="0" />
+        @endif
+        <input
+            {{ $attributes->merge(['class' => 'form-check-input', 'value' => 1, 'name' => $name, 'id' => $name, 'type' => 'checkbox']) }}
+            {{ $check ? 'checked' : '' }}
         />
         <label for="{{ $name }}">{{ $label }}</label>
     </div>

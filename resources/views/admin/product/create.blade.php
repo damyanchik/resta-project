@@ -21,23 +21,21 @@
                 <x-admin.input-checkbox
                     :name="'is_vegetarian'"
                     :label="'Vegetarian'"
-                    :value="0"
+                    :check="0"
                 />
                 <x-admin.input-checkbox
                     :name="'is_spicy'"
                     :label="'Spicy'"
-                    :value="0"
+                    :check="0"
                 />
                 <x-admin.input-checkbox
                     :name="'is_unlimited'"
                     :label="'Unlimited'"
-                    :value="0"
+                    :check="0"
                 />
             </div>
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-block">Create product</button>
-            </div>
+            <x-admin.form-buttons :back="'admin.product.index'"/>
         </x-admin.page-form>
     </div>
 @endsection
