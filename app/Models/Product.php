@@ -30,10 +30,6 @@ class Product extends Model
         'order',
     ];
 
-    protected $casts = [
-        'is_available' => ProductAvailabilityEnum::class,
-    ];
-
     public function scopeSearch(Builder $query, string $searchTerm): Builder
     {
         return $query
@@ -58,11 +54,6 @@ class Product extends Model
     public function getFormattedStockAttribute(): string
     {
         return StockHelper::formatStock($this->attributes['stock']);
-    }
-
-    public function getFormattedIsAvailableAttribute(): string
-    {
-        return $this->is_available->name();
     }
 
     public function category(): BelongsTo

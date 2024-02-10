@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('is_unlimited')->default(false);
             $table->boolean('is_vegetarian')->default(false);
             $table->boolean('is_spicy')->default(false);
-            $table->boolean('is_available');
+            $table->boolean('is_available')->default(0);
             $table->foreignId('category_id')->nullable();
             $table->integer('order')->default(0);
             $table->timestamps();

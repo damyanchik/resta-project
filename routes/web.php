@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
-
+use App\Http\Controllers\Admin\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
-Route::group(['prefix' => 'admin/auth', 'as' => 'admin.auth.'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.auth.'], function () {
     Route::get('/login', [AuthController::class, 'index'])->name('index');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -29,21 +29,37 @@ Route::prefix('admin')->group(function () {
 
 
     Route::resource('/products', ProductController::class)
-        ->only(['index', 'create', 'edit', 'store', 'update'])
+        ->only(['index', 'create', 'edit', 'store', 'update', 'destroy'])
         ->names([
             'index' => 'admin.product.index',
             'create' => 'admin.product.create',
             'edit' => 'admin.product.edit',
             'store' => 'admin.product.store',
             'update' => 'admin.product.update',
+            'destroy' => 'admin.product.destroy',
         ]);
 
+    Route::resource('/users', UserController::class)
+        ->only(['index', 'create', 'edit', 'store', 'update', 'destroy'])
+        ->names([
+            'index' => 'admin.user.index',
+            'create' => 'admin.user.create',
+            'edit' => 'admin.user.edit',
+            'store' => 'admin.user.store',
+            'update' => 'admin.user.update',
+            'destroy' => 'admin.user.destroy',
+        ]);
 
-    Route::get('/users', [UserController::class, 'index'])
-        ->name('admin.user.index');
-
-    Route::get('/users/{id}/edit', [UserController::class, 'edit'])
-        ->name('admin.user.edit');
+    Route::resource('/categories', CategoryController::class)
+        ->only(['index', 'create', 'edit', 'store', 'update', 'destroy'])
+        ->names([
+            'index' => 'admin.category.index',
+            'create' => 'admin.category.create',
+            'edit' => 'admin.category.edit',
+            'store' => 'admin.category.store',
+            'update' => 'admin.category.update',
+            'destroy' => 'admin.category.destroy',
+        ]);
 });
 
 

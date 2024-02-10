@@ -1,6 +1,6 @@
 <div class="col">
     <div class="form-floating">
-        @if($isHidden)
+        @if(isset($isHidden) && $isHidden)
             <x-admin.input-hidden name="{{ $name }}" value="0" />
         @endif
         <input
