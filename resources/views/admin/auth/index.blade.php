@@ -3,8 +3,7 @@
 @section('content')
     <div class="container text-center mt-5">
         <main class="form-signin">
-            <form action="{{ route('admin.auth.login') }}" method="post">
-                @csrf
+            <x-admin.page-form :action="route('admin.auth.login')" :formMethod="'post'" :bladeMethod="'POST'">
                 <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
@@ -24,7 +23,7 @@
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
                 <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
-            </form>
+            </x-admin.page-form>
         </main>
     </div>
 @endsection
