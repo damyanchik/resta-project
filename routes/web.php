@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -59,6 +60,17 @@ Route::prefix('admin')->group(function () {
             'store' => 'admin.category.store',
             'update' => 'admin.category.update',
             'destroy' => 'admin.category.destroy',
+        ]);
+
+    Route::resource('/orders', OrderController::class)
+        ->only(['index', 'create', 'edit', 'store', 'update', 'destroy'])
+        ->names([
+            'index' => 'admin.order.index',
+            'create' => 'admin.order.create',
+            'edit' => 'admin.order.edit',
+            'store' => 'admin.order.store',
+            'update' => 'admin.order.update',
+            'destroy' => 'admin.order.destroy',
         ]);
 });
 
