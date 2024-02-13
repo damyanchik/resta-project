@@ -11,11 +11,11 @@ class IndexDTO
     private string $order;
     private int $display;
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         $this->search = (string) ($data['search'] ?? '');
         $this->column = (string) ($data['column'] ?? '');
-        $this->order = (string) ($data['order'] ?? '');
+        $this->order = (string) ($data['order'] ?? 'asc');
         $this->display = (int) ($data['display'] ?? 0);
     }
 

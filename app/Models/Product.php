@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\ProductAvailabilityEnum;
 use App\Helpers\PriceHelper;
 use App\Helpers\StockHelper;
 use App\Models\Traits\SortableTrait;
