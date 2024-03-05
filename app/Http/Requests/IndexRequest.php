@@ -21,14 +21,14 @@ class IndexRequest extends FormRequest
         return new IndexDTO([
             'search' => (string) $this->input('search', self::DEFAULT_SEARCH),
             'column' => (string) $this->input('column', self::DEFAULT_COLUMN),
-            'order' => $this->validateOrder(),
+            'orderDirection' => $this->validateOrder(),
             'display' => $this->validateDisplay(),
         ]);
     }
 
     private function validateOrder(): string
     {
-        $order = (string) $this->input('order', self::DEFAULT_ORDER);
+        $order = (string) $this->input('orderDirection', self::DEFAULT_ORDER);
 
         return in_array(strtoupper($order), self::ALLOWED_ORDERS)
             ? $order

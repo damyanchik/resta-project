@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('is_spicy')->default(false);
             $table->boolean('is_available')->default(0);
             $table->foreignId('category_id')->nullable();
-            $table->integer('order')->default(0);
+            $table->integer('orderDirection')->default(0);
             $table->timestamps();
         });
     }

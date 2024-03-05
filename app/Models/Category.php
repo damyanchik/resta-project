@@ -17,7 +17,7 @@ class Category extends Model
     protected $fillable = [
         'name',
         'is_visible',
-        'order',
+        'orderDirection',
     ];
 
     public function scopeSearch(Builder $query, string $searchTerm): Builder

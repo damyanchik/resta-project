@@ -7,7 +7,7 @@
             :action="route('admin.category.update', $category['id'])" :formMethod="'post'" :bladeMethod="'PUT'">
             <div class="row mb-4">
                 <x-admin.input :name="'name'" :label="'Name'" type="text" value="{{ $category->name }}"/>
-                <x-admin.input :name="'order'" :label="'Order'" type="number" value="{{ $category->order }}"/>
+                <x-admin.input :name="'orderDirection'" :label="'Order'" type="number" value="{{ $category->orderDirection }}"/>
                 <x-admin.input-checkbox
                     :name="'is_visible'"
                     :label="'Visible'"

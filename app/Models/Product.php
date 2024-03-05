@@ -26,7 +26,7 @@ class Product extends Model
         'is_spicy',
         'is_available',
         'category_id',
-        'order',
+        'orderDirection',
     ];
 
     public function scopeSearch(Builder $query, string $searchTerm): Builder

@@ -12,7 +12,7 @@
                 <td>{{ $product->formatted_stock }}</td>
                 <td>{{ $product->formatted_price }}</td>
                 <td>{{ $product->category->name }}</td>
-                <td>{{ $product->order }}</td>
+                <td>{{ $product->orderDirection }}</td>
                 <td><x-admin.no-yes-badge :boolean="$product->is_vegetarian"/></td>
                 <td><x-admin.no-yes-badge :boolean="$product->is_spicy"/></td>
                 <td><x-admin.is-available-badge :boolean="$product->is_available"/></td>

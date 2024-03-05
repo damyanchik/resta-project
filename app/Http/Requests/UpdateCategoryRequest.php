@@ -18,7 +18,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name' => ['string', 'required', 'min:2'],
             'is_visible' => ['integer', 'nullable', 'min:0', 'max:1'],
-            'order' => ['integer', 'nullable'],
+            'orderDirection' => ['integer', 'nullable'],
         ];
     }
 }

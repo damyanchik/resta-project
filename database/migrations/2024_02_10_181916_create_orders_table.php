@@ -24,7 +24,7 @@ return new class extends Migration
     }
         // +delivery model + instruction
         // +customer model
-        // +order items model +
+        // +orderDirection items model +
     /**
      * Reverse the migrations.
      */

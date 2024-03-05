@@ -11,7 +11,7 @@ class IndexDTOTest extends TestCase
     {
         return [
             [
-                'data' => ['search' => 'example', 'column' => 'name', 'order' => 'asc', 'display' => 10],
+                'data' => ['search' => 'example', 'column' => 'name', 'orderDirection' => 'asc', 'display' => 10],
                 'expectedSearch' => 'example',
                 'expectedColumn' => 'name',
                 'expectedOrder' => 'asc',
@@ -25,21 +25,21 @@ class IndexDTOTest extends TestCase
                 'expectedDisplay' => 0,
             ],
             [
-                'data' => ['search' => 'example', 'column' => null, 'order' => 'asc', 'display' => 20],
+                'data' => ['search' => 'example', 'column' => null, 'orderDirection' => 'asc', 'display' => 20],
                 'expectedSearch' => 'example',
                 'expectedColumn' => '',
                 'expectedOrder' => 'asc',
                 'expectedDisplay' => 20,
             ],
             [
-                'data' => ['search' => 'example', 'order' => 'asc'],
+                'data' => ['search' => 'example', 'orderDirection' => 'asc'],
                 'expectedSearch' => 'example',
                 'expectedColumn' => '',
                 'expectedOrder' => 'asc',
                 'expectedDisplay' => 0,
             ],
             [
-                'data' => ['search' => 'example', 'column' => 123, 'order' => null, 'display' => '20'],
+                'data' => ['search' => 'example', 'column' => 123, 'orderDirection' => null, 'display' => '20'],
                 'expectedSearch' => 'example',
                 'expectedColumn' => '123',
                 'expectedOrder' => '',

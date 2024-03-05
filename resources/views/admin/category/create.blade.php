@@ -7,7 +7,7 @@
             :action="route('admin.category.create')" :formMethod="'post'" :bladeMethod="'POST'">
             <div class="row mb-4">
                 <x-admin.input :name="'name'" :label="'Name'" type="text" value=""/>
-                <x-admin.input :name="'order'" :label="'Order'" type="number" value=""/>
+                <x-admin.input :name="'orderDirection'" :label="'Order'" type="number" value=""/>
                 <x-admin.input-checkbox
                     :name="'is_visible'"
                     :label="'Visible'"

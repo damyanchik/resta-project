@@ -20,14 +20,14 @@ class OrderController extends Controller
 
     public function index(IndexRequest $request): View
     {
-        return view('admin.order.index', [
+        return view('admin.orderDirection.index', [
             'orders' => $this->orderRepository->getDataForIndex($request->data())
         ]);
     }
 
     public function create(): View
     {
-        return view('admin.order.create');
+        return view('admin.orderDirection.create');
     }
 
     public function store(StoreOrderRequest $storeOrderRequest): RedirectResponse
@@ -39,14 +39,14 @@ class OrderController extends Controller
         }
 
         return redirect()
-            ->route('admin.order.index')
+            ->route('admin.orderDirection.index')
             ->with('message', 'Record created successfully.');
     }
 
     public function edit(int $id): View
     {
-        return view('admin.order.edit', [
-            'order' => $this->orderRepository->getById($id)
+        return view('admin.orderDirection.edit', [
+            'orderDirection' => $this->orderRepository->getById($id)
         ]);
     }
 
@@ -69,6 +69,6 @@ class OrderController extends Controller
             return back()->with('message', 'An error occurred while processing the data. Please try again later.');
         }
 
-        return redirect()->route('admin.order.index')->with('message', 'Record deleted successfully.');
+        return redirect()->route('admin.orderDirection.index')->with('message', 'Record deleted successfully.');
     }
 }

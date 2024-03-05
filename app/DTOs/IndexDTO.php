@@ -15,7 +15,7 @@ class IndexDTO
     {
         $this->search = (string) ($data['search'] ?? '');
         $this->column = (string) ($data['column'] ?? '');
-        $this->order = (string) ($data['order'] ?? 'asc');
+        $this->order = (string) ($data['orderDirection'] ?? 'asc');
         $this->display = (int) ($data['display'] ?? 0);
     }
 

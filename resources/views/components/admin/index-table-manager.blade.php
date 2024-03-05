@@ -22,7 +22,7 @@
             </div>
         </div>
         <input name="column" value="{{ request()->input(['column']) }}" readonly hidden>
-        <input name="order" value="{{ request()->input(['order']) }}" onchange="$(this).closest('form').submit();" readonly hidden>
+        <input name="order" value="{{ request()->input(['orderDirection']) }}" onchange="$(this).closest('form').submit();" readonly hidden>
     </form>
     <x-admin.index-table-form :headers="$headers">
         {{ $slot }}
@@ -32,7 +32,7 @@
         'search' => request()->input('search'),
         'display' => request()->input('display'),
         'column' => request()->input('column'),
-        'order' => request()->input('order')
+        'orderDirection' => request()->input('orderDirection')
         ])->onEachSide(2)->links() }}
     </div>
 @else

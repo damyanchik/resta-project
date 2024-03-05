@@ -9,7 +9,7 @@
                 <th scope="row">{{ $category->id }}</th>
                 <td>{{ $category->name }}</td>
                 <td>{{ $category->product->count() }}</td>
-                <td>{{ $category->order }}</td>
+                <td>{{ $category->orderDirection }}</td>
                 <td><x-admin.no-yes-badge :boolean="$category->is_visible"/></td>
                 <td><a href="{{ route('admin.category.edit', $category->id) }}" class="btn">Open</a></td>
             </tr>

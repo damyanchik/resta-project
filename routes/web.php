@@ -1,12 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\OrderController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,15 +66,29 @@ Route::prefix('admin')->group(function () {
     Route::resource('/orders', OrderController::class)
         ->only(['index', 'create', 'edit', 'store', 'update', 'destroy'])
         ->names([
-            'index' => 'admin.order.index',
-            'create' => 'admin.order.create',
-            'edit' => 'admin.order.edit',
-            'store' => 'admin.order.store',
-            'update' => 'admin.order.update',
-            'destroy' => 'admin.order.destroy',
+            'index' => 'admin.orderDirection.index',
+            'create' => 'admin.orderDirection.create',
+            'edit' => 'admin.orderDirection.edit',
+            'store' => 'admin.orderDirection.store',
+            'update' => 'admin.orderDirection.update',
+            'destroy' => 'admin.orderDirection.destroy',
         ]);
 });
 
+Route::get('/test', function (\App\Modules\Listing\Parameter\Request\ParameterRequest $listingRequest) {
+
+    $test = new \App\Modules\Listing\UserListing(
+        new \App\Modules\Listing\Query\Factory\EloquentQueryFactory\EloquentQueryFactory(),
+        new \App\Modules\Listing\Parameter\Factory\ParametersFactory(
+            new \App\Modules\Listing\Parameter\Resolver\ParametersResolver()));
+
+
+
+    dd($test->create($listingRequest));
+    return view('admin.test.test', [
+
+    ]);
+});
 
 Route::get('/', function () {
     return view('home.index');
@@ -83,14 +98,14 @@ Route::get('/menu', function () {
     return view('menu.index');
 });
 
-Route::get('/order', function () {
-    return view('order.index');
+Route::get('/orderDirection', function () {
+    return view('orderDirection.index');
 });
 
 Route::get('/summary', function () {
     return view('summary.index');
 });
 
-Route::get('/order', function () {
-    return view('order.index');
+Route::get('/orderDirection', function () {
+    return view('orderDirection.index');
 });
