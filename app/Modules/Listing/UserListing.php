@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\Listing;
 
 use App\Models\User;
-use App\Modules\Listing\ViewModel\Builder\ColumnBuilder\Column;
-use App\Modules\Listing\ViewModel\TemplateMethod\ListingTemplate;
+use App\Modules\Listing\View\Builder\ColumnBuilder\Column;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 

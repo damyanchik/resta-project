@@ -82,11 +82,11 @@ Route::get('/test', function (\App\Modules\Listing\Parameter\Request\ParameterRe
         new \App\Modules\Listing\Parameter\Factory\ParametersFactory(
             new \App\Modules\Listing\Parameter\Resolver\ParametersResolver()));
 
+    $listing = $test->create($listingRequest);
 
-
-    dd($test->create($listingRequest));
     return view('admin.test.test', [
-
+        'data' => $listing->viewData,
+        'flags' => $listing->viewFlags,
     ]);
 });
 

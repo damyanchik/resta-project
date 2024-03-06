@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Listing\ViewModel\TemplateMethod;
+namespace App\Modules\Listing;
 
 use App\Modules\Listing\Parameter\DTO\ParametersDTO;
 use App\Modules\Listing\Parameter\Factory\ParametersFactory;
 use App\Modules\Listing\Parameter\Request\ParametersBag;
 use App\Modules\Listing\Query\Factory\EloquentQueryFactory\QueryFactoryInterface;
-use App\Modules\Listing\ViewModel\DTO\ViewDTO;
+use App\Modules\Listing\View\DTO\ViewDTO;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;

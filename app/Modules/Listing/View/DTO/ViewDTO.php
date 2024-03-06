@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Listing\ViewModel\DTO;
+namespace App\Modules\Listing\View\DTO;
 
 use Illuminate\Support\Collection;
 

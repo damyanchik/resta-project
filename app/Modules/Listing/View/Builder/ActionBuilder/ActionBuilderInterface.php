@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Listing\ViewModel\Builder\ActionBuilder;
+namespace App\Modules\Listing\View\Builder\ActionBuilder;
 
 interface ActionBuilderInterface
 {
