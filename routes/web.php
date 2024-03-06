@@ -78,7 +78,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/test', function (\App\Modules\Listing\Parameter\Request\ParameterRequest $listingRequest) {
 
     $test = new \App\Modules\Listing\UserListing(
-        new \App\Modules\Listing\Query\Factory\EloquentQueryFactory\EloquentQueryFactory(),
+        new \App\Modules\Listing\Query\Factory\EloquentQueryFactory\EloquentQueryFactory(new \App\Modules\Listing\Query\ChainOfResponsibility\EloquentQueryChain\QueryChain()),
         new \App\Modules\Listing\Parameter\Factory\ParametersFactory(
             new \App\Modules\Listing\Parameter\Resolver\ParametersResolver()));
 

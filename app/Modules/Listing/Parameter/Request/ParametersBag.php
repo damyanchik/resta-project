@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Listing\Parameter\Request;
 
-use App\Modules\Listing\Parameter\Enum\Order;
+use App\Modules\Listing\Parameter\Enum\QueryOrderEnum;
 
 interface ParametersBag
 {
@@ -12,6 +12,6 @@ interface ParametersBag
     public function getSearchColumns(): array;
     public function getSearchTerm(): string;
     public function getOrderColumn(): string;
-    public function getOrderDirection(): Order;
+    public function getOrderDirection(): QueryOrderEnum;
     public function getPerPage(): int;
 }
