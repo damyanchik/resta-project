@@ -31,7 +31,7 @@ abstract class ListingTemplate
         $parameters = $this->parametersFactory->createParameters($bag, $this->prepareColumns());
 
         return new ViewDTO(
-            dataQuery: $this->getDataFromQuery($parameters),
+            viewData: $this->getDataFromQuery($parameters),
             viewFlags: $this->getColumnViewFlags(),
         );
     }

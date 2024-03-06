@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class ViewDTO
 {
     public function __construct(
-        readonly public object $dataQuery,
+        readonly public object     $viewData,
         readonly public Collection $viewFlags,
     )
     {
