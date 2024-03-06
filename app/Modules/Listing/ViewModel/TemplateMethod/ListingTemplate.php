@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
 abstract class ListingTemplate
 {
     abstract protected function useModel(): Model;
-    abstract protected function createColumns(): array;
+    abstract protected function prepareColumns(): Collection;
     abstract protected function createActions(): array;
 
     public function __construct(
@@ -28,12 +28,11 @@ abstract class ListingTemplate
 
     public function create(ParametersBag $bag): ViewDTO
     {
-        $columnsDetails = collect($this->createColumns());
-        $parameters = $this->parametersFactory->createParameters($bag, $columnsDetails);
+        $parameters = $this->parametersFactory->createParameters($bag, $this->prepareColumns());
 
         return new ViewDTO(
             dataQuery: $this->getDataFromQuery($parameters),
-            viewFlags: $this->getColumnViewFlags($columnsDetails),
+            viewFlags: $this->getColumnViewFlags(),
         );
     }
 
@@ -42,12 +41,13 @@ abstract class ListingTemplate
         return $this->queryFactory->createQueryByParametersAndModel($parametersDTO, $this->useModel());
     }
 
-    private function getColumnViewFlags(Collection $columnDetails): Collection
+    private function getColumnViewFlags(): Collection
     {
-        $flags = array_keys($columnDetails->first());
+        $flags = array_keys($this->prepareColumns()->first());
+        $columns = $this->prepareColumns();
 
-        return collect($flags)->mapWithKeys(function ($key) use ($columnDetails) {
-            $filteredColumns = $columnDetails->filter(function ($item) use ($key) {
+        return collect($flags)->mapWithKeys(function ($key) use ($columns) {
+            $filteredColumns = $columns->filter(function ($item) use ($key) {
                 return $item[$key] === true;
             });
             return [$key => $filteredColumns->keys()->toArray()];
