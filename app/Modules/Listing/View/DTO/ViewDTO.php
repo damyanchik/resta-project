@@ -9,8 +9,8 @@ use Illuminate\Support\Collection;
 class ViewDTO
 {
     public function __construct(
-        readonly public object     $viewData,
-        readonly public Collection $viewFlags,
+        readonly public object     $data,
+        readonly public Collection $flags,
     )
     {
     }

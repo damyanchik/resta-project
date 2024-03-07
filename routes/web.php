@@ -77,7 +77,7 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/test', function (\App\Modules\Listing\Parameter\Request\ParameterRequest $listingRequest) {
 
-    $test = new \App\Modules\Listing\UserListing(
+    $test = new \App\Listings\UserListing(
         new \App\Modules\Listing\Query\Factory\EloquentQueryFactory\EloquentQueryFactory(new \App\Modules\Listing\Query\ChainOfResponsibility\EloquentQueryChain\QueryChain()),
         new \App\Modules\Listing\Parameter\Factory\ParametersFactory(
             new \App\Modules\Listing\Parameter\Resolver\ParametersResolver()));
@@ -85,8 +85,8 @@ Route::get('/test', function (\App\Modules\Listing\Parameter\Request\ParameterRe
     $listing = $test->create($listingRequest);
 
     return view('admin.test.test', [
-        'data' => $listing->viewData,
-        'flags' => $listing->viewFlags,
+        'data' => $listing->data,
+        'flags' => $listing->flags,
     ]);
 });
 

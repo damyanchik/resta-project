@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Listing;
+namespace App\Listings;
 
 use App\Models\User;
+use App\Modules\Listing\ListingTemplate;
 use App\Modules\Listing\View\Builder\ColumnBuilder\Column;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

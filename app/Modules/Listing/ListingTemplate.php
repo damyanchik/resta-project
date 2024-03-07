@@ -31,8 +31,8 @@ abstract class ListingTemplate
         $parameters = $this->parametersFactory->createParameters($bag, $this->prepareColumns());
 
         return new ViewDTO(
-            viewData: $this->getDataFromQuery($parameters),
-            viewFlags: $this->getColumnViewFlags(),
+            data: $this->getDataFromQuery($parameters),
+            flags: $this->getColumnViewFlags(),
         );
     }
 
@@ -43,8 +43,8 @@ abstract class ListingTemplate
 
     private function getColumnViewFlags(): Collection
     {
-        $flags = array_keys($this->prepareColumns()->first());
         $columns = $this->prepareColumns();
+        $flags = array_keys($columns->first());
 
         return collect($flags)->mapWithKeys(function ($key) use ($columns) {
             $filteredColumns = $columns->filter(function ($item) use ($key) {
