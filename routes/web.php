@@ -75,21 +75,6 @@ Route::prefix('admin')->group(function () {
         ]);
 });
 
-Route::get('/test', function (\App\Components\Common\Listing\Parameter\Request\ParameterRequest $listingRequest) {
-
-    $test = new \App\Listings\UserListing(
-        new \App\Components\Common\Listing\Query\Factory\EloquentQueryFactory\EloquentQueryFactory(new \App\Components\Common\Listing\Query\ChainOfResponsibility\EloquentQueryChain\QueryChain()),
-        new \App\Components\Common\Listing\Parameter\Factory\ParametersFactory(
-            new \App\Components\Common\Listing\Parameter\Resolver\ParametersResolver()));
-
-    $listing = $test->create($listingRequest);
-
-    return view('admin.test.test', [
-        'data' => $listing->data,
-        'flags' => $listing->flags,
-    ]);
-});
-
 Route::get('/', function () {
     return view('home.index');
 });

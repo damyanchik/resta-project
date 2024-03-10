@@ -5,19 +5,23 @@ declare(strict_types=1);
 namespace App\Components\User\Http;
 
 use App\Components\Common\Listing\Parameter\Request\ParameterRequest;
-use App\Components\User\Infrastructure\Listing\UserListing;
+use App\Components\User\Infrastructure\Service\UserService;
+use Illuminate\View\View;
 
 class UserController
 {
-    public function __construct(private readonly UserListing $userListing)
+    public function __construct(private readonly UserService $userService)
     {
     }
 
-    public function index(ParameterRequest $bag)
+    public function index(ParameterRequest $bag): View
     {
-        dd($this->userListing->create($bag));
+        $viewDto = $this->userService->getUserListingData($bag);
 
-        return $this->userRepository->getAll();
+        return view('admin.test.test', [
+            'data' => $viewDto->data,
+            'flags' => $viewDto->flags,
+         ]);
     }
 
 //    public function create(): View
