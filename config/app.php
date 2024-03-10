@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Listing\ServiceProvider\ListingProvider;
+use App\Components\Common\Listing\ServiceProvider\ListingProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 

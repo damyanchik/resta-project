@@ -75,12 +75,12 @@ Route::prefix('admin')->group(function () {
         ]);
 });
 
-Route::get('/test', function (\App\Modules\Listing\Parameter\Request\ParameterRequest $listingRequest) {
+Route::get('/test', function (\App\Components\Common\Listing\Parameter\Request\ParameterRequest $listingRequest) {
 
     $test = new \App\Listings\UserListing(
-        new \App\Modules\Listing\Query\Factory\EloquentQueryFactory\EloquentQueryFactory(new \App\Modules\Listing\Query\ChainOfResponsibility\EloquentQueryChain\QueryChain()),
-        new \App\Modules\Listing\Parameter\Factory\ParametersFactory(
-            new \App\Modules\Listing\Parameter\Resolver\ParametersResolver()));
+        new \App\Components\Common\Listing\Query\Factory\EloquentQueryFactory\EloquentQueryFactory(new \App\Components\Common\Listing\Query\ChainOfResponsibility\EloquentQueryChain\QueryChain()),
+        new \App\Components\Common\Listing\Parameter\Factory\ParametersFactory(
+            new \App\Components\Common\Listing\Parameter\Resolver\ParametersResolver()));
 
     $listing = $test->create($listingRequest);
 
@@ -109,3 +109,6 @@ Route::get('/summary', function () {
 Route::get('/orderDirection', function () {
     return view('orderDirection.index');
 });
+
+
+Route::get('/users-test', [\App\Components\User\Http\UserController::class, 'index']);

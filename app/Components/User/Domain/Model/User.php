@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Models;
+declare(strict_types=1);
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Traits\SortableTrait;
-use Illuminate\Database\Eloquent\Builder;
+namespace App\Components\User\Domain\Model;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,7 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_active',
-        'role_id',
+        'role',
     ];
 
     protected $hidden = [
@@ -34,13 +33,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function scopeSearch(Builder $query, $searchTerm): Builder
-    {
-        return $query->where(function ($query) use ($searchTerm) {
-            $query->orWhere('name', 'like', '%' . $searchTerm . '%')
-                ->orWhere('surname', 'like', '%' . $searchTerm . '%')
-                ->orWhere('email', 'like', '%' . $searchTerm . '%');
-        });
-    }
 }

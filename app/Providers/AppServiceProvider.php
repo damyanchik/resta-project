@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Modules\Listing\Parameter\Factory\ParametersFactory;
-use App\Modules\Listing\Query\Factory\EloquentQueryFactory\EloquentQueryFactory;
 use App\Repositories\CategoryRepository;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
