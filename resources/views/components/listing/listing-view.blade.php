@@ -40,7 +40,5 @@
         </form>
     </div>
 
-    <x-listing.table-part :data="$data" :flags="$flags">
-        {{ $slot }}
-    </x-listing.table-part>
+    <x-listing.table-part :data="$data" :flags="$flags"/>
 @endsection

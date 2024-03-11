@@ -1,5 +1,4 @@
 @php
-
     $item = $data->items()[0];
 @endphp
 <div class="table-responsive">
@@ -17,7 +16,16 @@
         </tr>
         </thead>
         <tbody>
-            {{ $slot }}
+        @foreach ($data as $dotum)
+            <tr>
+                <th scope="row" class="bg-light p-2">
+                    <input type="checkbox">
+                </th>
+            @foreach ($dotum->toArray() as $value)
+                <td class="p-2">{{ $value }}</td>
+            @endforeach
+            </tr>
+        @endforeach
         </tbody>
     </table>
 </div>
