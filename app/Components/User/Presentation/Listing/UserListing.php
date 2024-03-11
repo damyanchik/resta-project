@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Components\User\Infrastructure\Listing;
+namespace App\Components\User\Presentation\Listing;
 
 use App\Components\Common\Listing\ListingTemplate;
 use App\Components\Common\Listing\View\Builder\ColumnBuilder\Column;

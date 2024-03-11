@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Components\User\Infrastructure\Http\Request;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreUserRequest extends FormRequest
 {
@@ -21,7 +23,15 @@ class StoreUserRequest extends FormRequest
             'email' => ['required', 'email'],
             'password' => ['required', 'min:6'],
             'is_active' => ['integer', 'nullable', 'min:0', 'max:1'],
-            'role_id' => ['integer', 'nullable'],
+            'role' => ['integer', 'nullable'],
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'status' => 'failed',
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }

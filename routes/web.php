@@ -96,4 +96,18 @@ Route::get('/orderDirection', function () {
 });
 
 
-Route::get('/users-test', [\App\Components\User\Http\UserController::class, 'index']);
+Route::get('/users-test', \App\Components\User\Infrastructure\Http\Handler\UserListingHandler::class)
+    ->name('user.listing');
+
+Route::get('/users-test/{id}', \App\Components\User\Infrastructure\Http\Handler\UserShowHandler::class)
+    ->name('user.show');
+
+Route::delete('/users-test/{id}', \App\Components\User\Infrastructure\Http\Handler\UserDeleteHandler::class)
+    ->name('user.delete');
+
+Route::post('/users-test', \App\Components\User\Infrastructure\Http\Handler\UserStoreHandler::class)
+    ->name('user.store');
+
+Route::put('/users-test/{id}', \App\Components\User\Infrastructure\Http\Handler\UserUpdateHandler::class)
+    ->name('user.update');
+

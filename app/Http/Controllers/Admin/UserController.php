@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Components\User\Infrastructure\Http\Request\StoreUserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IndexRequest;
-use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\RedirectResponse;
