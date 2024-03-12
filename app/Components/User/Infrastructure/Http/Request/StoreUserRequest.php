@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\User\Infrastructure\Http\Request;
 
-use App\Components\User\Domain\DTO\Contract\UserCreatable;
+use App\Components\User\Application\DTO\UserCreatable;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -29,14 +29,6 @@ class StoreUserRequest extends FormRequest implements UserCreatable
         ];
     }
 
-    protected function failedValidation(Validator $validator): void
-    {
-        throw new HttpResponseException(new JsonResponse([
-            'status' => 'failed',
-            'errors' => $validator->errors(),
-        ], 422));
-    }
-
     public function userName(): string
     {
         return $this->string('name')->value();
@@ -55,5 +47,13 @@ class StoreUserRequest extends FormRequest implements UserCreatable
     public function userPassword(): string
     {
         return $this->string('password')->value();
+    }
+
+    protected function failedValidation(Validator $validator): void
+    {
+        throw new HttpResponseException(new JsonResponse([
+            'status' => 'failed',
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }

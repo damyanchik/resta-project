@@ -11,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 class UserBlockHandler
 {
     public function __construct(
-        private readonly UserService $userService,
         private readonly JsonResponse $jsonResponse,
     )
     {
@@ -20,7 +19,7 @@ class UserBlockHandler
     public function __invoke(int $id, PatchBlockUserRequest $userRequest): JsonResponse
     {
         try {
-            $this->userService->updateById($id, $userRequest->validated());
+            //todo: block
         } catch (\Exception) {
             return $this->jsonResponse->setData([
                 'status' => 'failed',

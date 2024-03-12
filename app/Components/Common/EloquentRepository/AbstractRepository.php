@@ -4,22 +4,16 @@ declare(strict_types=1);
 
 namespace App\Components\Common\EloquentRepository;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractRepository
 {
-    public function getAll(array $columns = ['*']): ?Collection
+    public function getByIdOrFail(int $id, array $columns = ['*']): ?Model
     {
-        return $this->model->all($columns);
+        return $this->model->findOrFail($id, $columns);
     }
 
-    public function getByIdOrFail(int $id): ?Model
-    {
-        return $this->model->findOrFail($id);
-    }
-
-    public function create(EloquentDataBag $data): ?Model
+    public function create(EloquentDataBag $data): bool
     {
         return $this->model->create($data->toArray());
     }
@@ -28,13 +22,21 @@ abstract class AbstractRepository
     {
         $model = $this->model->findOrFail($id);
 
-        return $model ? $model->update($data->toArray()) : false;
+        if ($model === null) {
+            return false;
+        }
+
+        return $model->update($data->toArray());
     }
 
     public function delete(int $id): bool
     {
         $model = $this->model->findOrFail($id);
 
-        return $model ? $model->delete() : false;
+        if ($model === null) {
+            return false;
+        }
+
+        return $model->delete();
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Components\User\Infrastructure\Factories;
 
-use App\Components\User\Domain\DTO\Contract\UserCreatable;
-use App\Components\User\Domain\DTO\Contract\UserUpdatable;
+use App\Components\User\Application\DTO\UserCreatable;
+use App\Components\User\Application\DTO\UserUpdatable;
 use App\Components\User\Domain\DTO\UserDTO;
 
 class UserDTOFactory

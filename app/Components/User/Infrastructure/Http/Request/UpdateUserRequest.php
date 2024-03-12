@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Components\User\Infrastructure\Http\Request;
 
+use App\Components\User\Application\DTO\UserUpdatable;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class UpdateUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest implements UserUpdatable
 {
     public function authorize(): bool
     {
@@ -26,6 +27,26 @@ class UpdateUserRequest extends FormRequest
 //            'is_active' => ['integer', 'nullable', 'min:0', 'max:1'],
 //            'role_id' => ['integer', 'nullable'],
         ];
+    }
+
+    public function userName(): string
+    {
+        return $this->string('name')->value();
+    }
+
+    public function userSurname(): string
+    {
+        return $this->string('surname')->value();
+    }
+
+    public function userEmail(): string
+    {
+        return $this->string('email')->value();
+    }
+
+    public function userPassword(): string
+    {
+        return $this->string('password')->value();
     }
 
     protected function failedValidation(Validator $validator): void

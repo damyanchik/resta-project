@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Components\User\Infrastructure\Http\Handler;
 
+use App\Components\User\Infrastructure\Facade\UserFacade;
 use App\Components\User\Infrastructure\Http\Request\StoreUserRequest;
-use App\Components\User\Infrastructure\Service\UserService;
 use Illuminate\Http\JsonResponse;
 
 class UserStoreHandler
 {
     public function __construct(
-        private readonly UserService $userService,
+        private readonly UserFacade $userFacade,
         private readonly JsonResponse $jsonResponse,
     )
     {
@@ -20,7 +20,7 @@ class UserStoreHandler
     public function __invoke(StoreUserRequest $userRequest): JsonResponse
     {
         try {
-            $this->userService->create($userRequest->validated());
+            $this->userFacade->createUser($userRequest);
         } catch (\Exception) {
             return $this->jsonResponse->setData([
                 'status' => 'failed',
