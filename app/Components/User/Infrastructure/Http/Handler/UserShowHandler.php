@@ -9,12 +9,15 @@ use Illuminate\Http\JsonResponse;
 
 class UserShowHandler
 {
-    public function __construct(private readonly UserService $userService)
+    public function __construct(
+        private readonly UserService $userService,
+        private readonly JsonResponse $jsonResponse,
+    )
     {
     }
 
     public function __invoke(int $id): JsonResponse
     {
-        return response()->json($this->userService->getById($id));
+        return $this->jsonResponse->setData(($this->userService->getById($id)));
     }
 }

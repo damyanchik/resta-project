@@ -10,7 +10,10 @@ use Illuminate\Http\JsonResponse;
 
 class UserStoreHandler
 {
-    public function __construct(private readonly UserService $userService)
+    public function __construct(
+        private readonly UserService $userService,
+        private readonly JsonResponse $jsonResponse,
+    )
     {
     }
 
@@ -19,13 +22,13 @@ class UserStoreHandler
         try {
             $this->userService->create($userRequest->validated());
         } catch (\Exception) {
-            return response()->json([
+            return $this->jsonResponse->setData([
                 'status' => 'failed',
                 'message' => 'User not created.'
             ]);
         }
 
-        return response()->json([
+        return $this->jsonResponse->setData([
             'status' => 'success',
             'message' => 'User successfully created.'
         ]);

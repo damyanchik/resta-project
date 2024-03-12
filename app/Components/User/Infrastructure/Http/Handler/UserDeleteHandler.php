@@ -9,7 +9,10 @@ use Illuminate\Http\JsonResponse;
 
 class UserDeleteHandler
 {
-    public function __construct(private readonly UserService $userService)
+    public function __construct(
+        private readonly UserService $userService,
+        private readonly JsonResponse $jsonResponse,
+    )
     {
     }
 
@@ -18,10 +21,10 @@ class UserDeleteHandler
         try {
             $this->userService->destroyById($id);
         } catch (\Exception) {
-            return response()->json(['status' => 'failed']);
+            return $this->jsonResponse->setData(['status' => 'failed']);
         }
 
-        return response()->json([
+        return $this->jsonResponse->setData([
             'status' => 'success',
             'message' => 'User successfully deleted.',
         ]);

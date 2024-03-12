@@ -111,3 +111,5 @@ Route::post('/users-test', \App\Components\User\Infrastructure\Http\Handler\User
 Route::put('/users-test/{id}', \App\Components\User\Infrastructure\Http\Handler\UserUpdateHandler::class)
     ->name('user.update');
 
+Route::patch('/users-test/{id}/block', \App\Components\User\Infrastructure\Http\Handler\UserBlockHandler::class)
+    ->name('user.block');
