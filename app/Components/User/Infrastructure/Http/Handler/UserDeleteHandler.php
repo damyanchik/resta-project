@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Components\User\Infrastructure\Http\Handler;
 
 use App\Components\User\Infrastructure\Facade\UserFacade;
-use App\Components\User\Infrastructure\Service\UserService;
 use Illuminate\Http\JsonResponse;
 
 class UserDeleteHandler
@@ -20,7 +19,7 @@ class UserDeleteHandler
     public function __invoke(int $id): JsonResponse
     {
         try {
-            //todo: delete
+            $this->userFacade->deleteUser($id);
         } catch (\Exception) {
             return $this->jsonResponse->setData(['status' => 'failed']);
         }

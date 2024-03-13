@@ -6,26 +6,26 @@ namespace App\Components\User\Infrastructure\Factories;
 
 use App\Components\User\Application\DTO\UserCreatable;
 use App\Components\User\Application\DTO\UserUpdatable;
-use App\Components\User\Domain\DTO\UserDTO;
+use App\Components\User\Domain\DTO\UserCreatableDTO;
+use App\Components\User\Domain\DTO\UserUpdatableDTO;
 
-class UserDTOFactory
+class UserFormationDTOFactory
 {
-    public function createForCreate(UserCreatable $creatable): UserDTO
+    public function createForCreate(UserCreatable $creatable): UserCreatableDTO
     {
-        return new UserDTO(
+        return new UserCreatableDTO(
             name: $creatable->userName(),
             surname: $creatable->userSurname(),
-            password: $creatable->userPassword(),
             email: $creatable->userEmail(),
+            password: $creatable->userPassword(),
         );
     }
 
-    public function createForUpdate(UserUpdatable $updatable): UserDTO
+    public function createForUpdate(UserUpdatable $updatable): UserUpdatableDTO
     {
-        return new UserDTO(
+        return new UserUpdatableDTO(
             name: $updatable->userName(),
             surname: $updatable->userSurname(),
-            password: $updatable->userPassword(),
             email: $updatable->userEmail(),
         );
     }

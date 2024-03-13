@@ -6,13 +6,13 @@ namespace App\Components\User\Domain\DTO;
 
 use App\Components\Common\EloquentRepository\EloquentDataBag;
 
-class UserDTO implements EloquentDataBag
+class UserCreatableDTO implements EloquentDataBag
 {
     public function __construct(
         public readonly string $name,
         public readonly string $surname,
-        public readonly string $password,
         public readonly string $email,
+        public readonly ?string $password = null,
     )
     {
     }
@@ -22,8 +22,8 @@ class UserDTO implements EloquentDataBag
         return [
             'name' => $this->name,
             'surname' => $this->surname,
-            'password' => $this->password,
             'email' => $this->email,
+            'password' => $this->password,
         ];
     }
 }

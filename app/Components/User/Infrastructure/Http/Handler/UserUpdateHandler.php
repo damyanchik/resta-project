@@ -6,7 +6,6 @@ namespace App\Components\User\Infrastructure\Http\Handler;
 
 use App\Components\User\Infrastructure\Facade\UserFacade;
 use App\Components\User\Infrastructure\Http\Request\UpdateUserRequest;
-use App\Components\User\Infrastructure\Service\UserService;
 use Illuminate\Http\JsonResponse;
 
 class UserUpdateHandler
@@ -18,7 +17,7 @@ class UserUpdateHandler
     {
     }
 
-    public function __invoke(int $id, UpdateUserRequest $userRequest): JsonResponse
+    public function __invoke(UpdateUserRequest $userRequest, int $id): JsonResponse
     {
         try {
             $this->userFacade->updateUser($userRequest, $id);

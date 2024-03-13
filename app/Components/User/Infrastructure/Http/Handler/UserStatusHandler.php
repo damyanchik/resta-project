@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace App\Components\User\Infrastructure\Http\Handler;
 
-use App\Components\User\Infrastructure\Http\Request\PatchBlockUserRequest;
-use App\Components\User\Infrastructure\Service\UserService;
+use App\Components\User\Infrastructure\Facade\UserFacade;
+use App\Components\User\Infrastructure\Http\Request\PatchUserStatusRequest;
 use Illuminate\Http\JsonResponse;
 
-class UserBlockHandler
+class UserStatusHandler
 {
     public function __construct(
         private readonly JsonResponse $jsonResponse,
+        private readonly UserFacade $userFacade,
     )
     {
     }
 
-    public function __invoke(int $id, PatchBlockUserRequest $userRequest): JsonResponse
+    public function __invoke(PatchUserStatusRequest $userRequest, int $id): JsonResponse
     {
         try {
-            //todo: block
+            $this->userFacade->toggleUserStatus($userRequest, $id);
         } catch (\Exception) {
             return $this->jsonResponse->setData([
                 'status' => 'failed',

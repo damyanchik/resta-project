@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Components\User\Infrastructure\Http\Request;
 
+use App\Components\User\Application\DTO\UserToggable;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class PatchBlockUserRequest extends FormRequest
+class PatchUserStatusRequest extends FormRequest implements UserToggable
 {
     public function authorize(): bool
     {
@@ -21,6 +22,11 @@ class PatchBlockUserRequest extends FormRequest
         return [
             'is_active' => ['required', 'integer', 'min:0', 'max:1'],
         ];
+    }
+
+    public function isActive(): int
+    {
+        return $this->integer('is_active');
     }
 
     protected function failedValidation(Validator $validator): void

@@ -6,8 +6,9 @@ namespace App\Components\User\Infrastructure\Facade;
 
 use App\Components\Common\Listing\Parameter\Request\ParametersBag;
 use App\Components\User\Application\DTO\UserCreatable;
+use App\Components\User\Application\DTO\UserToggable;
 use App\Components\User\Application\DTO\UserUpdatable;
-use App\Components\User\Infrastructure\Factories\UserDTOFactory;
+use App\Components\User\Infrastructure\Factories\UserFormationDTOFactory;
 use App\Components\User\Infrastructure\Factories\ViewModel\ListingViewModelFactory;
 use App\Components\User\Infrastructure\Factories\ViewModel\SingleUserViewModelFactory;
 use App\Components\User\Infrastructure\Repository\UserRepository;
@@ -18,10 +19,10 @@ use App\Components\User\Presentation\ViewModel\UserListingViewModel;
 class UserFacade
 {
     public function __construct(
-        private readonly UserDTOFactory $userDTOFactory,
-        private readonly UserRepository $userRepository,
-        private readonly UserListing $userListing,
-        private readonly ListingViewModelFactory $listingViewModelFactory,
+        private readonly UserFormationDTOFactory    $userDTOFactory,
+        private readonly UserRepository             $userRepository,
+        private readonly UserListing                $userListing,
+        private readonly ListingViewModelFactory    $listingViewModelFactory,
         private readonly SingleUserViewModelFactory $singleUserViewModelFactory,
     )
     {
@@ -39,6 +40,16 @@ class UserFacade
         $userDTO = $this->userDTOFactory->createForUpdate($updatable);
 
         return $this->userRepository->update($userDTO, $id);
+    }
+
+    public function deleteUser(int $id): bool
+    {
+        return $this->userRepository->delete($id);
+    }
+
+    public function toggleUserStatus(UserToggable $userToggable, int $id): bool
+    {
+        return $this->userRepository->toggleStatus($id, $userToggable->isActive());
     }
 
     public function getSingleUser(int $id): ?SingleUserViewModel
