@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Components\User\Infrastructure\Http\Request;
 
-use App\Components\User\Application\DTO\UserToggable;
+use App\Components\User\Application\DTO\UserToggleable;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class PatchUserStatusRequest extends FormRequest implements UserToggable
+class PatchUserStatusRequest extends FormRequest implements UserToggleable
 {
     public function authorize(): bool
     {

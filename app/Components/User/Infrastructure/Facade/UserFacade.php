@@ -6,7 +6,7 @@ namespace App\Components\User\Infrastructure\Facade;
 
 use App\Components\Common\Listing\Parameter\Request\ParametersBag;
 use App\Components\User\Application\DTO\UserCreatable;
-use App\Components\User\Application\DTO\UserToggable;
+use App\Components\User\Application\DTO\UserToggleable;
 use App\Components\User\Application\DTO\UserUpdatable;
 use App\Components\User\Infrastructure\Factories\UserFormationDTOFactory;
 use App\Components\User\Infrastructure\Factories\ViewModel\ListingViewModelFactory;
@@ -47,9 +47,9 @@ class UserFacade
         return $this->userRepository->delete($id);
     }
 
-    public function toggleUserStatus(UserToggable $userToggable, int $id): bool
+    public function toggleUserStatus(UserToggleable $userToggleable, int $id): bool
     {
-        return $this->userRepository->toggleStatus($id, $userToggable->isActive());
+        return $this->userRepository->toggleStatus($id, $userToggleable->isActive());
     }
 
     public function getSingleUser(int $id): ?SingleUserViewModel
