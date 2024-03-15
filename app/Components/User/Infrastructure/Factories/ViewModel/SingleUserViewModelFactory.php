@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Components\User\Infrastructure\Factories\ViewModel;
 
+use App\Components\User\Domain\DTO\UserDTO;
 use App\Components\User\Presentation\ViewModel\SingleUserViewModel;
-use Illuminate\Database\Eloquent\Model;
 
 class SingleUserViewModelFactory
 {
-    public function createByUserModel(Model $user): SingleUserViewModel
+    public function createByUserDTO(UserDTO $user): SingleUserViewModel
     {
         return new SingleUserViewModel(
             name: $user->name,

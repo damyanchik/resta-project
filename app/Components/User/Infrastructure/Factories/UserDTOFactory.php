@@ -7,9 +7,11 @@ namespace App\Components\User\Infrastructure\Factories;
 use App\Components\User\Application\DTO\UserCreatable;
 use App\Components\User\Application\DTO\UserUpdatable;
 use App\Components\User\Domain\DTO\UserCreatableDTO;
+use App\Components\User\Domain\DTO\UserDTO;
 use App\Components\User\Domain\DTO\UserUpdatableDTO;
+use App\Components\User\Domain\Model\User;
 
-class UserFormationDTOFactory
+class UserDTOFactory
 {
     public function createForCreate(UserCreatable $creatable): UserCreatableDTO
     {
@@ -27,6 +29,17 @@ class UserFormationDTOFactory
             name: $updatable->userName(),
             surname: $updatable->userSurname(),
             email: $updatable->userEmail(),
+        );
+    }
+
+    public function createForFetched(User $user): UserDTO
+    {
+        return new UserDTO(
+            name: $user->name,
+            surname: $user->surname,
+            email: $user->email,
+            role: $user->role,
+            isActive: $user->is_active,
         );
     }
 }

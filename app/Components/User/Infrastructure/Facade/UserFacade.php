@@ -5,25 +5,21 @@ declare(strict_types=1);
 namespace App\Components\User\Infrastructure\Facade;
 
 use App\Components\Common\Listing\Parameter\Request\ParametersBag;
+use App\Components\Common\Listing\View\DTO\ViewDTO;
 use App\Components\User\Application\DTO\UserCreatable;
 use App\Components\User\Application\DTO\UserToggleable;
 use App\Components\User\Application\DTO\UserUpdatable;
-use App\Components\User\Infrastructure\Factories\UserFormationDTOFactory;
-use App\Components\User\Infrastructure\Factories\ViewModel\ListingViewModelFactory;
-use App\Components\User\Infrastructure\Factories\ViewModel\SingleUserViewModelFactory;
+use App\Components\User\Domain\DTO\UserDTO;
+use App\Components\User\Infrastructure\Factories\UserDTOFactory;
 use App\Components\User\Infrastructure\Repository\UserRepository;
 use App\Components\User\Presentation\Listing\UserListing;
-use App\Components\User\Presentation\ViewModel\SingleUserViewModel;
-use App\Components\User\Presentation\ViewModel\UserListingViewModel;
 
 class UserFacade
 {
     public function __construct(
-        private readonly UserFormationDTOFactory    $userDTOFactory,
+        private readonly UserDTOFactory             $userDTOFactory,
         private readonly UserRepository             $userRepository,
         private readonly UserListing                $userListing,
-        private readonly ListingViewModelFactory    $listingViewModelFactory,
-        private readonly SingleUserViewModelFactory $singleUserViewModelFactory,
     )
     {
     }
@@ -52,7 +48,7 @@ class UserFacade
         return $this->userRepository->toggleStatus($id, $userToggleable->isActive());
     }
 
-    public function getSingleUser(int $id): ?SingleUserViewModel
+    public function getSingleUser(int $id): ?UserDTO
     {
         $user = $this->userRepository->getByIdOrFail($id);
 
@@ -60,13 +56,11 @@ class UserFacade
             return null;
         }
 
-        return $this->singleUserViewModelFactory->createByUserModel($user);
+        return $this->userDTOFactory->createForFetched($user);
     }
 
-    public function getUserListing(ParametersBag $bag): UserListingViewModel
+    public function getUserListing(ParametersBag $bag): ViewDTO
     {
-        $userListingData = $this->userListing->create($bag);
-
-        return $this->listingViewModelFactory->createByListingViewDTO($userListingData);
+        return $this->userListing->create($bag);
     }
 }
