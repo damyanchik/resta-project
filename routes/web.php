@@ -105,7 +105,7 @@ Route::get('/users-test/{id}', \App\Components\User\Infrastructure\Http\Handler\
 Route::delete('/users-test/{id}', \App\Components\User\Infrastructure\Http\Handler\UserDeleteHandler::class)
     ->name('user.delete');
 
-Route::post('/users-test', \App\Components\User\Infrastructure\Http\Handler\UserStoreHandler::class)
+Route::post('/users-test', \App\Components\User\Infrastructure\Http\Handler\UserCreateHandler::class)
     ->name('user.store');
 
 Route::put('/users-test/{id}', \App\Components\User\Infrastructure\Http\Handler\UserUpdateHandler::class)

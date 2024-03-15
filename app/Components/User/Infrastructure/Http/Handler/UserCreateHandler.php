@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Components\User\Infrastructure\Http\Handler;
 
 use App\Components\User\Infrastructure\Facade\UserFacade;
-use App\Components\User\Infrastructure\Http\Request\StoreUserRequest;
+use App\Components\User\Infrastructure\Http\Request\CreateUserRequest;
 use Illuminate\Http\JsonResponse;
 
-class UserStoreHandler
+class UserCreateHandler
 {
     public function __construct(
         private readonly UserFacade $userFacade,
@@ -17,7 +17,7 @@ class UserStoreHandler
     {
     }
 
-    public function __invoke(StoreUserRequest $userRequest): JsonResponse
+    public function __invoke(CreateUserRequest $userRequest): JsonResponse
     {
         try {
             $this->userFacade->createUser($userRequest);

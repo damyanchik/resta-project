@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class StoreUserRequest extends FormRequest implements UserCreatable
+class CreateUserRequest extends FormRequest implements UserCreatable
 {
     public function authorize(): bool
     {
