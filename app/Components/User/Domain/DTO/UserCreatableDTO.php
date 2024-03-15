@@ -12,7 +12,7 @@ class UserCreatableDTO implements EloquentDataBag
         public readonly string $name,
         public readonly string $surname,
         public readonly string $email,
-        public readonly ?string $password = null,
+        public readonly string $password,
     )
     {
     }
