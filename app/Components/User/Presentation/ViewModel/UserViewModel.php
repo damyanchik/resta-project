@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\User\Presentation\ViewModel;
 
-class SingleUserViewModel
+class UserViewModel
 {
     public function __construct(
         private readonly string $name,

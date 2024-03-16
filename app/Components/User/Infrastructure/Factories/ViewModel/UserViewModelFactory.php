@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Components\User\Infrastructure\Factories\ViewModel;
 
 use App\Components\User\Domain\DTO\UserDTO;
-use App\Components\User\Presentation\ViewModel\SingleUserViewModel;
+use App\Components\User\Presentation\ViewModel\UserViewModel;
 
-class SingleUserViewModelFactory
+class UserViewModelFactory
 {
-    public function createByUserDTO(UserDTO $user): SingleUserViewModel
+    public function createByUserDTO(UserDTO $user): UserViewModel
     {
-        return new SingleUserViewModel(
+        return new UserViewModel(
             name: $user->name,
             surname: $user->surname,
             email: $user->email,

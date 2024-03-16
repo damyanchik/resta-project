@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Components\User\Infrastructure\Http\Handler;
 
 use App\Components\User\Infrastructure\Facade\UserFacade;
-use App\Components\User\Infrastructure\Factories\ViewModel\SingleUserViewModelFactory;
+use App\Components\User\Infrastructure\Factories\ViewModel\UserViewModelFactory;
 use Illuminate\Http\JsonResponse;
 
 class UserShowHandler
 {
     public function __construct(
-        private readonly UserFacade $userFacade,
-        private readonly JsonResponse $jsonResponse,
-        private readonly SingleUserViewModelFactory $singleUserViewModelFactory,
+        private readonly UserFacade           $userFacade,
+        private readonly JsonResponse         $jsonResponse,
+        private readonly UserViewModelFactory $userViewModelFactory,
     )
     {
     }
@@ -22,6 +22,6 @@ class UserShowHandler
     {
         $userDTO = $this->userFacade->getSingleUser($id);
 
-        return $this->jsonResponse->setData($this->singleUserViewModelFactory->createByUserDTO($userDTO)->toArray());
+        return $this->jsonResponse->setData($this->userViewModelFactory->createByUserDTO($userDTO)->toArray());
     }
 }

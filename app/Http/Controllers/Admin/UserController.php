@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Components\User\Infrastructure\Http\Request\StoreUserRequest;
+use App\Components\User\Infrastructure\Http\Request\CreateUserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IndexRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -30,7 +30,7 @@ class UserController extends Controller
         return view('admin.user.create');
     }
 
-    public function store(StoreUserRequest $storeUserRequest): RedirectResponse
+    public function store(CreateUserRequest $storeUserRequest): RedirectResponse
     {
         try {
             $this->userRepository->create($storeUserRequest->validated());

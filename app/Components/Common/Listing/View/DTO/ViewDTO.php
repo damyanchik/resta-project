@@ -14,4 +14,12 @@ class ViewDTO
     )
     {
     }
+
+    public function toArray(): array
+    {
+        return [
+            'data' => $this->data,
+            'flags' => $this->flags,
+        ];
+    }
 }
