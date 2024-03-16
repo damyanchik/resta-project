@@ -7,20 +7,20 @@ namespace App\Components\Order\Domain\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class OrderItem extends Model
 {
     use HasFactory;
 
-    protected $table = 'orders';
+    protected $table = 'order_items';
 
     protected $fillable = [
-        'state',
-        'type',
-        'subtotal_amount',
-        'total_amount',
-        'payment_method',
-        'is_paid',
+        'subtotal_unit_price',
+        'total_unit_price',
+        'subtotal_price',
+        'total_price',
+        'status',
         'annotation',
-        'user_message',
+        'order_id',
+        'product_id',
     ];
 }
