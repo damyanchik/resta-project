@@ -23,6 +23,7 @@ class ProductDTOFactory
             isSpicy: $productFormable->productIsSpicy(),
             isAvailable: $productFormable->productIsAvailable(),
             categoryId: $productFormable->productCategoryId(),
+            orderNr: $productFormable->productOrderNr(),
         );
     }
 
@@ -38,6 +39,7 @@ class ProductDTOFactory
             isSpicy: $product->is_spicy,
             isAvailable: $product->is_available,
             categoryId: $product->category_id,
+            orderNr: $product->order_nr,
         );
     }
 }

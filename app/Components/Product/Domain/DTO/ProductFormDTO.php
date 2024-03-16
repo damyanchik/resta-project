@@ -18,6 +18,7 @@ class ProductFormDTO implements EloquentDataBag
         public readonly int $isSpicy,
         public readonly int $isAvailable,
         public readonly int $categoryId,
+        public readonly int $orderNr,
     )
     {
     }
@@ -34,6 +35,7 @@ class ProductFormDTO implements EloquentDataBag
             'is_spicy' => $this->isSpicy,
             'is_available' => $this->isAvailable,
             'category_id' => $this->categoryId,
+            'order_nr' => $this->orderNr,
         ];
     }
 }

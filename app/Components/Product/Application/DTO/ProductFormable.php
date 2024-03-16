@@ -15,4 +15,5 @@ interface ProductFormable
     public function productIsSpicy(): int;
     public function productIsAvailable(): int;
     public function productCategoryId(): int;
+    public function productOrderNr(): int;
 }

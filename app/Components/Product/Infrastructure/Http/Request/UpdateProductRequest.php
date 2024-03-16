@@ -26,6 +26,7 @@ class UpdateProductRequest extends FormRequest implements ProductFormable
             'is_spicy' => ['integer', 'nullable', 'min:0', 'max:1'],
             'is_available' => ['integer', 'nullable', 'min:0', 'max:1'],
             'category_id' => ['integer', 'nullable', 'min:0'],
+            'order_id' => ['integer', 'nullable'],
         ];
     }
 
@@ -77,5 +78,10 @@ class UpdateProductRequest extends FormRequest implements ProductFormable
     public function productCategoryId(): int
     {
         return $this->integer('category_id');
+    }
+
+    public function productOrderNr(): int
+    {
+        return $this->integer('order_nr');
     }
 }

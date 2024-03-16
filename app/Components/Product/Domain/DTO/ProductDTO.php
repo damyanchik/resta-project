@@ -16,6 +16,7 @@ class ProductDTO
         public readonly int $isSpicy,
         public readonly int $isAvailable,
         public readonly int $categoryId,
+        public readonly int $orderNr,
     )
     {
     }
