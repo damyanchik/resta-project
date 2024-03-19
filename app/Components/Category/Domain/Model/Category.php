@@ -13,6 +13,8 @@ class Category extends Model
 
     protected $table = 'categories';
 
+    protected $primaryKey = 'uuid';
+
     protected $fillable = [
         'name',
         'is_visible',

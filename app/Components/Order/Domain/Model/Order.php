@@ -13,8 +13,10 @@ class Order extends Model
 
     protected $table = 'orders';
 
+    protected $primaryKey = 'uuid';
+
     protected $fillable = [
-        'state',
+        'status',
         'type',
         'subtotal_amount',
         'total_amount',

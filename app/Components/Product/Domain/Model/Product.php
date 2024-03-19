@@ -13,6 +13,8 @@ class Product extends Model
 
     protected $table = 'products';
 
+    protected $primaryKey = 'uuid';
+
     protected $fillable = [
         'name',
         'description',
@@ -22,7 +24,7 @@ class Product extends Model
         'is_vegetarian',
         'is_spicy',
         'is_available',
-        'category_id',
         'order_nr',
+        'category_id',
     ];
 }
