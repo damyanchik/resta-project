@@ -23,6 +23,5 @@ class Order extends Model
         'payment_method',
         'is_paid',
         'annotation',
-        'user_message',
     ];
 }

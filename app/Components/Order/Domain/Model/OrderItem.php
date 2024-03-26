@@ -18,6 +18,7 @@ class OrderItem extends Model
         'total_unit_price',
         'subtotal_price',
         'total_price',
+        'quantity',
         'status',
         'annotation',
         'order_id',

@@ -9,5 +9,4 @@ enum OrderTypeEnum: string
     case DELIVERY = 'delivery';
     case RESERVATION = 'reservation';
     case TO_GO = 'to_go';
-    case ON_SITE = 'on_site';
 }

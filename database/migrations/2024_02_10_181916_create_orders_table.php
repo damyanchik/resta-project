@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid();
-            $table->unsignedTinyInteger('status');
-            $table->unsignedTinyInteger('type');
+            $table->string('status');
+            $table->string('type');
             $table->unsignedInteger('subtotal_amount');
             $table->unsignedInteger('total_amount');
             $table->foreignUuid('payment_method')->nullable();
             $table->boolean('is_paid')->default(false);
-            $table->text('user_message')->nullable();
+            $table->text('annotation')->nullable();
             $table->timestamps();
         });
     }
