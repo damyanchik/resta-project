@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Components\Product\Infrastructure\Http\Handler;
 
 use App\Components\Product\Infrastructure\Facade\ProductFacade;
-use App\Components\Product\Infrastructure\Factories\ViewModel\ProductViewModelFactory;
+use App\Components\Product\Infrastructure\Factory\ViewModel\ProductViewModelFactory;
 use Illuminate\Http\JsonResponse;
 
 class ProductShowHandler

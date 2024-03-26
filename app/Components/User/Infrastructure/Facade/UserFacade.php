@@ -8,7 +8,7 @@ use App\Components\User\Application\DTO\UserCreatable;
 use App\Components\User\Application\DTO\UserToggleable;
 use App\Components\User\Application\DTO\UserUpdatable;
 use App\Components\User\Domain\DTO\UserDTO;
-use App\Components\User\Infrastructure\Factories\UserDTOFactory;
+use App\Components\User\Infrastructure\Factory\UserDTOFactory;
 use App\Components\User\Infrastructure\Repository\UserRepository;
 
 class UserFacade

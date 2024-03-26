@@ -6,7 +6,7 @@ namespace App\Components\Product\Infrastructure\Facade;
 
 use App\Components\Product\Application\DTO\ProductFormable;
 use App\Components\Product\Domain\DTO\ProductDTO;
-use App\Components\Product\Infrastructure\Factories\ProductDTOFactory;
+use App\Components\Product\Infrastructure\Factory\ProductDTOFactory;
 use App\Components\Product\Infrastructure\Repository\ProductRepository;
 
 class ProductFacade

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Components\Product\Infrastructure\Factories;
+namespace App\Components\Product\Infrastructure\Factory;
 
 use App\Components\Product\Application\DTO\ProductFormable;
 use App\Components\Product\Domain\DTO\ProductDTO;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Components\Product\Infrastructure\Factories\ViewModel;
+namespace App\Components\Product\Infrastructure\Factory\ViewModel;
 
 use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Product\Presentation\ViewModel\ProductViewModel;

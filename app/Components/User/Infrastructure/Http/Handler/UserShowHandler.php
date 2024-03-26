@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Components\User\Infrastructure\Http\Handler;
 
 use App\Components\User\Infrastructure\Facade\UserFacade;
-use App\Components\User\Infrastructure\Factories\ViewModel\UserViewModelFactory;
+use App\Components\User\Infrastructure\Factory\ViewModel\UserViewModelFactory;
 use Illuminate\Http\JsonResponse;
 
 class UserShowHandler

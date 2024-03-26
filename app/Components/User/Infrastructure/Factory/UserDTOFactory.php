@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Components\User\Infrastructure\Factories;
+namespace App\Components\User\Infrastructure\Factory;
 
 use App\Components\User\Application\DTO\UserCreatable;
 use App\Components\User\Application\DTO\UserUpdatable;
