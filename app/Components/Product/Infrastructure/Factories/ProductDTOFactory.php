@@ -6,14 +6,14 @@ namespace App\Components\Product\Infrastructure\Factories;
 
 use App\Components\Product\Application\DTO\ProductFormable;
 use App\Components\Product\Domain\DTO\ProductDTO;
-use App\Components\Product\Domain\DTO\ProductFormDTO;
+use App\Components\Product\Domain\DTO\ProductFormableDTO;
 use App\Components\Product\Domain\Model\Product;
 
 class ProductDTOFactory
 {
-    public function createForFormation(ProductFormable $productFormable): ProductFormDTO
+    public function createForFormation(ProductFormable $productFormable): ProductFormableDTO
     {
-        return new ProductFormDTO(
+        return new ProductFormableDTO(
             name: $productFormable->productName(),
             description: $productFormable->productDescription(),
             stock: $productFormable->productStock(),

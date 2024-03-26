@@ -6,7 +6,7 @@ namespace App\Components\Product\Domain\DTO;
 
 use App\Components\Common\EloquentRepository\EloquentDataBag;
 
-class ProductFormDTO implements EloquentDataBag
+class ProductFormableDTO implements EloquentDataBag
 {
     public function __construct(
         public readonly string $name,
