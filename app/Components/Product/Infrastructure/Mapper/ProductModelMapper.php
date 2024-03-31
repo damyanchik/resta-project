@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Infrastructure\Mapper;
 
-use Akaunting\Money\Currency;
 use Akaunting\Money\Money;
 use App\Components\Order\Domain\DTO\OrderItemDTO;
 use App\Components\Order\Domain\Enum\OrderItemStatusEnum;
@@ -20,10 +19,10 @@ class ProductModelMapper
             if ($matchedItem) {
                 return new OrderItemDTO(
                     productUuid: $product['uuid'],
-                    subtotalUnitPrice: new Money($product['price'], Currency::EUR()),
-                    totalUnitPrice: new Money($product['price'], Currency::EUR()),
-                    subtotalPrice: new Money($product['price'] * $matchedItem['quantity'], Currency::EUR()),
-                    totalPrice: new Money($product['price'] * $matchedItem['quantity'], Currency::EUR()),
+                    subtotalUnitPrice: Money::EUR($product['price']),
+                    totalUnitPrice: Money::EUR($product['price']),
+                    subtotalPrice: Money::EUR($product['price'] * $matchedItem['quantity']),
+                    totalPrice: Money::EUR($product['price'] * $matchedItem['quantity']),
                     quantity: (int) $matchedItem['quantity'],
                     status: OrderItemStatusEnum::PREPARING,
                     annotation: '',

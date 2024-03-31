@@ -8,10 +8,10 @@ class OrderItemViewModel
 {
     public function __construct(
         public readonly string $productUuid,
-        public readonly int $subtotalUnitPrice,
-        public readonly int $totalUnitPrice,
-        public readonly int $subtotalPrice,
-        public readonly int $totalPrice,
+        public readonly string $subtotalUnitPrice,
+        public readonly string $totalUnitPrice,
+        public readonly string $subtotalPrice,
+        public readonly string $totalPrice,
         public readonly int $quantity,
         public readonly string $status,
         public readonly string $annotation,

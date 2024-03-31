@@ -9,17 +9,24 @@ use App\Components\Order\Presentation\ViewModel\OrderViewModel;
 
 class OrderViewModelFactory
 {
+    public function __construct(private readonly OrderItemViewModelFactory $itemViewModelFactory)
+    {
+    }
+
     public function createOrderViewModelByOrderDTO(OrderDTO $orderDTO): OrderViewModel
     {
         return new OrderViewModel(
             status: $orderDTO->status->value,
             type: $orderDTO->type->value,
-            subtotalAmount: $orderDTO->subtotalAmount->getAmount(),
-            totalAmount: $orderDTO->totalAmount->getAmount(),
-            paymentMethod: $orderDTO->paymentMethod,
+            subtotalAmount: $orderDTO->subtotalAmount->render(),
+            totalAmount: $orderDTO->totalAmount->render(),
+            paymentMethod: $orderDTO->paymentMethod ?? '',
             isPaid: $orderDTO->isPaid,
-            annotation: $orderDTO->annotation,
-            orderItems: $orderDTO->orderItems->toArray(),
+            annotation: $orderDTO->annotation ?? '',
+            orderItems: $orderDTO->orderItems->map([
+                $this->itemViewModelFactory,
+                'createOrderItemViewModelByOrderItemDTO'
+            ]),
         );
     }
 }
