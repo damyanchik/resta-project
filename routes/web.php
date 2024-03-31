@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('/api/order', \App\Components\Order\Infrastructure\Http\Handler\CreateOrderHandler::class)
     ->name('order.create');
 
+Route::get('/api/order', \App\Components\Order\Infrastructure\Http\Handler\PreviewOrderHandler::class)
+    ->name('order.preview');
+
+
+
 Route::get('/users-test', \App\Components\User\Infrastructure\Http\Handler\UserListingHandler::class)
     ->name('user.listing');
 

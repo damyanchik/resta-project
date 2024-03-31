@@ -7,13 +7,13 @@ namespace App\Components\Product\Infrastructure\Facade;
 use App\Components\Product\Application\DTO\ProductFormable;
 use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Product\Infrastructure\Factory\ProductDTOFactory;
-use App\Components\Product\Infrastructure\Repository\ProductRepository;
+use App\Components\Product\Infrastructure\Repository\ProductApplicationRepository;
 
 class ProductFacade
 {
     public function __construct(
-        private readonly ProductRepository $productRepository,
-        private readonly ProductDTOFactory $productDTOFactory,
+        private readonly ProductApplicationRepository $productRepository,
+        private readonly ProductDTOFactory            $productDTOFactory,
     )
     {
     }

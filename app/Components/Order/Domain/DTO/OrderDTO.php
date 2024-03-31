@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Domain\DTO;
 
+use Akaunting\Money\Money;
 use App\Components\Order\Domain\Enum\OrderStatusEnum;
 use App\Components\Order\Domain\Enum\OrderTypeEnum;
 use Illuminate\Support\Collection;
@@ -11,14 +12,14 @@ use Illuminate\Support\Collection;
 class OrderDTO
 {
     public function __construct(
-        private readonly OrderStatusEnum $status,
-        private readonly OrderTypeEnum $type,
-        private readonly int $subtotalAmount,
-        private readonly int $totalAmount,
-        private readonly ?string $paymentMethod,
-        private readonly bool $isPaid,
-        private readonly ?string $annotation,
-        private readonly Collection $orderItems,
+        public readonly OrderStatusEnum $status,
+        public readonly OrderTypeEnum $type,
+        public readonly Money $subtotalAmount,
+        public readonly Money $totalAmount,
+        public readonly ?string $paymentMethod,
+        public readonly bool $isPaid,
+        public readonly ?string $annotation,
+        public readonly Collection $orderItems,
     )
     {
     }

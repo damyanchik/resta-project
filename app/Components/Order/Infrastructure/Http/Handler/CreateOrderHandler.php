@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Components\Order\Infrastructure\Http\Handler;
 
 use App\Components\Order\Infrastructure\Facade\OrderFacade;
-use App\Components\Order\Infrastructure\Http\Request\CreateOrderRequest;
+use App\Components\Order\Infrastructure\Http\Request\OrderRequest;
 use Illuminate\Http\JsonResponse;
 
 class CreateOrderHandler
@@ -17,7 +17,7 @@ class CreateOrderHandler
     {
     }
 
-    public function __invoke(CreateOrderRequest $orderRequest): JsonResponse
+    public function __invoke(OrderRequest $orderRequest): JsonResponse
     {
         try {
             $this->orderFacade->createByCreatableValues($orderRequest);

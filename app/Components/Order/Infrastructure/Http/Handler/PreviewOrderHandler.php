@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Components\Order\Infrastructure\Http\Handler;
 
 use App\Components\Order\Infrastructure\Facade\OrderFacade;
-use App\Components\Order\Infrastructure\Http\Request\PreviewOrderRequest;
+use App\Components\Order\Infrastructure\Http\Request\OrderRequest;
 use Illuminate\Http\JsonResponse;
 
 class PreviewOrderHandler
@@ -17,10 +17,10 @@ class PreviewOrderHandler
     {
     }
 
-    public function __invoke(PreviewOrderRequest $request): JsonResponse
+    public function __invoke(OrderRequest $request): JsonResponse
     {
-        $orderDTO = $this->orderFacade->getByPreviewableValues($request);
+        $orderDTO = $this->orderFacade->getPreviewByFormable($request);
 
-
+        dd($orderDTO);
     }
 }

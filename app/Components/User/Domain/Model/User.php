@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\User\Domain\Model;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,11 +12,14 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
-    protected $table = 'users';
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasUuids;
 
     protected $primaryKey = 'uuid';
+
+    protected $table = 'users';
 
     protected $fillable = [
         'name',

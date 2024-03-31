@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Components\Product\Domain\Model\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
- */
 class ProductFactory extends Factory
 {
+    protected $model = Product::class;
     /**
      * Define the model's default state.
      *
@@ -25,7 +24,7 @@ class ProductFactory extends Factory
             'is_spicy' => fake()->numberBetween(0,1),
             'is_unlimited' => fake()->numberBetween(0,1),
             'is_available' => fake()->numberBetween(0,1),
-            'category_id' => fake()->numberBetween(1,10),
+            'category_uuid' => fake()->uuid(),
         ];
     }
 }

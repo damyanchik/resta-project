@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Presentation\ViewModel;
 
-use Illuminate\Support\Collection;
-
 class OrderViewModel
 {
     public function __construct(
         private readonly string $status,
         private readonly string $type,
-        private readonly string $subtotalAmount,
-        private readonly string $totalAmount,
+        private readonly int $subtotalAmount,
+        private readonly int $totalAmount,
         private readonly string $paymentMethod,
         private readonly bool $isPaid,
         private readonly string $annotation,

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Domain\Model;
 
-use App\Components\Common\Model\HasUuid;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Nonstandard\Uuid;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
     use HasFactory;
-    use HasUuid;
-
-    protected $table = 'orders';
+    use HasUuids;
 
     protected $primaryKey = 'uuid';
+
+    protected $table = 'orders';
 
     protected $fillable = [
         'status',
@@ -27,4 +27,9 @@ class Order extends Model
         'is_paid',
         'annotation',
     ];
+
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
