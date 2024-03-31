@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Infrastructure\Http\Request;
 
+use App\Components\Order\Application\DTO\OrderPreviewable;
 use App\Components\Order\Domain\Enum\OrderTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Collection;
 
-class PreviewOrderRequest extends FormRequest
+class PreviewOrderRequest extends FormRequest implements OrderPreviewable
 {
     public function rules(): array
     {
@@ -16,10 +18,6 @@ class PreviewOrderRequest extends FormRequest
             'payment_method' => ['required', 'string'],
             'annotation' => ['nullable', 'string'],
             'items.*' => ['required', 'array'],
-            'items.*.subtotal_unit_price' => ['required'],
-            'items.*.total_unit_price' => ['required'],
-            'items.*.subtotal_price' => ['required'],
-            'items.*.total_price' => ['required'],
             'items.*.quantity' => ['required'],
             'items.*.annotation' => ['nullable'],
             'items.*.product_uuid' => ['required'],
@@ -31,25 +29,8 @@ class PreviewOrderRequest extends FormRequest
         return $this->enum('type', OrderTypeEnum::class);
     }
 
-    public function subtotalAmount(): float
+    public function items(): Collection
     {
-        return $this->float('subtotal_amount');
+        return $this->collect('items');
     }
-
-    public function totalAmount(): float
-    {
-        return $this->float('total_amount');
-    }
-
-    public function paymentMethod(): string
-    {
-        return $this->string('payment_method')->toString();
-    }
-
-    public function annotation(): string
-    {
-        return $this->string('annotation')->toString();
-    }
-
-
 }

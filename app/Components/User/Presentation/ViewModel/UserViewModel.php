@@ -22,7 +22,7 @@ class UserViewModel
             'name' => $this->name,
             'surname' => $this->surname,
             'email' => $this->email,
-            'isActive' => $this->isActive,
+            'is_active' => $this->isActive,
             'role' => $this->role,
         ];
     }

@@ -21,6 +21,14 @@ class CreateOrderRequest extends FormRequest implements OrderFormable
             'payment_method' => ['required', 'string'],
             'is_paid' => ['nullable', 'boolean'],
             'annotation' => ['nullable', 'string'],
+            'items.*' => ['required', 'array'],
+            'items.*.subtotal_unit_price' => ['required'],
+            'items.*.total_unit_price' => ['required'],
+            'items.*.subtotal_price' => ['required'],
+            'items.*.total_price' => ['required'],
+            'items.*.quantity' => ['required'],
+            'items.*.annotation' => ['nullable'],
+            'items.*.product_uuid' => ['required'],
         ];
     }
 

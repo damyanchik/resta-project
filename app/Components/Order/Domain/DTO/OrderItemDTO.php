@@ -10,10 +10,10 @@ class OrderItemDTO
 {
     public function __construct(
         public readonly string $productUuid,
-        public readonly int $subtotal_unit_price,
-        public readonly int $total_unit_price,
-        public readonly int $subtotal_price,
-        public readonly int $total_price,
+        public readonly int $subtotalUnitPrice,
+        public readonly int $totalUnitPrice,
+        public readonly int $subtotalPrice,
+        public readonly int $totalPrice,
         public readonly int $quantity,
         public readonly OrderItemStatusEnum $status,
         public readonly string $annotation,

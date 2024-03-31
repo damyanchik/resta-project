@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Components\Order\Infrastructure\Facade;
 
 use App\Components\Order\Application\DTO\OrderFormable;
+use App\Components\Order\Application\DTO\OrderPreviewable;
+use App\Components\Order\Domain\DTO\OrderDTO;
 use App\Components\Order\Infrastructure\Factory\OrderDTOFactory;
 use App\Components\Order\Infrastructure\Repository\OrderRepository;
 
@@ -17,8 +19,16 @@ class OrderFacade
     {
     }
 
-    public function createByCreatableValues(OrderFormable $orderCreatable): bool
+    public function getByPreviewableValues(OrderPreviewable $orderPreviewable): OrderDTO
     {
-        return $this->orderRepository->create($this->orderDTOFactory->createForFormation($orderCreatable));
+        return $this->orderDTOFactory->createOrderDTO(
+            type: $orderPreviewable->type(),
+            items: $orderPreviewable->items(),
+        );
+    }
+
+    public function createByCreatableValues(OrderFormable $orderFormable): bool
+    {
+        return $this->orderRepository->create($this->orderDTOFactory->createOrderFormableDTO($orderFormable));
     }
 }
