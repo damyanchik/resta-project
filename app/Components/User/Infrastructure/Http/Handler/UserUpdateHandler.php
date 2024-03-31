@@ -20,7 +20,7 @@ class UserUpdateHandler
     public function __invoke(UpdateUserRequest $userRequest, int $id): JsonResponse
     {
         try {
-            $this->userFacade->updateUser($userRequest, $id);
+            $this->userFacade->updateByUpdatableValues($userRequest, $id);
         } catch (\Exception) {
             return $this->jsonResponse->setData(['status' => 'failed']);
         }

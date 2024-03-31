@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Components\User\Infrastructure\Repository;
 
 use App\Components\Common\EloquentRepository\AbstractRepository;
-use App\Models\User;
+use App\Components\User\Domain\Model\User;
 
 class UserRepository extends AbstractRepository
 {
@@ -13,9 +13,9 @@ class UserRepository extends AbstractRepository
     {
     }
 
-    public function toggleStatus(int $id, int $status): bool
+    public function toggleStatus(string $uuid, int $status): bool
     {
-        $user = $this->getByIdOrFail($id);
+        $user = $this->getByIdOrFail($uuid);
 
         if ($user === null) {
             return false;

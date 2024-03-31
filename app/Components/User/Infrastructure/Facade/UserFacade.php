@@ -20,33 +20,33 @@ class UserFacade
     {
     }
 
-    public function createUser(UserCreatable $creatable): bool
+    public function createByCreatableValues(UserCreatable $creatable): bool
     {
         $userDTO = $this->userDTOFactory->createForCreate($creatable);
 
         return $this->userRepository->create($userDTO);
     }
 
-    public function updateUser(UserUpdatable $updatable, int $id): bool
+    public function updateByUpdatableValues(UserUpdatable $updatable, string $uuid): bool
     {
         $userDTO = $this->userDTOFactory->createForUpdate($updatable);
 
-        return $this->userRepository->update($userDTO, $id);
+        return $this->userRepository->update($userDTO, $uuid);
     }
 
-    public function deleteUser(int $id): bool
+    public function deleteByUuid(string $uuid): bool
     {
-        return $this->userRepository->delete($id);
+        return $this->userRepository->delete($uuid);
     }
 
-    public function toggleUserStatus(UserToggleable $userToggleable, int $id): bool
+    public function toggleUserStatus(UserToggleable $userToggleable, string $uuid): bool
     {
-        return $this->userRepository->toggleStatus($id, $userToggleable->isActive());
+        return $this->userRepository->toggleStatus($uuid, $userToggleable->isActive());
     }
 
-    public function getSingleUser(int $id): ?UserDTO
+    public function getSingleUser(string $uuid): ?UserDTO
     {
-        $user = $this->userRepository->getByIdOrFail($id);
+        $user = $this->userRepository->getByIdOrFail($uuid);
 
         if ($user === null) {
             return null;

@@ -20,7 +20,7 @@ class UserCreateHandler
     public function __invoke(CreateUserRequest $userRequest): JsonResponse
     {
         try {
-            $this->userFacade->createUser($userRequest);
+            $this->userFacade->createByCreatableValues($userRequest);
         } catch (\Exception) {
             return $this->jsonResponse->setData([
                 'status' => 'failed',

@@ -19,7 +19,7 @@ class UserDeleteHandler
     public function __invoke(int $id): JsonResponse
     {
         try {
-            $this->userFacade->deleteUser($id);
+            $this->userFacade->deleteByUuid($id);
         } catch (\Exception) {
             return $this->jsonResponse->setData(['status' => 'failed']);
         }
