@@ -4,20 +4,23 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Infrastructure\Http\Handler;
 
+use App\Components\Order\Infrastructure\Facade\OrderFacade;
+use App\Components\Order\Infrastructure\Http\Request\CreateOrderRequest;
 use Illuminate\Http\JsonResponse;
 
-class OrderCreateHandler
+class CreateOrderHandler
 {
     public function __construct(
         private readonly JsonResponse $jsonResponse,
+        private readonly OrderFacade $orderFacade,
     )
     {
     }
 
-    public function __invoke($orderRequest): JsonResponse
+    public function __invoke(CreateOrderRequest $orderRequest): JsonResponse
     {
         try {
-            //todo: create
+            $this->orderFacade->createByCreatableValues($orderRequest);
         } catch (\Exception) {
             return $this->jsonResponse->setData([
                 'status' => 'failed',

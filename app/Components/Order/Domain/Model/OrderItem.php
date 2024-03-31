@@ -21,7 +21,7 @@ class OrderItem extends Model
         'quantity',
         'status',
         'annotation',
-        'order_id',
-        'product_id',
+        'order_nr',
+        'product_uuid',
     ];
 }

@@ -9,7 +9,7 @@ use App\Components\Order\Domain\Model\Order;
 
 class OrderRepository extends AbstractRepository
 {
-    public function __construct(private readonly Order $model)
+    public function __construct(protected readonly Order $model)
     {
     }
 }

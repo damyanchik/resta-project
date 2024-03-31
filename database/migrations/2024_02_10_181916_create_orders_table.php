@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type');
             $table->unsignedInteger('subtotal_amount');
             $table->unsignedInteger('total_amount');
-            $table->foreignUuid('payment_method')->nullable();
+            $table->string('payment_method')->nullable();
             $table->boolean('is_paid')->default(false);
             $table->text('annotation')->nullable();
             $table->timestamps();

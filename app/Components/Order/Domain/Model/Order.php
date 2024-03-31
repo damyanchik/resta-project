@@ -6,6 +6,7 @@ namespace App\Components\Order\Domain\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Nonstandard\Uuid;
 
 class Order extends Model
 {
@@ -24,4 +25,13 @@ class Order extends Model
         'is_paid',
         'annotation',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = Uuid::uuid4()->toString();
+        });
+    }
 }
