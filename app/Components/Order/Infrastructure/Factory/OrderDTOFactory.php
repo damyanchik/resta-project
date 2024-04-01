@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Infrastructure\Factory;
 
-use Akaunting\Money\Currency;
 use Akaunting\Money\Money;
-use App\Components\Order\Application\DTO\OrderFormable;
+use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Order\Domain\DTO\OrderDTO;
 use App\Components\Order\Domain\DTO\OrderFormableDTO;
 use App\Components\Order\Domain\Enum\OrderStatusEnum;
 use App\Components\Order\Domain\Enum\OrderTypeEnum;
+use App\Components\Order\Domain\Exception\OrderItemException;
+use App\Components\Product\Application\Mapper\ProductModelMapper;
 use App\Components\Product\Application\Repository\ProductRepository;
-use App\Components\Product\Infrastructure\Mapper\ProductModelMapper;
 use Illuminate\Support\Collection;
 
 class OrderDTOFactory
@@ -21,10 +21,14 @@ class OrderDTOFactory
         private readonly OrderItemDTOFactory $itemDTOFactory,
         private readonly ProductRepository   $productRepository,
         private readonly ProductModelMapper  $productModelMapper,
+        private readonly PriceCalculator     $priceCalculator,
     )
     {
     }
 
+    /**
+     * @throws OrderItemException
+     */
     public function createOrderDTOForPreview(OrderTypeEnum $type, Collection $items): OrderDTO
     {
         $products = $this->productRepository
@@ -36,36 +40,54 @@ class OrderDTOFactory
                 'is_spicy',
             ]);
 
+        if ($products->isEmpty()) {
+            throw OrderItemException::notFound('Order items not found.');
+        }
+
         $orderItems = $this->productModelMapper->withItemsToOrderItem($products, $items);
 
         return new OrderDTO(
             status: OrderStatusEnum::PREPARING,
             type: $type,
-            subtotalAmount: new Money(
-                amount: $orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount()),
-                currency: new Currency('EUR')
-            ),
-            totalAmount: new Money(
-                amount: $orderItems->sum(fn($orderItem) => $orderItem->totalPrice->getAmount()),
-                currency: new Currency('EUR')
-            ),
+            subtotalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
+            totalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
             paymentMethod: null,
             isPaid: false,
             annotation: null,
-            orderItems: $orderItems
+            orderItems: $orderItems,
         );
     }
 
-    public function createOrderFormableDTO(OrderFormable $orderFormable): OrderFormableDTO
+    /**
+     * @throws OrderItemException
+     */
+    public function createOrderFormableDTO(
+        OrderTypeEnum $type,
+        Collection $items,
+        string $paymentMethod,
+        string $annotation,
+    ): OrderFormableDTO
     {
+        $products = $this->productRepository
+            ->getByUuids($items->pluck('product_uuid')->toArray(), [
+                'uuid',
+                'price',
+            ]);
+
+        if ($products->isEmpty()) {
+            throw OrderItemException::notFound('Order items not found.');
+        }
+
+        $orderItems = $this->productModelMapper->withItemsToOrderItem($products, $items);
+
         return new OrderFormableDTO(
             status: OrderStatusEnum::PREPARING,
-            type: $orderFormable->type(),
-            subtotalAmount: (int)$orderFormable->subtotalAmount(),
-            totalAmount: (int)$orderFormable->totalAmount(),
-            paymentMethod: $orderFormable->paymentMethod(),
-            isPaid: $orderFormable->isPaid(),
-            annotation: $orderFormable->annotation(),
+            type: $type,
+            subtotalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
+            totalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
+            paymentMethod: $paymentMethod,
+            isPaid: false,
+            annotation: $annotation,
         );
     }
 }

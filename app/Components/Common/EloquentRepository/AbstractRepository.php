@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Components\Common\EloquentRepository;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 abstract class AbstractRepository
 {
-    public function getByIdOrFail(string $uuid, array $columns = ['*']): ?Model
+    public function getByUuidOrFail(string $uuid, array $columns = ['*']): ?Model
     {
         return $this->model->findOrFail($uuid, $columns);
     }
@@ -38,5 +39,14 @@ abstract class AbstractRepository
         }
 
         return $model->delete();
+    }
+
+    public function getByUuids(array $uuids, array $columns = ['*']): Collection
+    {
+        return $this->model
+            ->newQuery()
+            ->select($columns)
+            ->whereIn('uuid', $uuids)
+            ->get();
     }
 }

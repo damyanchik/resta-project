@@ -23,10 +23,13 @@ class OrderViewModelFactory
             paymentMethod: $orderDTO->paymentMethod ?? '',
             isPaid: $orderDTO->isPaid,
             annotation: $orderDTO->annotation ?? '',
-            orderItems: $orderDTO->orderItems->map([
-                $this->itemViewModelFactory,
-                'createOrderItemViewModelByOrderItemDTO'
-            ]),
+            orderItems: $orderDTO->orderItems
+                ->map([
+                    $this->itemViewModelFactory,
+                    'createOrderItemViewModelByOrderItemDTO'
+                ])
+                ->map(fn($item) => $item->toArray())
+                ->toArray(),
         );
     }
 }

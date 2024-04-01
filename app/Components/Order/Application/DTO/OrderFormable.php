@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 interface OrderFormable
 {
     public function type(): OrderTypeEnum;
+    public function paymentMethod(): string;
     public function annotation(): string;
     public function items(): Collection;
 }

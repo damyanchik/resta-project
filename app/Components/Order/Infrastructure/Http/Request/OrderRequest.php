@@ -15,6 +15,7 @@ class OrderRequest extends FormRequest implements OrderFormable
     {
         return [
             'type' => ['required', 'string'],
+            'payment_method' => ['nullable', 'string'],
             'annotation' => ['nullable', 'string'],
             'items.*' => ['required', 'array'],
             'items.*.quantity' => ['required'],
@@ -26,6 +27,11 @@ class OrderRequest extends FormRequest implements OrderFormable
     public function type(): OrderTypeEnum
     {
         return $this->enum('type', OrderTypeEnum::class);
+    }
+
+    public function paymentMethod(): string
+    {
+        return $this->string('payment_method')->toString();
     }
 
     public function annotation(): string

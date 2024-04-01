@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Domain\DTO;
 
+use Akaunting\Money\Money;
 use App\Components\Common\EloquentRepository\EloquentDataBag;
 use App\Components\Order\Domain\Enum\OrderStatusEnum;
 use App\Components\Order\Domain\Enum\OrderTypeEnum;
@@ -13,8 +14,8 @@ class OrderFormableDTO implements EloquentDataBag
     public function __construct(
         private readonly OrderStatusEnum $status,
         private readonly OrderTypeEnum $type,
-        private readonly int $subtotalAmount,
-        private readonly int $totalAmount,
+        private readonly Money $subtotalAmount,
+        private readonly Money $totalAmount,
         private readonly string $paymentMethod,
         private readonly bool $isPaid,
         private readonly string $annotation,

@@ -6,6 +6,7 @@ namespace App\Components\Order\Infrastructure\Facade;
 
 use App\Components\Order\Application\DTO\OrderFormable;
 use App\Components\Order\Domain\DTO\OrderDTO;
+use App\Components\Order\Domain\Exception\OrderItemException;
 use App\Components\Order\Infrastructure\Factory\OrderDTOFactory;
 use App\Components\Order\Infrastructure\Repository\OrderRepository;
 
@@ -18,6 +19,9 @@ class OrderFacade
     {
     }
 
+    /**
+     * @throws OrderItemException
+     */
     public function getPreviewByFormable(OrderFormable $orderFormable): OrderDTO
     {
         return $this->orderDTOFactory->createOrderDTOForPreview(
@@ -28,6 +32,13 @@ class OrderFacade
 
     public function createByFormable(OrderFormable $orderFormable): bool
     {
-        return $this->orderRepository->create($this->orderDTOFactory->createOrderFormableDTO($orderFormable));
+        return $this->orderRepository->create(
+            $this->orderDTOFactory->createOrderFormableDTO(
+                type: $orderFormable->type(),
+                items: $orderFormable->items(),
+                paymentMethod: $orderFormable->paymentMethod() ?? 'asd',
+                annotation: $orderFormable->annotation(),
+            ),
+        );
     }
 }

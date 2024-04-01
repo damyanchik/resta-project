@@ -170,6 +170,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         \App\Components\Product\Infrastructure\ServiceProvider\ProductServiceProvider::class,
+        \App\Components\Finance\Infrastructure\ServiceProvider\FinanceServiceProvider::class,
         ListingProvider::class,
     ])->toArray(),
 

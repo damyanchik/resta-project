@@ -39,7 +39,7 @@ class ProductFacade
 
     public function getSingleProduct(int $id): ?ProductDTO
     {
-        $product = $this->productRepository->getByIdOrFail($id);
+        $product = $this->productRepository->getByUuidOrFail($id);
 
         if ($product === null) {
             return null;

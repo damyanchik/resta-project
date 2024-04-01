@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Infrastructure\Http\Handler;
 
+use App\Components\Order\Domain\Exception\OrderItemException;
 use App\Components\Order\Infrastructure\Facade\OrderFacade;
 use App\Components\Order\Infrastructure\Factory\ViewModel\OrderViewModelFactory;
 use App\Components\Order\Infrastructure\Http\Request\OrderRequest;
@@ -19,10 +20,15 @@ class PreviewOrderHandler
     {
     }
 
+    /**
+     * @throws OrderItemException
+     */
     public function __invoke(OrderRequest $request): JsonResponse
     {
         $orderDTO = $this->orderFacade->getPreviewByFormable($request);
 
-        dd($this->viewModelFactory->createOrderViewModelByOrderDTO($orderDTO)->toArray());
+        return $this->jsonResponse->setData(
+            $this->viewModelFactory->createOrderViewModelByOrderDTO($orderDTO)->toArray()
+        );
     }
 }

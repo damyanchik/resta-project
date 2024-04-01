@@ -23,5 +23,4 @@ class OrderItemViewModelFactory
             orderNr: $orderItemDTO->orderNr,
         );
     }
-
 }

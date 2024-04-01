@@ -15,7 +15,7 @@ class UserRepository extends AbstractRepository
 
     public function toggleStatus(string $uuid, int $status): bool
     {
-        $user = $this->getByIdOrFail($uuid);
+        $user = $this->getByUuidOrFail($uuid);
 
         if ($user === null) {
             return false;

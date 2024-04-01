@@ -46,7 +46,7 @@ class UserFacade
 
     public function getSingleUser(string $uuid): ?UserDTO
     {
-        $user = $this->userRepository->getByIdOrFail($uuid);
+        $user = $this->userRepository->getByUuidOrFail($uuid);
 
         if ($user === null) {
             return null;
