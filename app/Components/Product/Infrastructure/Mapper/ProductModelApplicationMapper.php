@@ -23,16 +23,15 @@ class ProductModelApplicationMapper implements ProductModelMapper
             $matchedItem = $items->where('product_uuid', $product['uuid'])->first();
 
             if ($matchedItem) {
+                $subtotalUnit = $this->priceCalculator->calculateSubtotalUnit(Money::EUR($product['price']));
+                $totalUnit = $this->priceCalculator->calculateTotalUnit(Money::EUR($product['price']));
+
                 return new OrderItemDTO(
                     productUuid: $product['uuid'],
-                    subtotalUnitPrice: $this->priceCalculator
-                        ->calculateSubtotalAmount(Money::EUR($product['price'])),
-                    totalUnitPrice: $this->priceCalculator
-                        ->calculateTotalAmount(Money::EUR($product['price'])),
-                    subtotalPrice: $this->priceCalculator
-                        ->calculateSubtotalAmount(Money::EUR($product['price'] * $matchedItem['quantity'])),
-                    totalPrice: $this->priceCalculator
-                        ->calculateTotalAmount(Money::EUR($product['price'] * $matchedItem['quantity'])),
+                    subtotalUnitPrice: $subtotalUnit,
+                    totalUnitPrice: $totalUnit,
+                    subtotalPrice: $subtotalUnit->multiply((int) $matchedItem['quantity']),
+                    totalPrice: $totalUnit->multiply((int) $matchedItem['quantity']),
                     quantity: (int)$matchedItem['quantity'],
                     status: OrderItemStatusEnum::PREPARING,
                     annotation: '',

@@ -18,10 +18,8 @@ use Illuminate\Support\Collection;
 class OrderDTOFactory
 {
     public function __construct(
-        private readonly OrderItemDTOFactory $itemDTOFactory,
         private readonly ProductRepository   $productRepository,
         private readonly ProductModelMapper  $productModelMapper,
-        private readonly PriceCalculator     $priceCalculator,
     )
     {
     }
@@ -29,31 +27,28 @@ class OrderDTOFactory
     /**
      * @throws OrderItemException
      */
-    public function createOrderDTOForPreview(OrderTypeEnum $type, Collection $items): OrderDTO
+    public function createOrderDTOForPreview(
+        OrderTypeEnum $type,
+        Collection $items,
+        string $annotation
+    ): OrderDTO
     {
-        $products = $this->productRepository
-            ->getByUuids($items->pluck('product_uuid')->toArray(), [
-                'uuid',
-                'name',
-                'price',
-                'is_vegetarian',
-                'is_spicy',
-            ]);
-
-        if ($products->isEmpty()) {
-            throw OrderItemException::notFound('Order items not found.');
-        }
-
-        $orderItems = $this->productModelMapper->withItemsToOrderItem($products, $items);
+        $orderItems = $this->getOrderItems($items, [
+            'uuid',
+            'name',
+            'price',
+            'is_vegetarian',
+            'is_spicy',
+        ]);
 
         return new OrderDTO(
             status: OrderStatusEnum::PREPARING,
             type: $type,
             subtotalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
-            totalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
+            totalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->totalPrice->getAmount())),
             paymentMethod: null,
             isPaid: false,
-            annotation: null,
+            annotation: $annotation,
             orderItems: $orderItems,
         );
     }
@@ -68,26 +63,31 @@ class OrderDTOFactory
         string $annotation,
     ): OrderFormableDTO
     {
-        $products = $this->productRepository
-            ->getByUuids($items->pluck('product_uuid')->toArray(), [
-                'uuid',
-                'price',
-            ]);
-
-        if ($products->isEmpty()) {
-            throw OrderItemException::notFound('Order items not found.');
-        }
-
-        $orderItems = $this->productModelMapper->withItemsToOrderItem($products, $items);
+        $orderItems = $this->getOrderItems($items, ['uuid', 'price']);
 
         return new OrderFormableDTO(
             status: OrderStatusEnum::PREPARING,
             type: $type,
             subtotalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
-            totalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
+            totalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->totalPrice->getAmount())),
             paymentMethod: $paymentMethod,
             isPaid: false,
             annotation: $annotation,
         );
+    }
+
+    /**
+     * @throws OrderItemException
+     */
+    private function getOrderItems(Collection $items, array $columns = ['*']): Collection
+    {
+        $products = $this->productRepository
+            ->getByUuids($items->pluck('product_uuid')->toArray(), $columns);
+
+        if ($products->isEmpty()) {
+            throw OrderItemException::notFound('Order items not found.');
+        }
+
+        return $this->productModelMapper->withItemsToOrderItem($products, $items);
     }
 }

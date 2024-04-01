@@ -27,9 +27,13 @@ class OrderFacade
         return $this->orderDTOFactory->createOrderDTOForPreview(
             type: $orderFormable->type(),
             items: $orderFormable->items(),
+            annotation: $orderFormable->annotation(),
         );
     }
 
+    /**
+     * @throws OrderItemException
+     */
     public function createByFormable(OrderFormable $orderFormable): bool
     {
         return $this->orderRepository->create(

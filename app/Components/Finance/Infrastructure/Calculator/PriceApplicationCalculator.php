@@ -9,18 +9,18 @@ use App\Components\Finance\Application\Calculator\PriceCalculator;
 
 class PriceApplicationCalculator implements PriceCalculator
 {
-    public function calculateSubtotalAmount(Money $amount): Money
+    public function calculateSubtotalUnit(Money $amount): Money
     {
         return $amount->subtract($this->calculateTaxAmount($amount));
     }
 
-    public function calculateTotalAmount(Money $amount, int $discount = 0): Money
+    public function calculateTotalUnit(Money $amount, int $discount = 0): Money
     {
         if ($discount === 0) {
             return $amount;
         }
 
-        $subtotal = $this->calculateSubtotalAmount($amount);
+        $subtotal = $this->calculateSubtotalUnit($amount);
         $discountAmount = $this->calculateDiscountAmount($subtotal, $discount);
 
         return $amount->subtract($discountAmount);
