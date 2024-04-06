@@ -55,24 +55,24 @@ class UpdateProductRequest extends FormRequest implements ProductFormable
         return $this->string('status')->toString();
     }
 
-    public function productIsUnlimited(): int
+    public function productIsUnlimited(): bool
     {
-        return $this->integer('is_unlimited');
+        return $this->boolean('is_unlimited');
     }
 
-    public function productIsVegetarian(): int
+    public function productIsVegetarian(): bool
     {
-        return $this->integer('is_vegetarian');
+        return $this->boolean('is_vegetarian');
     }
 
-    public function productIsSpicy(): int
+    public function productIsSpicy(): bool
     {
-        return $this->integer('is_spicy');
+        return $this->boolean('is_spicy');
     }
 
-    public function productIsAvailable(): int
+    public function productIsAvailable(): bool
     {
-        return $this->integer('is_available');
+        return $this->boolean('is_available');
     }
 
     public function productCategoryId(): int

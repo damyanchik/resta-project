@@ -22,7 +22,7 @@ class ProductDTOFactory
             isVegetarian: $productFormable->productIsVegetarian(),
             isSpicy: $productFormable->productIsSpicy(),
             isAvailable: $productFormable->productIsAvailable(),
-            categoryId: $productFormable->productCategoryId(),
+            categoryUuid: $productFormable->productCategoryId(),
             orderNr: $productFormable->productOrderNr(),
         );
     }
@@ -38,7 +38,7 @@ class ProductDTOFactory
             isVegetarian: $product->is_vegetarian,
             isSpicy: $product->is_spicy,
             isAvailable: $product->is_available,
-            categoryId: $product->category_id,
+            categoryUuid: $product->category_id,
             orderNr: $product->order_nr,
         );
     }

@@ -8,6 +8,7 @@ use Akaunting\Money\Money;
 use App\Components\Common\EloquentRepository\EloquentDataBag;
 use App\Components\Order\Domain\Enum\OrderStatusEnum;
 use App\Components\Order\Domain\Enum\OrderTypeEnum;
+use Illuminate\Support\Collection;
 
 class OrderFormableDTO implements EloquentDataBag
 {
@@ -19,6 +20,7 @@ class OrderFormableDTO implements EloquentDataBag
         private readonly string $paymentMethod,
         private readonly bool $isPaid,
         private readonly string $annotation,
+        private readonly Collection $items,
     )
     {
     }
@@ -28,11 +30,12 @@ class OrderFormableDTO implements EloquentDataBag
         return [
             'status' => $this->status->value,
             'type' => $this->type->value,
-            'subtotal_amount' => $this->subtotalAmount,
-            'total_amount' => $this->totalAmount,
+            'subtotal_amount' => $this->subtotalAmount->getAmount(),
+            'total_amount' => $this->totalAmount->getAmount(),
             'payment_method' => $this->paymentMethod,
             'is_paid' => $this->isPaid,
             'annotation' => $this->annotation,
+            'items' => $this->items->toArray(), //orderItemFormable
         ];
     }
 }

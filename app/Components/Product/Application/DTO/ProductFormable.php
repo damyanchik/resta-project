@@ -10,10 +10,10 @@ interface ProductFormable
     public function productDescription(): string;
     public function productStock(): int;
     public function productPrice(): int;
-    public function productIsUnlimited(): int;
-    public function productIsVegetarian(): int;
-    public function productIsSpicy(): int;
-    public function productIsAvailable(): int;
+    public function productIsUnlimited(): bool;
+    public function productIsVegetarian(): bool;
+    public function productIsSpicy(): bool;
+    public function productIsAvailable(): bool;
     public function productCategoryId(): int;
     public function productOrderNr(): int;
 }

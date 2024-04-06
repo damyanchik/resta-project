@@ -17,20 +17,10 @@ class CreateOrderHandler
     {
     }
 
-    public function __invoke(OrderRequest $orderRequest): JsonResponse
+    public function __invoke(OrderRequest $orderRequest)//: JsonResponse
     {
-        try {
-            $this->orderFacade->createByFormable($orderRequest);
-        } catch (\Exception) {
-            return $this->jsonResponse->setData([
-                'status' => 'failed',
-                'message' => 'Product not created.'
-            ]);
-        }
+        $this->orderFacade->createByFormable($orderRequest);
 
-        return $this->jsonResponse->setData([
-            'status' => 'success',
-            'message' => 'Product successfully created.'
-        ]);
+        //return $this->jsonResponse->setData(['test' => 'test']);
     }
 }

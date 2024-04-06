@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Components\Order\Infrastructure\Factory;
 
 use Akaunting\Money\Money;
-use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Order\Domain\DTO\OrderDTO;
 use App\Components\Order\Domain\DTO\OrderFormableDTO;
 use App\Components\Order\Domain\Enum\OrderStatusEnum;
@@ -42,7 +41,7 @@ class OrderDTOFactory
         ]);
 
         return new OrderDTO(
-            status: OrderStatusEnum::PREPARING,
+            status: OrderStatusEnum::RECEIVED,
             type: $type,
             subtotalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
             totalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->totalPrice->getAmount())),
@@ -66,13 +65,14 @@ class OrderDTOFactory
         $orderItems = $this->getOrderItems($items, ['uuid', 'price']);
 
         return new OrderFormableDTO(
-            status: OrderStatusEnum::PREPARING,
+            status: OrderStatusEnum::RECEIVED,
             type: $type,
             subtotalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->subtotalPrice->getAmount())),
             totalAmount: Money::EUR($orderItems->sum(fn($orderItem) => $orderItem->totalPrice->getAmount())),
             paymentMethod: $paymentMethod,
             isPaid: false,
             annotation: $annotation,
+            items: $orderItems,
         );
     }
 

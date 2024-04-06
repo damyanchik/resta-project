@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::post('/api/order', \App\Components\Order\Infrastructure\Http\Handler\CreateOrderHandler::class)
-//    ->name('order.create');
+Route::post('/api/order', \App\Components\Order\Infrastructure\Http\Handler\CreateOrderHandler::class)
+    ->name('order.create');
 
 Route::get('/api/order/preview', \App\Components\Order\Infrastructure\Http\Handler\PreviewOrderHandler::class)
     ->name('order.preview');

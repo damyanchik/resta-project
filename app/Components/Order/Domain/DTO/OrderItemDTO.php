@@ -13,13 +13,21 @@ class OrderItemDTO
         public readonly string $productUuid,
         public readonly Money $subtotalUnitPrice,
         public readonly Money $totalUnitPrice,
-        public readonly Money $subtotalPrice,
-        public readonly Money $totalPrice,
         public readonly int $quantity,
         public readonly OrderItemStatusEnum $status,
         public readonly string $annotation,
         public readonly int $orderNr,
     )
     {
+    }
+
+    public function subtotalPrice(): Money
+    {
+        return $this->subtotalUnitPrice->multiply($this->quantity);
+    }
+
+    public function totalPrice(): Money
+    {
+        return $this->totalUnitPrice->multiply($this->quantity);
     }
 }

@@ -40,7 +40,7 @@ class OrderFacade
             $this->orderDTOFactory->createOrderFormableDTO(
                 type: $orderFormable->type(),
                 items: $orderFormable->items(),
-                paymentMethod: $orderFormable->paymentMethod() ?? 'asd',
+                paymentMethod: $orderFormable->paymentMethod(),
                 annotation: $orderFormable->annotation(),
             ),
         );

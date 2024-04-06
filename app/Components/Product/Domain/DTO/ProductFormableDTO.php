@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Domain\DTO;
 
+use Akaunting\Money\Money;
 use App\Components\Common\EloquentRepository\EloquentDataBag;
 
 class ProductFormableDTO implements EloquentDataBag
@@ -12,12 +13,12 @@ class ProductFormableDTO implements EloquentDataBag
         public readonly string $name,
         public readonly string $description,
         public readonly int $stock,
-        public readonly int $price,
-        public readonly int $isUnlimited,
-        public readonly int $isVegetarian,
-        public readonly int $isSpicy,
-        public readonly int $isAvailable,
-        public readonly int $categoryId,
+        public readonly Money $price,
+        public readonly bool $isUnlimited,
+        public readonly bool $isVegetarian,
+        public readonly bool $isSpicy,
+        public readonly bool $isAvailable,
+        public readonly int $categoryUuid,
         public readonly int $orderNr,
     )
     {
@@ -34,7 +35,7 @@ class ProductFormableDTO implements EloquentDataBag
             'is_vegetarian' => $this->isVegetarian,
             'is_spicy' => $this->isSpicy,
             'is_available' => $this->isAvailable,
-            'category_id' => $this->categoryId,
+            'category_id' => $this->categoryUuid,
             'order_nr' => $this->orderNr,
         ];
     }
