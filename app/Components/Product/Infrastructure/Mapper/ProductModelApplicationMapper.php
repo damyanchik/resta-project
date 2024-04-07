@@ -9,11 +9,16 @@ use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Order\Domain\DTO\OrderItemDTO;
 use App\Components\Order\Domain\Enum\OrderItemStatusEnum;
 use App\Components\Product\Application\Mapper\ProductModelMapper;
+use App\Components\Product\Application\Repository\ProductRepository;
+use App\Components\Product\Domain\DTO\ProductShortDTO;
+use App\Components\Shopcart\Application\Factory\ShopcartDTOFactory;
 use Illuminate\Support\Collection;
 
 class ProductModelApplicationMapper implements ProductModelMapper
 {
-    public function __construct(private readonly PriceCalculator $priceCalculator)
+    public function __construct(
+        private readonly PriceCalculator $priceCalculator,
+    )
     {
     }
 
@@ -30,8 +35,6 @@ class ProductModelApplicationMapper implements ProductModelMapper
                     productUuid: $product['uuid'],
                     subtotalUnitPrice: $subtotalUnit,
                     totalUnitPrice: $totalUnit,
-                    subtotalPrice: $subtotalUnit->multiply((int) $matchedItem['quantity']),
-                    totalPrice: $totalUnit->multiply((int) $matchedItem['quantity']),
                     quantity: (int)$matchedItem['quantity'],
                     status: OrderItemStatusEnum::PREPARING,
                     annotation: '',

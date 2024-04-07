@@ -15,11 +15,17 @@ class ShopcartFacade
     {
     }
 
+
+    //zmenic nazwe
     public function createByFormable(ShopcartFormable $shopcartFormable)
     {
-        $this->factory->createShopcartDTO(
+        $this->factory->createShopcartItemFormableDTO(
             quantity: $shopcartFormable->quantity(),
             productUuid: $shopcartFormable->productUuid(),
         );
     }
+
+    //show kolejne i tyle
+
+    //moze remove +
 }

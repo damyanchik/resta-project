@@ -4,76 +4,52 @@ declare(strict_types=1);
 
 namespace App\Components\Shopcart\Infrastructure\Http\Session;
 
-use App\Components\Product\Application\Repository\ProductRepository;
 use App\Components\Shopcart\Domain\DTO\ShopcartDTO;
+use App\Components\Shopcart\Domain\DTO\ShopcartItemFormableDTO;
 use App\Components\Shopcart\Infrastructure\Factory\ShopcartDTOFactory;
+use App\Components\Shopcart\Infrastructure\Service\ShopcartService;
 use Illuminate\Contracts\Session\Session;
-use Illuminate\Support\Collection;
 
 class ShopcartSession
 {
     public function __construct(
-        private readonly ProductRepository  $productRepository,
+        private readonly ShopcartService $shopcartService,
         private readonly ShopcartDTOFactory $factory,
     )
     {
     }
 
-    public function update(Session $session, ShopcartDTO $shopcartDTO)
+    public function update(Session $session, ShopcartItemFormableDTO $shopcartDTO): void
     {
-        //co jezeli uuid sie powtarza? stare UUID juz nie bedzie wazne!
         $shopcart = $session->get('shopcart', []);
 
-        $this->reload($shopcart, $shopcartDTO);
+        $shopcart[$shopcartDTO->productUuid] = $shopcartDTO->quantity;
 
+        $shopcartItems = $this->shopcartService->getValidatedItems($shopcart);
 
-        //RESOLVER - weryfikacja calego shopcarty ORAZ repository
-
-
-        //przeliczac na nowo pozycje
-        //pobiera wszystkie pozycje i na nowo, konieczne product DTO
-        //try catch
-
-        //przeniesienie do shopcart
-
-        $session->put('shopcart', $shopcart);
+        $session->put('shopcart', $shopcartItems);
     }
 
-    public function show()
+    public function show(Session $session): ?ShopcartDTO
     {
-        //tutaj reload bez shopcart
+        $shopcart = $session->get('shopcart', []);
+
+        if (empty($shopcart)) {
+            return null;
+        }
+
+        //reload
+
+        $this->factory->createShopcartItemFormableDTO();
     }
 
     public function get()
     {
-        //tez
+        //wez konkretny?
     }
 
-    //moze shopcartDTO wczesniej przed reloadem do array?
-    private function reload(array $sessionShopcart, ShopcartDTO $shopcartDTO)
+    public function remove()
     {
-        $productsUuids = array_keys($sessionShopcart) + [$shopcartDTO->productUuid ?? null];
 
-        $product = $this->productRepository->getByUuids(
-            uuids: array_unique($productsUuids),
-            columns: ['uuid', 'stock', 'is_unlimited'],
-        );
-
-        $repositoryDTOs = $product->map(function ($item) {
-            return $this->factory->createShopcartDTO($item->stock, $item->uuid);
-        });
-
-        $shopcartDTOs = Collection::make($sessionShopcart)
-            ->map(function ($quantity, $uuid) {
-                return $this->factory->createShopcartDTO($quantity, $uuid);
-            })
-            ->put($shopcartDTO->productUuid, $shopcartDTO);
-
-        $result = $shopcartDTOs->map(function ($item) use ($repositoryDTOs) {
-            //walidacja
-        });
-
-        //RESOLVER
-        //mapowanie do shopcart
     }
 }

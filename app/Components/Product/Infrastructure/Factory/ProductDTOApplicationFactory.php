@@ -5,12 +5,20 @@ declare(strict_types=1);
 namespace App\Components\Product\Infrastructure\Factory;
 
 use App\Components\Product\Application\DTO\ProductFormable;
+use App\Components\Product\Application\Factory\ProductDTOFactory;
 use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Product\Domain\DTO\ProductFormableDTO;
+use App\Components\Product\Domain\DTO\ProductShortDTO;
 use App\Components\Product\Domain\Model\Product;
+use App\Components\Product\Infrastructure\Repository\ProductRepository;
+use Illuminate\Support\Collection;
 
-class ProductDTOFactory
+class ProductDTOApplicationFactory implements ProductDTOFactory
 {
+    public function __construct(private readonly ProductRepository $productRepository)
+    {
+    }
+
     public function createForFormation(ProductFormable $productFormable): ProductFormableDTO
     {
         return new ProductFormableDTO(
@@ -41,5 +49,21 @@ class ProductDTOFactory
             categoryUuid: $product->category_id,
             orderNr: $product->order_nr,
         );
+    }
+
+    public function toProductShortDTOs(array $uuids): Collection
+    {
+        $product = $this->productRepository->getByUuids(
+            uuids: $uuids,
+            columns: ['uuid', 'stock', 'is_available', 'is_unlimited'],
+        );
+
+        return $product->map(function ($item) {
+            return [$item->uuid => new ProductShortDTO(
+                stock: $item->stock,
+                isUnlimited: $item->is_unlimited,
+                isAvailable: $item->is_available,
+            )];
+        });
     }
 }

@@ -6,11 +6,6 @@ namespace App\Components\Shopcart\Domain\DTO;
 
 class ShopcartItemDTO
 {
-    public function __construct(
-        public readonly string $productUuid,
-        public readonly int $quantity,
-        public readonly string $annotation,
-    )
-    {
-    }
+    //quantity
+    //reszta info od produktu, name itd
 }
