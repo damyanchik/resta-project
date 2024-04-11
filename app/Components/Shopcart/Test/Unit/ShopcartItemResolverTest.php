@@ -17,16 +17,21 @@ class ShopcartItemResolverTest extends TestCase
     {
         $resolver = new ShopcartItemResolver();
 
+        $firstProductUuid = Str::uuid()->toString();
+        $secondProductUuid = Str::uuid()->toString();
+
         $shopcartDTOs = Collection::make([
-            new ShopcartItemFormableDTO(5, Str::uuid()->toString()),
-            new ShopcartItemFormableDTO(10, Str::uuid()->toString()),
+            new ShopcartItemFormableDTO(5, $firstProductUuid),
+            new ShopcartItemFormableDTO(10, $secondProductUuid),
         ]);
 
         $productDTOs = Collection::make([
-            Str::uuid()->toString() => new ProductShortDTO(50,true, false),
-            '928b48e3-ed13-4991-bf3d-c0795e7ceed4' => new ProductShortDTO(100, false, false),
+            $firstProductUuid => new ProductShortDTO(50,true, true),
+            $secondProductUuid => new ProductShortDTO(100, false, false),
         ]);
 
         $resolved = $resolver->betweenRepositoryAndSession($shopcartDTOs, $productDTOs);
+
+        dd($resolved);
     }
 }

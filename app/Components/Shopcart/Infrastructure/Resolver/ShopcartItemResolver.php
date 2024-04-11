@@ -12,18 +12,20 @@ class ShopcartItemResolver
 {
     public function betweenRepositoryAndSession(Collection $shopcartDTOs, Collection $productShortDTOs): Collection
     {
-
         return $shopcartDTOs->map(function ($item) use ($productShortDTOs) {
+            $product = $productShortDTOs->get($item->productUuid);
 
-            $product = $productShortDTOs->get('928b48e3-ed13-4991-bf3d-c0795e7ceed4');
-//            try {
+            try {
                 ShopcartValidation::isProduct($product);
                 ShopcartValidation::isAvailableProduct($product);
                 ShopcartValidation::isProductStockHigherOrEqual($item, $product);
-//            } catch (ShopcartException) {
-//                continue;
-//            }
+            } catch (ShopcartException) {
+                return null;
+            }
 
-        });
+            //+1 opcja dot product stock, jezeli jest cos dostpenego to daje pelny
+
+            return $item;
+        })->filter(fn($item) => !empty($item));
     }
 }

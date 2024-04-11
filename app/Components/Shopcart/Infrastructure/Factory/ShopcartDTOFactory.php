@@ -24,9 +24,12 @@ class ShopcartDTOFactory
 
     public function createShopcartDTO(array $shopcart): ShopcartDTO
     {
-        return new ShopcartDTO(products: $products);
+        //pobieranie product
+        //w kolekcje + shopcartItemDto
+        return new ShopcartDTO();
     }
 
+    //+ productDTO
     public function createShopcartItemDTO(
         int $quantity,
         ProductDTO $productDTO,

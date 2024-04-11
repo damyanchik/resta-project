@@ -10,37 +10,39 @@ use App\Components\Shopcart\Infrastructure\Factory\ShopcartDTOFactory;
 use App\Components\Shopcart\Infrastructure\Service\ShopcartService;
 use Illuminate\Contracts\Session\Session;
 
-class ShopcartSession
+class Shopcart
 {
     public function __construct(
-        private readonly ShopcartService $shopcartService,
+        private readonly Session            $session,
+        private readonly ShopcartService    $shopcartService,
         private readonly ShopcartDTOFactory $factory,
     )
     {
     }
 
-    public function update(Session $session, ShopcartItemFormableDTO $shopcartDTO): void
+    public function update(ShopcartItemFormableDTO $shopcartDTO): void
     {
-        $shopcart = $session->get('shopcart', []);
+        $shopcart = $this->session->get('shopcart', []);
 
         $shopcart[$shopcartDTO->productUuid] = $shopcartDTO->quantity;
 
         $shopcartItems = $this->shopcartService->getValidatedItems($shopcart);
 
-        $session->put('shopcart', $shopcartItems);
+        $this->session->put('shopcart', $shopcartItems);
     }
 
-    public function show(Session $session): ?ShopcartDTO
+    public function show(): ?ShopcartDTO
     {
-        $shopcart = $session->get('shopcart', []);
+        $shopcart = $this->session->get('shopcart', []);
 
         if (empty($shopcart)) {
             return null;
         }
 
-        //reload
+        $shopcartItems = $this->shopcartService->getValidatedItems($shopcart);
+        $this->session->put('shopcart', $shopcartItems);
 
-        $this->factory->createShopcartItemFormableDTO();
+        return $this->factory->createShopcartDTO($shopcartItems);
     }
 
     public function get()

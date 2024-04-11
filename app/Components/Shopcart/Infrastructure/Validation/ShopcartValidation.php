@@ -13,13 +13,13 @@ class ShopcartValidation
     public static function isProduct(?object $shopcartItem): void
     {
         if ($shopcartItem === null) {
-            throw ShopcartException::notFound('Product not found.', 'uuid');
+            throw ShopcartException::notFound('Product not found.');
         }
     }
 
     public static function isAvailableProduct(ProductShortDTO $productShortDTO): void
     {
-        if ($productShortDTO->isAvailable) {
+        if (! $productShortDTO->isAvailable) {
             throw ShopcartException::unavailable();
         }
     }
