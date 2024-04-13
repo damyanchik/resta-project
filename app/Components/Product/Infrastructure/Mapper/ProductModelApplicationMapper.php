@@ -9,9 +9,7 @@ use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Order\Domain\DTO\OrderItemDTO;
 use App\Components\Order\Domain\Enum\OrderItemStatusEnum;
 use App\Components\Product\Application\Mapper\ProductModelMapper;
-use App\Components\Product\Application\Repository\ProductRepository;
-use App\Components\Product\Domain\DTO\ProductShortDTO;
-use App\Components\Shopcart\Application\Factory\ShopcartDTOFactory;
+use App\Components\Shopcart\Domain\DTO\ShopcartItemDTO;
 use Illuminate\Support\Collection;
 
 class ProductModelApplicationMapper implements ProductModelMapper
@@ -20,6 +18,18 @@ class ProductModelApplicationMapper implements ProductModelMapper
         private readonly PriceCalculator $priceCalculator,
     )
     {
+    }
+
+    public function toShopcartItemPreviewDTOs(Collection $products): Collection
+    {
+        return $products->mapWithKeys(fn($product) => [$product->uuid => new ShopcartItemDTO(
+            name: $product->name,
+            quantity: $product->quantity,
+            nettPrice: Money::EUR($product->price),
+            grossPrice: Money::EUR($product->price),
+            isVegetarian: $product->is_vegetarian,
+            isSpicy: $product->is_spicy,
+        )]);
     }
 
     public function withItemsToOrderItem(Collection $products, Collection $items): Collection

@@ -8,7 +8,7 @@ use App\Components\Common\EloquentRepository\AbstractRepository;
 use App\Components\Product\Application\Repository\ProductRepository;
 use App\Components\Product\Domain\Model\Product;
 
-class ProductRepository extends AbstractRepository implements ProductRepository
+class ProductApplicationRepository extends AbstractRepository implements ProductRepository
 {
     public function __construct(protected readonly Product $model)
     {

@@ -9,7 +9,6 @@ use Akaunting\Money\Money;
 class ProductPreviewDTO
 {
     public function __construct(
-        public readonly string $uuid,
         public readonly string $name,
         public readonly int $stock,
         public readonly Money $price,

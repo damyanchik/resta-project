@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class ShopcartItemsMapper
 {
-    public function toShopcartFormableDTOs(array $shopcartItems): Collection
+    public function toFormableDTOs(array $shopcartItems): Collection
     {
         return (new Collection($shopcartItems))
             ->map(function ($item, $uuid) {
@@ -23,7 +23,7 @@ class ShopcartItemsMapper
 
     public function fromShopcartFormableDTOs(Collection $shopcartItems): array
     {
-        return  $shopcartItems->mapWithKeys(function ($item) {
+        return $shopcartItems->mapWithKeys(function ($item) {
                 return [$item->productUuid => ['quantity' => $item->quantity]] ;
             })
             ->toArray();

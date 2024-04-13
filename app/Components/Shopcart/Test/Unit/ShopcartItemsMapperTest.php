@@ -21,7 +21,7 @@ class ShopcartItemsMapperTest extends TestCase
             Str::uuid()->toString() => ['quantity' => 100],
         ];
 
-        $shopcartDTOs = $this->mapper->toShopcartFormableDTOs($items);
+        $shopcartDTOs = $this->mapper->toFormableDTOs($items);
 
         $this->assertSame(array_values($items)[0]['quantity'], $shopcartDTOs->first()->quantity);
         $this->assertSame(array_values($items)[1]['quantity'], $shopcartDTOs->last()->quantity);

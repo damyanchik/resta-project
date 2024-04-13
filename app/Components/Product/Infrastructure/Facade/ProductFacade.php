@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Components\Product\Infrastructure\Facade;
 
 use App\Components\Product\Application\DTO\ProductFormable;
+use App\Components\Product\Application\Repository\ProductRepository;
 use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Product\Infrastructure\Factory\ProductDTOApplicationFactory;
-use App\Components\Product\Infrastructure\Repository\ProductRepository;
 
 class ProductFacade
 {
@@ -20,32 +20,32 @@ class ProductFacade
 
     public function createProduct(ProductFormable $productFormable): bool
     {
-        $productDto = $this->productDTOFactory->createForFormation($productFormable);
+        $productDto = $this->productDTOFactory->createProductFormationDTO($productFormable);
 
         return $this->productRepository->create($productDto);
     }
 
-    public function updateProduct(ProductFormable $productFormable, int $id): bool
+    public function updateProduct(ProductFormable $productFormable, string $uuid): bool
     {
-        $productDto = $this->productDTOFactory->createForFormation($productFormable);
+        $productDto = $this->productDTOFactory->createProductFormationDTO($productFormable);
 
-        return $this->productRepository->update($productDto, $id);
+        return $this->productRepository->update($productDto, $uuid);
     }
 
-    public function deleteUser(int $id): bool
+    public function deleteUser(string $uuid): bool
     {
-        return $this->productRepository->delete($id);
+        return $this->productRepository->delete($uuid);
     }
 
-    public function getSingleProduct(int $id): ?ProductDTO
+    public function getSingleProduct(string $uuid): ?ProductDTO
     {
-        $product = $this->productRepository->getByUuidOrFail($id);
+        $product = $this->productRepository->getByUuidOrFail($uuid);
 
         if ($product === null) {
             return null;
         }
 
-        return $this->productDTOFactory->createForFetched($product);
+        return $this->productDTOFactory->createProductDTO($product);
     }
 
 }

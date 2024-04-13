@@ -19,7 +19,7 @@ class ProductDTOApplicationFactory implements ProductDTOFactory
     {
     }
 
-    public function createForFormation(ProductFormable $productFormable): ProductFormableDTO
+    public function createProductFormationDTO(ProductFormable $productFormable): ProductFormableDTO
     {
         return new ProductFormableDTO(
             name: $productFormable->productName(),
@@ -35,7 +35,7 @@ class ProductDTOApplicationFactory implements ProductDTOFactory
         );
     }
 
-    public function createForFetched(Product $product): ProductDTO
+    public function createProductDTO(Product $product): ProductDTO
     {
         return new ProductDTO(
             name: $product->name,
@@ -51,7 +51,7 @@ class ProductDTOApplicationFactory implements ProductDTOFactory
         );
     }
 
-    public function toProductShortDTOs(array $uuids): Collection
+    public function createProductShortDTOs(array $uuids): Collection
     {
         $product = $this->productRepository->getByUuids(
             uuids: $uuids,

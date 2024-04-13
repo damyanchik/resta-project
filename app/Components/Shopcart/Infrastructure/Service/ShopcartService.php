@@ -20,8 +20,8 @@ class ShopcartService
 
     public function getValidatedItems(array $shopcartItems): array
     {
-        $productDTOs = $this->productDTOFactory->toProductShortDTOs(array_keys($shopcartItems));
-        $shopcartDTOs = $this->shopcartItemsMapper->toShopcartFormableDTOs($shopcartItems);
+        $productDTOs = $this->productDTOFactory->createProductShortDTOs(array_keys($shopcartItems));
+        $shopcartDTOs = $this->shopcartItemsMapper->toFormableDTOs($shopcartItems);
 
         $resolvedShopcart = $this->shopcartItemResolver->betweenRepositoryAndSession($shopcartDTOs, $productDTOs);
 

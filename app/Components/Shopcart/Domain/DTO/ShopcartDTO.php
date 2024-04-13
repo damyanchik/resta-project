@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Shopcart\Domain\DTO;
 
+use Akaunting\Money\Money;
 use Illuminate\Support\Collection;
 
 class ShopcartDTO
@@ -14,18 +15,18 @@ class ShopcartDTO
     {
     }
 
-    public function countAll()
+    public function countPositions(): int
     {
-
+        return $this->products->count();
     }
 
-    public function sumTotal()
+    public function sumTotal(): Money
     {
-
+        return Money::EUR($this->products->sum(fn ($product) => $product->grossPrice->getAmount()));
     }
 
-    public function sumSubtal()
+    public function sumSubtotal(): Money
     {
-
+        return Money::EUR($this->products->sum(fn ($product) => $product->nettPrice->getAmount()));
     }
 }
