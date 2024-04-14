@@ -24,7 +24,7 @@ class ProductFactory extends Factory
             'is_spicy' => fake()->numberBetween(0,1),
             'is_unlimited' => fake()->numberBetween(0,1),
             'is_available' => fake()->numberBetween(0,1),
-            'category_uuid' => fake()->uuid(),
+            'category_uuid' => null,
         ];
     }
 }

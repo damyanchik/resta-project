@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Infrastructure\ServiceProvider;
 
+use App\Components\Product\Application\Factory\ProductDTOFactory;
 use App\Components\Product\Application\Mapper\ProductModelMapper;
 use App\Components\Product\Application\Repository\ProductRepository;
+use App\Components\Product\Infrastructure\Factory\ProductDTOApplicationFactory;
 use App\Components\Product\Infrastructure\Mapper\ProductModelApplicationMapper;
-use App\Components\Product\Infrastructure\Repository\ProductRepository;
+use App\Components\Product\Infrastructure\Repository\ProductApplicationRepository;
 use Illuminate\Support\ServiceProvider;
 
 class ProductServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton(ProductRepository::class, ProductRepository::class);
+        $this->app->singleton(ProductRepository::class, ProductApplicationRepository::class);
         $this->app->singleton(ProductModelMapper::class, ProductModelApplicationMapper::class);
+        $this->app->singleton(ProductDTOFactory::class, ProductDTOApplicationFactory::class);
     }
 }

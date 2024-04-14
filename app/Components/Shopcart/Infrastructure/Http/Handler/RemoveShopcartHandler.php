@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Components\Shopcart\Infrastructure\Http\Handler;
 
 use App\Components\Shopcart\Infrastructure\Facade\ShopcartFacade;
-use App\Components\Shopcart\Infrastructure\Http\Request\ShopcartRequest;
 use Illuminate\Http\JsonResponse;
 
-class ShopcartHandler
+class RemoveShopcartHandler
 {
     public function __construct(
         private readonly JsonResponse $jsonResponse,
@@ -17,8 +16,10 @@ class ShopcartHandler
     {
     }
 
-    public function __invoke(ShopcartRequest $request)
+    public function __invoke(string $uuid): JsonResponse
     {
-        $this->facade->createByFormable($request);
+        $this->facade->removeFromCart($uuid);
+
+        return $this->jsonResponse->setData(['success']);
     }
 }

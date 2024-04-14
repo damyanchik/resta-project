@@ -20,11 +20,11 @@ class ProductModelApplicationMapper implements ProductModelMapper
     {
     }
 
-    public function toShopcartItemPreviewDTOs(Collection $products): Collection
+    public function toShopcartItemDTOs(Collection $products, array $shopcart): Collection
     {
         return $products->mapWithKeys(fn($product) => [$product->uuid => new ShopcartItemDTO(
             name: $product->name,
-            quantity: $product->quantity,
+            quantity: $shopcart[$product->uuid]['quantity'],
             nettPrice: Money::EUR($product->price),
             grossPrice: Money::EUR($product->price),
             isVegetarian: $product->is_vegetarian,

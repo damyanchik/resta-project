@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Components\Shopcart\Infrastructure\Factory;
 
-use App\Components\Product\Application\Factory\ProductDTOFactory;
 use App\Components\Product\Application\Mapper\ProductModelMapper;
 use App\Components\Product\Application\Repository\ProductRepository;
-use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Shopcart\Domain\DTO\ShopcartDTO;
-use App\Components\Shopcart\Domain\DTO\ShopcartItemDTO;
 use App\Components\Shopcart\Domain\DTO\ShopcartItemFormableDTO;
 
 class ShopcartDTOFactory
@@ -36,11 +33,9 @@ class ShopcartDTOFactory
     {
         $products = $this->productRepository->getByUuids(
             uuids: array_keys($shopcart),
-            columns: ['uuid', ],
+            columns: ['uuid', 'name', 'price', 'is_vegetarian', 'is_spicy'],
         );
 
-        $shopcartItems = $this->productModelMapper->toShopcartItemPreviewDTOs($products);
-
-        return new ShopcartDTO($shopcartItems);
+        return new ShopcartDTO($this->productModelMapper->toShopcartItemDTOs($products, $shopcart));
     }
 }

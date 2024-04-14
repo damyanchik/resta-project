@@ -13,17 +13,11 @@ class ShopcartRequest extends FormRequest implements ShopcartFormable
     {
         return [
             'quantity' => ['required', 'integer', 'min:1'],
-            'product_uuid' => ['required', 'string'],
         ];
     }
 
     public function quantity(): int
     {
         return $this->integer('quantity');
-    }
-
-    public function productUuid(): string
-    {
-        return $this->string('product_uuid')->toString();
     }
 }

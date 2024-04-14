@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('is_spicy')->default(false);
             $table->boolean('is_available')->default(false);
             $table->integer('order_nr')->default(0);
-            $table->foreignUuid('category_id')->nullable();
+            $table->foreignUuid('category_uuid')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('items');
     }
 };

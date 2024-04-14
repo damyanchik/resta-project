@@ -6,5 +6,5 @@ use Illuminate\Support\Collection;
 
 interface ProductModelMapper
 {
-    public function toShopcartItemPreviewDTOs(Collection $products): Collection;
+    public function toShopcartItemDTOs(Collection $products, array $shopcart): Collection;
 }

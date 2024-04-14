@@ -18,25 +18,21 @@ class ShopcartFacade
     {
     }
 
-    public function addOrUpdateByFormable(ShopcartFormable $shopcartFormable)
+    public function addToCart(string $uuid, ShopcartFormable $shopcartFormable): bool
     {
-        $this->shopcart->update($this->factory->createShopcartItemFormableDTO(
+        return $this->shopcart->add($this->factory->createShopcartItemFormableDTO(
             quantity: $shopcartFormable->quantity(),
-            productUuid: $shopcartFormable->productUuid(),
+            productUuid: $uuid,
         ));
     }
 
-    public function displayCart(): ?ShopcartDTO
+    public function displayAllCart(): ?ShopcartDTO
     {
         return $this->shopcart->show();
     }
 
-    public function removeByUuid(string $uuid)
+    public function removeFromCart(string $uuid): void
     {
         $this->shopcart->remove($uuid);
     }
-
-    //show kolejne i tyle
-
-    //moze remove +
 }

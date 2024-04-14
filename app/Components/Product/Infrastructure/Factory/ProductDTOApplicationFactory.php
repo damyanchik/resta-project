@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Infrastructure\Factory;
 
+use Akaunting\Money\Money;
 use App\Components\Product\Application\DTO\ProductFormable;
 use App\Components\Product\Application\Factory\ProductDTOFactory;
 use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Product\Domain\DTO\ProductFormableDTO;
 use App\Components\Product\Domain\DTO\ProductShortDTO;
 use App\Components\Product\Domain\Model\Product;
-use App\Components\Product\Infrastructure\Repository\ProductRepository;
+use App\Components\Product\Infrastructure\Repository\ProductApplicationRepository;
 use Illuminate\Support\Collection;
 
 class ProductDTOApplicationFactory implements ProductDTOFactory
 {
-    public function __construct(private readonly ProductRepository $productRepository)
+    public function __construct(private readonly ProductApplicationRepository $productRepository)
     {
     }
 
@@ -25,7 +26,7 @@ class ProductDTOApplicationFactory implements ProductDTOFactory
             name: $productFormable->productName(),
             description: $productFormable->productDescription(),
             stock: $productFormable->productStock(),
-            price: $productFormable->productPrice(),
+            price: Money::EUR($productFormable->productPrice()),
             isUnlimited: $productFormable->productIsUnlimited(),
             isVegetarian: $productFormable->productIsVegetarian(),
             isSpicy: $productFormable->productIsSpicy(),
@@ -58,7 +59,7 @@ class ProductDTOApplicationFactory implements ProductDTOFactory
             columns: ['uuid', 'stock', 'is_available', 'is_unlimited'],
         );
 
-        return $product->map(function ($item) {
+        return $product->mapWithKeys(function ($item) {
             return [$item->uuid => new ProductShortDTO(
                 stock: $item->stock,
                 isUnlimited: $item->is_unlimited,

@@ -7,5 +7,4 @@ namespace App\Components\Shopcart\Application\DTO;
 interface ShopcartFormable
 {
     public function quantity(): int;
-    public function productUuid(): string;
 }

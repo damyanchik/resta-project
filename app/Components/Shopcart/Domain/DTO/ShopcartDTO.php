@@ -10,23 +10,23 @@ use Illuminate\Support\Collection;
 class ShopcartDTO
 {
     public function __construct(
-        public readonly Collection $products,
+        public readonly Collection $items,
     )
     {
     }
 
     public function countPositions(): int
     {
-        return $this->products->count();
+        return $this->items->count();
     }
 
     public function sumTotal(): Money
     {
-        return Money::EUR($this->products->sum(fn ($product) => $product->grossPrice->getAmount()));
+        return Money::EUR($this->items->sum(fn ($item) => $item->sumGrossPrice()->getAmount()));
     }
 
     public function sumSubtotal(): Money
     {
-        return Money::EUR($this->products->sum(fn ($product) => $product->nettPrice->getAmount()));
+        return Money::EUR($this->items->sum(fn ($item) => $item->sumNettPrice()->getAmount()));
     }
 }

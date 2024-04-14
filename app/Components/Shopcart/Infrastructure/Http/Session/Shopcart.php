@@ -20,15 +20,17 @@ class Shopcart
     {
     }
 
-    public function update(ShopcartItemFormableDTO $shopcartDTO): void
+    public function add(ShopcartItemFormableDTO $shopcartDTO): bool
     {
         $shopcart = $this->session->get('shopcart', []);
 
-        $shopcart[$shopcartDTO->productUuid] = $shopcartDTO->quantity;
+        $shopcart[$shopcartDTO->productUuid] = ['quantity' => $shopcartDTO->quantity];
 
         $shopcartItems = $this->shopcartService->getValidatedItems($shopcart);
 
         $this->session->put('shopcart', $shopcartItems);
+
+        return array_key_exists($shopcartDTO->productUuid, $shopcartItems);
     }
 
     public function show(): ?ShopcartDTO
@@ -45,13 +47,15 @@ class Shopcart
         return $this->factory->createShopcartDTO($shopcartItems);
     }
 
-    public function get()
+    public function remove(string $productUuid): void
     {
-        //wez konkretny?
-    }
+        $shopcart = $this->session->get('shopcart', []);
 
-    public function remove()
-    {
+        if (empty($shopcart)) {
+            return;
+        }
 
+        unset($shopcart[$productUuid]);
+        $this->session->put('shopcart', $shopcart);
     }
 }

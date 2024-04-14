@@ -18,6 +18,15 @@ Route::post('/api/order', \App\Components\Order\Infrastructure\Http\Handler\Crea
 
 Route::get('/api/order/preview', \App\Components\Order\Infrastructure\Http\Handler\PreviewOrderHandler::class)
     ->name('order.preview');
+
+Route::post('/api/cart/add/{uuid}', \App\Components\Shopcart\Infrastructure\Http\Handler\AddShopcartHandler::class)
+    ->name('shopcart.add');
+
+Route::get('/api/cart/display', \App\Components\Shopcart\Infrastructure\Http\Handler\DisplayShopcartHandler::class)
+    ->name('shopcart.display');
+
+Route::get('/api/cart/remove/{uuid}', \App\Components\Shopcart\Infrastructure\Http\Handler\RemoveShopcartHandler::class)
+    ->name('shopcart.remove');
 //
 //
 //

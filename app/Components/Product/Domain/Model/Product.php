@@ -32,6 +32,13 @@ class Product extends Model
         'category_uuid',
     ];
 
+    protected $casts = [
+        'is_unlimited' => 'boolean',
+        'is_vegetarian' => 'boolean',
+        'is_spicy' => 'boolean',
+        'is_available' => 'boolean',
+    ];
+
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class, 'product_uuid', 'uuid');
