@@ -14,9 +14,10 @@ class Category extends Model
     use HasUuids;
 
     protected $primaryKey = 'uuid';
-
     protected $table = 'categories';
-
+    protected $casts = [
+        'is_visible' => 'boolean',
+    ];
     protected $fillable = [
         'name',
         'is_visible',

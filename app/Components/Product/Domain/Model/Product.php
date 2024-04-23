@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Domain\Model;
 
+use App\Components\Common\CustomCast\MoneyCast;
 use App\Components\Order\Domain\Model\OrderItem;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,13 @@ class Product extends Model
     protected $primaryKey = 'uuid';
 
     protected $table = 'products';
-
+    protected $casts = [
+        'price' => MoneyCast::class,
+        'is_unlimited' => 'boolean',
+        'is_vegetarian' => 'boolean',
+        'is_spicy' => 'boolean',
+        'is_available' => 'boolean',
+    ];
     protected $fillable = [
         'name',
         'description',
@@ -30,13 +37,6 @@ class Product extends Model
         'is_available',
         'order_nr',
         'category_uuid',
-    ];
-
-    protected $casts = [
-        'is_unlimited' => 'boolean',
-        'is_vegetarian' => 'boolean',
-        'is_spicy' => 'boolean',
-        'is_available' => 'boolean',
     ];
 
     public function orderItems(): HasMany

@@ -18,9 +18,12 @@ class User extends Authenticatable
     use HasUuids;
 
     protected $primaryKey = 'uuid';
-
     protected $table = 'users';
-
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_active' => 'boolean',
+    ];
     protected $fillable = [
         'name',
         'surname',
@@ -29,14 +32,8 @@ class User extends Authenticatable
         'is_active',
         'role',
     ];
-
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 }
