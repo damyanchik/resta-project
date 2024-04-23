@@ -9,7 +9,7 @@ use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Order\Domain\DTO\OrderItemDTO;
 use App\Components\Order\Domain\Enum\OrderItemStatusEnum;
 use App\Components\Product\Application\Mapper\ProductModelMapper;
-use App\Components\Shopcart\Domain\DTO\ShopcartItemDTO;
+use App\Components\Cart\Domain\DTO\CartItemDTO;
 use Illuminate\Support\Collection;
 
 class ProductModelApplicationMapper implements ProductModelMapper
@@ -20,9 +20,9 @@ class ProductModelApplicationMapper implements ProductModelMapper
     {
     }
 
-    public function toShopcartItemDTOs(Collection $products, array $shopcart): Collection
+    public function toCartItemDTOs(Collection $products, array $shopcart): Collection
     {
-        return $products->mapWithKeys(fn($product) => [$product->uuid => new ShopcartItemDTO(
+        return $products->mapWithKeys(fn($product) => [$product->uuid => new CartItemDTO(
             name: $product->name,
             quantity: $shopcart[$product->uuid]['quantity'],
             nettPrice: Money::EUR($product->price),

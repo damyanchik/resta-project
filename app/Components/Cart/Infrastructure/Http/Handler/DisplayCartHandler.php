@@ -22,7 +22,7 @@ class DisplayCartHandler
     {
 
         return $this->jsonResponse->setData(
-            data: $this->viewModelFactory->createByShopcartDTO($this->facade->displayCartItems())->toArray(),
+            data: $this->viewModelFactory->createByCartDTO($this->facade->displayCartItems())->toArray(),
         );
     }
 }

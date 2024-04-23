@@ -11,21 +11,21 @@ use App\Components\Cart\Presentation\CartViewModel;
 
 class CartViewModelFactory
 {
-    public function createByShopcartDTO(?CartDTO $shopcartDTO): ?CartViewModel
+    public function createByCartDTO(?CartDTO $cartDTO): ?CartViewModel
     {
-        if ($shopcartDTO === null) {
+        if ($cartDTO === null) {
             return null;
         }
 
         return new CartViewModel(
-            items: $shopcartDTO->items->map(fn ($item) => $this->createByShopcartItemDTO($item)->toArray()),
-            positions: $shopcartDTO->countPositions(),
-            subtotal: $shopcartDTO->sumSubtotal(),
-            total: $shopcartDTO->sumTotal(),
+            items: $cartDTO->items->map(fn ($item) => $this->createByCartItemDTO($item)->toArray()),
+            positions: $cartDTO->countPositions(),
+            subtotal: $cartDTO->sumSubtotal(),
+            total: $cartDTO->sumTotal(),
         );
     }
 
-    public function createByShopcartItemDTO(CartItemDTO $itemDTO): CartItemViewModel
+    public function createByCartItemDTO(CartItemDTO $itemDTO): CartItemViewModel
     {
         return new CartItemViewModel(
             name: $itemDTO->name,

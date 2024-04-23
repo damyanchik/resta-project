@@ -36,6 +36,6 @@ class CartDTOFactory
             columns: ['uuid', 'name', 'price', 'is_vegetarian', 'is_spicy'],
         );
 
-        return new CartDTO($this->productModelMapper->toShopcartItemDTOs($products, $shopcart));
+        return new CartDTO($this->productModelMapper->toCartItemDTOs($products, $shopcart));
     }
 }
