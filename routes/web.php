@@ -20,13 +20,13 @@ Route::get('/api/order/preview', \App\Components\Order\Infrastructure\Http\Handl
     ->name('order.preview');
 
 Route::post('/api/cart/add/{uuid}', \App\Components\Shopcart\Infrastructure\Http\Handler\AddShopcartHandler::class)
-    ->name('shopcart.add');
+    ->name('cart.add');
 
 Route::get('/api/cart/display', \App\Components\Shopcart\Infrastructure\Http\Handler\DisplayShopcartHandler::class)
-    ->name('shopcart.display');
+    ->name('cart.display');
 
 Route::get('/api/cart/remove/{uuid}', \App\Components\Shopcart\Infrastructure\Http\Handler\RemoveShopcartHandler::class)
-    ->name('shopcart.remove');
+    ->name('cart.remove');
 //
 //
 //

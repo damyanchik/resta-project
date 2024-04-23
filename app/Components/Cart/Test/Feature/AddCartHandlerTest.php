@@ -12,7 +12,7 @@ class AddCartHandlerTest extends TestCase
     public function testAddShopcart()
     {
         $product = Product::factory()->create();
-        $this->post(route('shopcart.add', $product->uuid), [
+        $this->post(route('cart.add', $product->uuid), [
             'quantity' => 5,
         ]);
     }

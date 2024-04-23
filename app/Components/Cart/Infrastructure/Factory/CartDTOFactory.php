@@ -18,7 +18,7 @@ class CartDTOFactory
     {
     }
 
-    public function createShopcartItemFormableDTO(
+    public function createCartItemFormableDTO(
         int $quantity,
         string $productUuid,
     ): CartItemFormableDTO
@@ -29,13 +29,13 @@ class CartDTOFactory
         );
     }
 
-    public function createShopcartDTO(array $shopcart): CartDTO
+    public function createCartDTO(array $cart): CartDTO
     {
         $products = $this->productRepository->getByUuids(
-            uuids: array_keys($shopcart),
+            uuids: array_keys($cart),
             columns: ['uuid', 'name', 'price', 'is_vegetarian', 'is_spicy'],
         );
 
-        return new CartDTO($this->productModelMapper->toCartItemDTOs($products, $shopcart));
+        return new CartDTO($this->productModelMapper->toCartItemDTOs($products, $cart));
     }
 }

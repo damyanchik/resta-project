@@ -15,11 +15,11 @@ class CartException extends Exception
 
     public static function unavailable(): static
     {
-        return new static('Product is unavailable.', 404);
+        return new static('Product is unavailable.', 406);
     }
 
     public static function notEnoughOnStock(): static
     {
-        return new static('Not enough product on stock.', 404);
+        return new static('Not enough product on stock.', 406);
     }
 }

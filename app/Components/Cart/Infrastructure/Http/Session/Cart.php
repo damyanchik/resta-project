@@ -14,48 +14,48 @@ class Cart
 {
     public function __construct(
         private readonly Session        $session,
-        private readonly CartService    $shopcartService,
+        private readonly CartService    $cartService,
         private readonly CartDTOFactory $factory,
     )
     {
     }
 
-    public function add(CartItemFormableDTO $shopcartDTO): bool
+    public function add(CartItemFormableDTO $cartDTO): bool
     {
-        $shopcart = $this->session->get('shopcart', []);
+        $cart = $this->session->get('cart', []);
 
-        $shopcart[$shopcartDTO->productUuid] = ['quantity' => $shopcartDTO->quantity];
+        $cart[$cartDTO->productUuid] = ['quantity' => $cartDTO->quantity];
 
-        $shopcartItems = $this->shopcartService->getValidatedItems($shopcart);
+        $cartItems = $this->cartService->getValidatedItems($cart);
 
-        $this->session->put('shopcart', $shopcartItems);
+        $this->session->put('cart', $cartItems);
 
-        return array_key_exists($shopcartDTO->productUuid, $shopcartItems);
+        return array_key_exists($cartDTO->productUuid, $cartItems);
     }
 
     public function show(): ?CartDTO
     {
-        $shopcart = $this->session->get('shopcart', []);
+        $cart = $this->session->get('cart', []);
 
-        if (empty($shopcart)) {
+        if (empty($cart)) {
             return null;
         }
 
-        $shopcartItems = $this->shopcartService->getValidatedItems($shopcart);
-        $this->session->put('shopcart', $shopcartItems);
+        $cartItems = $this->cartService->getValidatedItems($cart);
+        $this->session->put('cart', $cartItems);
 
-        return $this->factory->createShopcartDTO($shopcartItems);
+        return $this->factory->createCartDTO($cartItems);
     }
 
     public function remove(string $productUuid): void
     {
-        $shopcart = $this->session->get('shopcart', []);
+        $cart = $this->session->get('cart', []);
 
-        if (empty($shopcart)) {
+        if (empty($cart)) {
             return;
         }
 
-        unset($shopcart[$productUuid]);
-        $this->session->put('shopcart', $shopcart);
+        unset($cart[$productUuid]);
+        $this->session->put('cart', $cart);
     }
 }

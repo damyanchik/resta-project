@@ -12,19 +12,19 @@ class CartService
 {
     public function __construct(
         private readonly ProductDTOFactory $productDTOFactory,
-        private readonly CartItemsMapper   $shopcartItemsMapper,
-        private readonly CartItemResolver  $shopcartItemResolver,
+        private readonly CartItemsMapper   $cartItemsMapper,
+        private readonly CartItemResolver  $cartItemResolver,
     )
     {
     }
 
-    public function getValidatedItems(array $shopcartItems): array
+    public function getValidatedItems(array $cartItems): array
     {
-        $productDTOs = $this->productDTOFactory->createProductShortDTOs(array_keys($shopcartItems));
-        $shopcartDTOs = $this->shopcartItemsMapper->toFormableDTOs($shopcartItems);
+        $productDTOs = $this->productDTOFactory->createProductShortDTOs(array_keys($cartItems));
+        $cartDTOs = $this->cartItemsMapper->toFormableDTOs($cartItems);
 
-        $resolvedShopcart = $this->shopcartItemResolver->betweenRepositoryAndSession($shopcartDTOs, $productDTOs);
+        $resolvedCart = $this->cartItemResolver->betweenRepositoryAndSession($cartDTOs, $productDTOs);
 
-        return $this->shopcartItemsMapper->fromShopcartFormableDTOs($resolvedShopcart);
+        return $this->cartItemsMapper->fromCartFormableDTOs($resolvedCart);
     }
 }

@@ -12,27 +12,27 @@ use App\Components\Cart\Infrastructure\Http\Session\Cart;
 class CartFacade
 {
     public function __construct(
-        private readonly Cart           $shopcart,
+        private readonly Cart           $cart,
         private readonly CartDTOFactory $factory,
     )
     {
     }
 
-    public function addToCart(string $uuid, CartFormable $shopcartFormable): bool
+    public function addToCart(string $uuid, CartFormable $cartFormable): bool
     {
-        return $this->shopcart->add($this->factory->createShopcartItemFormableDTO(
-            quantity: $shopcartFormable->quantity(),
+        return $this->cart->add($this->factory->createCartItemFormableDTO(
+            quantity: $cartFormable->quantity(),
             productUuid: $uuid,
         ));
     }
 
     public function displayCartItems(): ?CartDTO
     {
-        return $this->shopcart->show();
+        return $this->cart->show();
     }
 
     public function removeFromCart(string $uuid): void
     {
-        $this->shopcart->remove($uuid);
+        $this->cart->remove($uuid);
     }
 }

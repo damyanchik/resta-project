@@ -10,9 +10,9 @@ use Illuminate\Support\Collection;
 
 class CartItemResolver
 {
-    public function betweenRepositoryAndSession(Collection $shopcartDTOs, Collection $productShortDTOs): Collection
+    public function betweenRepositoryAndSession(Collection $cartDTOs, Collection $productShortDTOs): Collection
     {
-        return $shopcartDTOs->map(function ($item) use ($productShortDTOs) {
+        return $cartDTOs->map(function ($item) use ($productShortDTOs) {
             $product = $productShortDTOs->get($item->productUuid);
 
             try {
@@ -26,6 +26,6 @@ class CartItemResolver
             //+1 opcja dot product stock, jezeli jest cos dostpenego to daje pelny
 
             return $item;
-        })->filter(fn($item) => !empty($item));
+        })->filter(fn($item) => ! empty($item));
     }
 }

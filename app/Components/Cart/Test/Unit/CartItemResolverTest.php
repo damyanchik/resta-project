@@ -20,7 +20,7 @@ class CartItemResolverTest extends TestCase
         $firstProductUuid = Str::uuid()->toString();
         $secondProductUuid = Str::uuid()->toString();
 
-        $shopcartDTOs = Collection::make([
+        $cartDTOs = Collection::make([
             new CartItemFormableDTO(5, $firstProductUuid),
             new CartItemFormableDTO(10, $secondProductUuid),
         ]);
@@ -30,7 +30,7 @@ class CartItemResolverTest extends TestCase
             $secondProductUuid => new ProductShortDTO(100, false, false),
         ]);
 
-        $resolved = $resolver->betweenRepositoryAndSession($shopcartDTOs, $productDTOs);
+        $resolved = $resolver->betweenRepositoryAndSession($cartDTOs, $productDTOs);
 
         dd($resolved);
     }

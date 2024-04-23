@@ -31,7 +31,7 @@ class CartTest extends TestCase
 
         $shopcartSession = new Cart(
             session: $session,
-            shopcartService: $shopcartService,
+            cartService: $shopcartService,
             factory: M::mock(CartDTOFactory::class),
         );
 
