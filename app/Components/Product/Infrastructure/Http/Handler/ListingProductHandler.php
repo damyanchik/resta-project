@@ -8,7 +8,7 @@ use App\Components\Common\Listing\Parameter\Request\ParameterRequest;
 use App\Components\Product\Presentation\Listing\ProductListing;
 use Illuminate\Http\JsonResponse;
 
-class ProductListingHandler
+class ListingProductHandler
 {
     public function __construct(
         private readonly ProductListing $productListing,

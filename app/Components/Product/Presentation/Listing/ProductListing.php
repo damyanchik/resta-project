@@ -20,7 +20,7 @@ class ProductListing extends ListingTemplate
     protected function prepareColumns(): Collection
     {
         return collect([
-            'id' => Column::build()->visible(false)->sortable()->get(),
+            'uuid' => Column::build()->visible(false)->sortable()->get(),
             'name' => Column::build()->visible()->sortable()->searchable()->get(),
             'stock' => Column::build()->visible()->sortable()->searchable()->get(),
             'price' => Column::build()->visible()->sortable()->searchable()->get(),
@@ -28,7 +28,7 @@ class ProductListing extends ListingTemplate
             'is_vegetarian' => Column::build()->visible()->sortable()->get(),
             'is_spicy' => Column::build()->visible()->sortable()->get(),
             'is_available' => Column::build()->visible()->sortable()->get(),
-            'category_id' => Column::build()->visible()->sortable()->searchable()->get(),
+            'category_uuid' => Column::build()->visible()->sortable()->searchable()->get(),
             'order_nr' => Column::build()->visible()->sortable()->get(),
         ]);
     }

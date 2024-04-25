@@ -17,7 +17,7 @@ class ProductDTO
         public readonly bool $isVegetarian,
         public readonly bool $isSpicy,
         public readonly bool $isAvailable,
-        public readonly int $categoryUuid,
+        public readonly string $categoryUuid,
         public readonly int $orderNr,
     )
     {

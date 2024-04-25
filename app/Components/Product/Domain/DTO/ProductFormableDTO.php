@@ -18,7 +18,7 @@ class ProductFormableDTO implements EloquentDataBag
         public readonly bool $isVegetarian,
         public readonly bool $isSpicy,
         public readonly bool $isAvailable,
-        public readonly int $categoryUuid,
+        public readonly string $categoryUuid,
         public readonly int $orderNr,
     )
     {
@@ -30,7 +30,7 @@ class ProductFormableDTO implements EloquentDataBag
             'name' => $this->name,
             'description' => $this->description,
             'stock' => $this->stock,
-            'price' => $this->price,
+            'price' => $this->price->getAmount(),
             'is_unlimited' => $this->isUnlimited,
             'is_vegetarian' => $this->isVegetarian,
             'is_spicy' => $this->isSpicy,

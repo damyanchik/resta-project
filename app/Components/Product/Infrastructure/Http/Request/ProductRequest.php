@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Infrastructure\Http\Request;
 
+use Akaunting\Money\Money;
 use App\Components\Product\Application\DTO\ProductFormable;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateProductRequest extends FormRequest implements ProductFormable
+class ProductRequest extends FormRequest implements ProductFormable
 {
     public function authorize(): bool
     {
@@ -30,52 +31,52 @@ class CreateProductRequest extends FormRequest implements ProductFormable
         ];
     }
 
-    public function productName(): string
+    public function name(): string
     {
         return $this->string('name')->toString();
     }
 
-    public function productDescription(): string
+    public function description(): string
     {
         return $this->string('description')->toString();
     }
 
-    public function productStock(): int
+    public function stock(): int
     {
         return $this->integer('stock');
     }
 
-    public function productPrice(): int
+    public function price(): Money
     {
-        return $this->integer('price');
+        return Money::EUR($this->float('price'));
     }
 
-    public function productIsUnlimited(): int
+    public function isUnlimited(): bool
     {
-        return $this->integer('is_unlimited');
+        return $this->boolean('is_unlimited');
     }
 
-    public function productIsVegetarian(): int
+    public function isVegetarian(): bool
     {
-        return $this->integer('is_vegetarian');
+        return $this->boolean('is_vegetarian');
     }
 
-    public function productIsSpicy(): int
+    public function isSpicy(): bool
     {
-        return $this->integer('is_spicy');
+        return $this->boolean('is_spicy');
     }
 
-    public function productIsAvailable(): int
+    public function isAvailable(): bool
     {
-        return $this->integer('is_available');
+        return $this->boolean('is_available');
     }
 
-    public function productCategoryId(): int
+    public function categoryUuid(): string
     {
-        return $this->integer('category_id');
+        return $this->string('category_uuid')->toString();
     }
 
-    public function productOrderNr(): int
+    public function orderNr(): int
     {
         return $this->integer('order_nr');
     }

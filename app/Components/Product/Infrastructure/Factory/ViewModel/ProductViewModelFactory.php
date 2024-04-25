@@ -20,7 +20,7 @@ class ProductViewModelFactory
             isVegetarian: $productDTO->isVegetarian,
             isSpicy: $productDTO->isSpicy,
             isAvailable: $productDTO->isAvailable,
-            categoryId: $productDTO->categoryId,
+            categoryUuid: $productDTO->categoryUuid,
         );
     }
 }

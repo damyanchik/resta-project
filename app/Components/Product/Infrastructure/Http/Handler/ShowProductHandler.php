@@ -8,7 +8,7 @@ use App\Components\Product\Infrastructure\Facade\ProductFacade;
 use App\Components\Product\Infrastructure\Factory\ViewModel\ProductViewModelFactory;
 use Illuminate\Http\JsonResponse;
 
-class ProductShowHandler
+class ShowProductHandler
 {
     public function __construct(
         private readonly ProductFacade $productFacade,
@@ -18,9 +18,9 @@ class ProductShowHandler
     {
     }
 
-    public function __invoke(int $id): JsonResponse
+    public function __invoke(string $uuid): JsonResponse
     {
-        $productDto = $this->productFacade->getSingleProduct($id);
+        $productDto = $this->productFacade->getSingleByUuid($uuid);
 
         return $this->jsonResponse->setData([$this->viewModelFactory->createByProductDTO($productDto)]);
     }

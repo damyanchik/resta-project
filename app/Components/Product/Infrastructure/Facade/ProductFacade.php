@@ -18,26 +18,25 @@ class ProductFacade
     {
     }
 
-    public function createProduct(ProductFormable $productFormable): bool
+    public function createByFormable(ProductFormable $productFormable): bool
     {
-        $productDto = $this->productDTOFactory->createProductFormationDTO($productFormable);
-
-        return $this->productRepository->create($productDto);
+        return $this->productRepository->create($this->productDTOFactory->createProductFormationDTO($productFormable));
     }
 
-    public function updateProduct(ProductFormable $productFormable, string $uuid): bool
+    public function updateByFormable(ProductFormable $productFormable, string $uuid): bool
     {
-        $productDto = $this->productDTOFactory->createProductFormationDTO($productFormable);
-
-        return $this->productRepository->update($productDto, $uuid);
+        return $this->productRepository->update(
+            data: $this->productDTOFactory->createProductFormationDTO($productFormable),
+            uuid: $uuid,
+        );
     }
 
-    public function deleteUser(string $uuid): bool
+    public function delete(string $uuid): bool
     {
         return $this->productRepository->delete($uuid);
     }
 
-    public function getSingleProduct(string $uuid): ?ProductDTO
+    public function getSingleByUuid(string $uuid): ?ProductDTO
     {
         $product = $this->productRepository->getByUuidOrFail($uuid);
 
@@ -47,5 +46,4 @@ class ProductFacade
 
         return $this->productDTOFactory->createProductDTO($product);
     }
-
 }

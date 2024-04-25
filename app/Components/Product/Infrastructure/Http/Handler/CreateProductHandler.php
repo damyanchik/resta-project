@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Components\Product\Infrastructure\Http\Handler;
 
 use App\Components\Product\Infrastructure\Facade\ProductFacade;
-use App\Components\Product\Infrastructure\Http\Request\CreateProductRequest;
+use App\Components\Product\Infrastructure\Http\Request\ProductRequest;
 use Illuminate\Http\JsonResponse;
 
-class ProductCreateHandler
+class CreateProductHandler
 {
     public function __construct(
         private readonly JsonResponse $jsonResponse,
@@ -17,10 +17,10 @@ class ProductCreateHandler
     {
     }
 
-    public function __invoke(CreateProductRequest $productRequest): JsonResponse
+    public function __invoke(ProductRequest $productRequest): JsonResponse
     {
         try {
-            $this->productFacade->createProduct($productRequest);
+            $this->productFacade->createByFormable($productRequest);
         } catch (\Exception) {
             return $this->jsonResponse->setData([
                 'status' => 'failed',

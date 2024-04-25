@@ -7,7 +7,7 @@ namespace App\Components\Product\Infrastructure\Http\Handler;
 use App\Components\Product\Infrastructure\Facade\ProductFacade;
 use Illuminate\Http\JsonResponse;
 
-class ProductDeleteHandler
+class DeleteProductHandler
 {
     public function __construct(
         private readonly JsonResponse $jsonResponse,
@@ -16,13 +16,9 @@ class ProductDeleteHandler
     {
     }
 
-    public function __invoke(int $id): JsonResponse
+    public function __invoke(string $uuid): JsonResponse
     {
-        try {
-            $this->productFacade->deleteUser($id);
-        } catch (\Exception) {
-            return $this->jsonResponse->setData(['status' => 'failed']);
-        }
+        $this->productFacade->delete($uuid);
 
         return $this->jsonResponse->setData([
             'status' => 'success',

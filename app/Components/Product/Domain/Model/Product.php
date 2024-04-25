@@ -17,7 +17,6 @@ class Product extends Model
     use HasUuids;
 
     protected $primaryKey = 'uuid';
-
     protected $table = 'products';
     protected $casts = [
         'price' => MoneyCast::class,

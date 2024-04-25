@@ -23,16 +23,16 @@ class ProductDTOApplicationFactory implements ProductDTOFactory
     public function createProductFormationDTO(ProductFormable $productFormable): ProductFormableDTO
     {
         return new ProductFormableDTO(
-            name: $productFormable->productName(),
-            description: $productFormable->productDescription(),
-            stock: $productFormable->productStock(),
-            price: Money::EUR($productFormable->productPrice()),
-            isUnlimited: $productFormable->productIsUnlimited(),
-            isVegetarian: $productFormable->productIsVegetarian(),
-            isSpicy: $productFormable->productIsSpicy(),
-            isAvailable: $productFormable->productIsAvailable(),
-            categoryUuid: $productFormable->productCategoryId(),
-            orderNr: $productFormable->productOrderNr(),
+            name: $productFormable->name(),
+            description: $productFormable->description(),
+            stock: $productFormable->stock(),
+            price: $productFormable->price(),
+            isUnlimited: $productFormable->isUnlimited(),
+            isVegetarian: $productFormable->isVegetarian(),
+            isSpicy: $productFormable->isSpicy(),
+            isAvailable: $productFormable->isAvailable(),
+            categoryUuid: $productFormable->categoryUuid(),
+            orderNr: $productFormable->orderNr(),
         );
     }
 
