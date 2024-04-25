@@ -10,10 +10,10 @@ use Illuminate\Support\Collection;
 
 class CartItemResolver
 {
-    public function betweenRepositoryAndSession(Collection $cartDTOs, Collection $productShortDTOs): Collection
+    public function betweenRepositoryAndSession(Collection $cartDTOs, Collection $productReloadDTO): Collection
     {
-        return $cartDTOs->map(function ($item) use ($productShortDTOs) {
-            $product = $productShortDTOs->get($item->productUuid);
+        return $cartDTOs->map(function ($item) use ($productReloadDTO) {
+            $product = $productReloadDTO->get($item->productUuid);
 
             try {
                 CartValidation::isProduct($product);

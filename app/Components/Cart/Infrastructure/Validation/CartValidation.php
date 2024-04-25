@@ -4,46 +4,46 @@ declare(strict_types=1);
 
 namespace App\Components\Cart\Infrastructure\Validation;
 
-use App\Components\Product\Domain\DTO\ProductShortDTO;
+use App\Components\Cart\Domain\DTO\CartProductReloadDTO;
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
 use App\Components\Cart\Domain\Exception\CartException;
 
 class CartValidation
 {
-    public static function isProduct(?object $shopcartItem): void
+    public static function isProduct(?object $cartItem): void
     {
-        if ($shopcartItem === null) {
+        if ($cartItem === null) {
             throw CartException::notFound('Product not found.');
         }
     }
 
-    public static function isAvailableProduct(ProductShortDTO $productShortDTO): void
+    public static function isAvailableProduct(CartProductReloadDTO $cartProductReloadDTO): void
     {
-        if (! $productShortDTO->isAvailable) {
+        if (! $cartProductReloadDTO->isAvailable) {
             throw CartException::unavailable();
         }
     }
 
     public static function isProductStockHigherOrEqual(
-        CartItemFormableDTO $shopcartItem,
-        ProductShortDTO     $productShortDTO,
+        CartItemFormableDTO      $cartItem,
+        CartProductReloadDTO     $cartProductReloadDTO,
     ): void
     {
-        if (self::stockNotEnough($shopcartItem, $productShortDTO)) {
+        if (self::stockNotEnough($cartItem, $cartProductReloadDTO)) {
             throw CartException::notEnoughOnStock();
         }
     }
 
     private static function stockNotEnough(
-        CartItemFormableDTO $shopcartItem,
-        ProductShortDTO     $productShortDTO,
+        CartItemFormableDTO      $cartItem,
+        CartProductReloadDTO     $cartProductReloadDTO,
     ): bool
     {
-        if ($shopcartItem->quantity <= $productShortDTO->stock) {
+        if ($cartItem->quantity <= $cartProductReloadDTO->stock) {
             return false;
         }
 
-        if ($productShortDTO->isUnlimited) {
+        if ($cartProductReloadDTO->isUnlimited) {
             return false;
         }
 

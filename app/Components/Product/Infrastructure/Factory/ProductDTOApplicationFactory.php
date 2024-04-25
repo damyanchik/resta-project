@@ -4,22 +4,13 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Infrastructure\Factory;
 
-use Akaunting\Money\Money;
 use App\Components\Product\Application\DTO\ProductFormable;
-use App\Components\Product\Application\Factory\ProductDTOFactory;
 use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Product\Domain\DTO\ProductFormableDTO;
-use App\Components\Product\Domain\DTO\ProductShortDTO;
 use App\Components\Product\Domain\Model\Product;
-use App\Components\Product\Infrastructure\Repository\ProductApplicationRepository;
-use Illuminate\Support\Collection;
 
-class ProductDTOApplicationFactory implements ProductDTOFactory
+class ProductDTOApplicationFactory
 {
-    public function __construct(private readonly ProductApplicationRepository $productRepository)
-    {
-    }
-
     public function createProductFormationDTO(ProductFormable $productFormable): ProductFormableDTO
     {
         return new ProductFormableDTO(
@@ -47,24 +38,8 @@ class ProductDTOApplicationFactory implements ProductDTOFactory
             isVegetarian: $product->is_vegetarian,
             isSpicy: $product->is_spicy,
             isAvailable: $product->is_available,
-            categoryUuid: $product->category_id,
+            categoryUuid: $product->category_uuid,
             orderNr: $product->order_nr,
         );
-    }
-
-    public function createProductShortDTOs(array $uuids): Collection
-    {
-        $product = $this->productRepository->getByUuids(
-            uuids: $uuids,
-            columns: ['uuid', 'stock', 'is_available', 'is_unlimited'],
-        );
-
-        return $product->mapWithKeys(function ($item) {
-            return [$item->uuid => new ProductShortDTO(
-                stock: $item->stock,
-                isUnlimited: $item->is_unlimited,
-                isAvailable: $item->is_available,
-            )];
-        });
     }
 }
