@@ -6,12 +6,15 @@ namespace App\Components\Cart\Infrastructure\Http\Session;
 
 use App\Components\Cart\Domain\DTO\CartDTO;
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
+use App\Components\Cart\Domain\Enum\CartAttributeEnum;
 use App\Components\Cart\Infrastructure\Factory\CartDTOFactory;
 use App\Components\Cart\Infrastructure\Service\CartService;
 use Illuminate\Contracts\Session\Session;
 
 class Cart
 {
+    private const SESSION_CART = 'cart';
+
     public function __construct(
         private readonly Session        $session,
         private readonly CartService    $cartService,
@@ -20,42 +23,44 @@ class Cart
     {
     }
 
-    public function add(CartItemFormableDTO $cartDTO): bool
+    public function addItem(CartItemFormableDTO $cartDTO): bool
     {
-        $cart = $this->session->get('cart', []);
+        $cart = $this->session->get(self::SESSION_CART, []);
 
-        $cart[$cartDTO->productUuid] = ['quantity' => $cartDTO->quantity];
+        $cart[$cartDTO->productUuid] = [CartAttributeEnum::QUANTITY->value => $cartDTO->quantity];
 
-        $cartItems = $this->cartService->getValidatedItems($cart);
-
-        $this->session->put('cart', $cartItems);
-
-        return array_key_exists($cartDTO->productUuid, $cartItems);
+        return array_key_exists($cartDTO->productUuid, $this->reloadItems($cart));
     }
 
-    public function show(): ?CartDTO
+    public function removeItem(string $productUuid): bool
     {
-        $cart = $this->session->get('cart', []);
+        $this->session->forget($productUuid);
+        $cart = $this->session->get(self::SESSION_CART, []);
 
-        if (empty($cart)) {
-            return null;
-        }
-
-        $cartItems = $this->cartService->getValidatedItems($cart);
-        $this->session->put('cart', $cartItems);
-
-        return $this->factory->createCartDTO($cartItems);
+        return ! empty($cart) && ! array_key_exists($productUuid, $this->reloadItems($cart));
     }
 
-    public function remove(string $productUuid): void
+    public function showItems(): ?CartDTO
     {
-        $cart = $this->session->get('cart', []);
+        $cart = $this->session->get(self::SESSION_CART, []);
 
-        if (empty($cart)) {
-            return;
-        }
+        return empty($cart)
+            ? null
+            : $this->factory->createCartDTO($this->reloadItems($cart));
+    }
 
-        unset($cart[$productUuid]);
-        $this->session->put('cart', $cart);
+    public function removeItems(): bool
+    {
+        $this->session->forget(self::SESSION_CART);
+
+        return empty($this->session->get(self::SESSION_CART, []));
+    }
+
+    private function reloadItems(array $cart): array
+    {
+        $cartItems = $this->cartService->getValidatedItems($cart);
+        $this->session->put(self::SESSION_CART, $cartItems);
+
+        return $cartItems;
     }
 }

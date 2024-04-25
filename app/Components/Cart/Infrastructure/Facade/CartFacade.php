@@ -20,7 +20,7 @@ class CartFacade
 
     public function addToCart(string $uuid, CartFormable $cartFormable): bool
     {
-        return $this->cart->add($this->factory->createCartItemFormableDTO(
+        return $this->cart->addItem($this->factory->createCartItemFormableDTO(
             quantity: $cartFormable->quantity(),
             productUuid: $uuid,
         ));
@@ -28,11 +28,11 @@ class CartFacade
 
     public function displayCartItems(): ?CartDTO
     {
-        return $this->cart->show();
+        return $this->cart->showItems();
     }
 
     public function removeFromCart(string $uuid): void
     {
-        $this->cart->remove($uuid);
+        $this->cart->removeItem($uuid);
     }
 }
