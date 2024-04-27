@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Presentation\ViewModel;
 
-use Akaunting\Money\Money;
+use App\Components\Common\PriceDTO\PriceDTO;
 
 class ProductViewModel
 {
     public function __construct(
-        public readonly string $name,
-        public readonly string $description,
-        public readonly int    $stock,
-        public readonly Money  $price,
-        public readonly bool   $isUnlimited,
-        public readonly bool   $isVegetarian,
-        public readonly bool   $isSpicy,
-        public readonly bool   $isAvailable,
-        public readonly string $categoryUuid,
+        public readonly string   $name,
+        public readonly string   $description,
+        public readonly int      $stock,
+        public readonly PriceDTO $price,
+        public readonly bool     $isUnlimited,
+        public readonly bool     $isVegetarian,
+        public readonly bool     $isSpicy,
+        public readonly bool     $isAvailable,
+        public readonly string   $categoryUuid,
     )
     {
     }
@@ -28,7 +28,11 @@ class ProductViewModel
             'name' => $this->name,
             'description' => $this->description,
             'stock' => $this->stock,
-            'price' => $this->price->format(),
+            'price' => [
+                'gross' => $this->price->gross->format(),
+                'nett' => $this->price->nett->format(),
+                'rate' => $this->price->rate,
+            ],
             'is_unlimited' => $this->isUnlimited,
             'is_vegetarian' => $this->isVegetarian,
             'is_spicy' => $this->isSpicy,

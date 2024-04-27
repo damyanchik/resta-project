@@ -9,9 +9,9 @@ use Illuminate\Support\Collection;
 
 abstract class AbstractRepository
 {
-    public function getByUuidOrFail(string $uuid, array $columns = ['*']): ?Model
+    public function findByUuid(string $uuid, array $columns = ['*']): ?Model
     {
-        return $this->model->findOrFail($uuid, $columns);
+        return $this->model->find($uuid, $columns);
     }
 
     public function create(EloquentDataBag $data): bool

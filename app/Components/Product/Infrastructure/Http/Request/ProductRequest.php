@@ -22,6 +22,7 @@ class ProductRequest extends FormRequest implements ProductFormable
             'description' => ['string', 'required'],
             'stock' => ['integer', 'required', 'min:0'],
             'price' => ['integer', 'required', 'min:0'],
+            'rate' => ['integer', 'required', 'min:0', 'max:99'],
             'is_unlimited' => ['integer', 'nullable', 'min:0', 'max:1'],
             'is_vegetarian' => ['integer', 'nullable', 'min:0', 'max:1'],
             'is_spicy' => ['integer', 'nullable', 'min:0', 'max:1'],
@@ -49,6 +50,11 @@ class ProductRequest extends FormRequest implements ProductFormable
     public function price(): Money
     {
         return Money::EUR($this->float('price'));
+    }
+
+    public function rate(): int
+    {
+        return $this->integer('rate');
     }
 
     public function isUnlimited(): bool

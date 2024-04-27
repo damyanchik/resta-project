@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 class DeleteProductHandler
 {
     public function __construct(
-        private readonly JsonResponse $jsonResponse,
+        private readonly JsonResponse  $jsonResponse,
         private readonly ProductFacade $productFacade,
     )
     {
@@ -18,11 +18,14 @@ class DeleteProductHandler
 
     public function __invoke(string $uuid): JsonResponse
     {
-        $this->productFacade->delete($uuid);
+        $this->productFacade->deleteByUuid($uuid);
 
-        return $this->jsonResponse->setData([
-            'status' => 'success',
-            'message' => 'Product successfully deleted.',
-        ]);
+        return $this->productFacade->deleteByUuid($uuid)
+            ? $this->jsonResponse->setData([
+                'status' => 'success',
+                'message' => 'Product successfully deleted.'])
+            : $this->jsonResponse->setData([
+                'status' => 'failure',
+                'message' => 'Product not deleted.']);
     }
 }

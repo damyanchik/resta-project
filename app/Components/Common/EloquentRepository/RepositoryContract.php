@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 interface RepositoryContract
 {
-    public function getByUuidOrFail(string $uuid, array $columns = ['*']): ?Model;
+    public function findByUuid(string $uuid, array $columns = ['*']): ?Model;
     public function create(EloquentDataBag $data): bool;
     public function update(EloquentDataBag $data, string $uuid): bool;
     public function delete(string $uuid): bool;

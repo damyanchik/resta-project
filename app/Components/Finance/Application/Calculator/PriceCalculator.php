@@ -8,8 +8,8 @@ use Akaunting\Money\Money;
 
 interface PriceCalculator
 {
-    public function calculateSubtotalUnit(Money $amount): Money;
-    public function calculateTotalUnit(Money $amount, int $discount = 0): Money;
-    public function calculateTaxAmount(Money $amount, int $taxRate = 18): Money;
+    public function calculateNettFromGross(Money $amount, int $taxRate): Money;
+    public function calculateGrossFromNettUnit(Money $amount, int $taxRate): Money;
+    public function calculateTaxAmount(Money $amount, int $taxRate): Money;
     public function calculateDiscountAmount(Money $amount, int $percentage): Money;
 }

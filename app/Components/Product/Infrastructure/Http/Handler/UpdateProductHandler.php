@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 class UpdateProductHandler
 {
     public function __construct(
-        private readonly JsonResponse $jsonResponse,
+        private readonly JsonResponse  $jsonResponse,
         private readonly ProductFacade $productFacade,
     )
     {
@@ -21,9 +21,12 @@ class UpdateProductHandler
     {
         $this->productFacade->updateByFormable($productRequest, $uuid);
 
-        return $this->jsonResponse->setData([
-            'status' => 'success',
-            'message' => 'Product successfully created.'
-        ]);
+        return $this->productFacade->updateByFormable($productRequest, $uuid)
+            ? $this->jsonResponse->setData([
+                'status' => 'success',
+                'message' => 'Product successfully created.'])
+            : $this->jsonResponse->setData([
+                'status' => 'failure',
+                'message' => 'Product not created.']);
     }
 }

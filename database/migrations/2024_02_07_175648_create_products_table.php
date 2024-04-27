@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->unsignedInteger('stock');
             $table->unsignedInteger('price');
+            $table->unsignedSmallInteger('rate')->nullable();
             $table->boolean('is_unlimited')->default(false);
             $table->boolean('is_vegetarian')->default(false);
             $table->boolean('is_spicy')->default(false);
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('products');
     }
 };

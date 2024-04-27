@@ -30,6 +30,7 @@ class Product extends Model
         'description',
         'stock',
         'price',
+        'rate',
         'is_unlimited',
         'is_vegetarian',
         'is_spicy',

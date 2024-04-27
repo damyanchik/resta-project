@@ -11,8 +11,8 @@ use Illuminate\Http\JsonResponse;
 class ShowProductHandler
 {
     public function __construct(
-        private readonly ProductFacade $productFacade,
-        private readonly JsonResponse $jsonResponse,
+        private readonly JsonResponse            $jsonResponse,
+        private readonly ProductFacade           $productFacade,
         private readonly ProductViewModelFactory $viewModelFactory,
     )
     {
@@ -20,8 +20,8 @@ class ShowProductHandler
 
     public function __invoke(string $uuid): JsonResponse
     {
-        $productDto = $this->productFacade->getSingleByUuid($uuid);
-
-        return $this->jsonResponse->setData([$this->viewModelFactory->createByProductDTO($productDto)]);
+        return $this->jsonResponse->setData([$this->viewModelFactory->createByProductDTO(
+            productDTO: $this->productFacade->getProductByUuid($uuid)
+        )]);
     }
 }

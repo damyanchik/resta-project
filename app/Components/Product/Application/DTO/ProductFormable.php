@@ -12,6 +12,7 @@ interface ProductFormable
     public function description(): string;
     public function stock(): int;
     public function price(): Money;
+    public function rate(): int;
     public function isUnlimited(): bool;
     public function isVegetarian(): bool;
     public function isSpicy(): bool;
