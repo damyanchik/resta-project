@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Infrastructure\Mapper;
 
-use App\Components\Common\PriceDTO\PriceDTO;
+use App\Components\Common\DTO\PriceDTO;
 use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Product\Domain\DTO\ProductAvailableDTO;
 use App\Components\Product\Domain\DTO\ProductDTO;

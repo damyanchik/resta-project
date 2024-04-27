@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Product\Presentation\ViewModel;
 
-use App\Components\Common\PriceDTO\PriceDTO;
+use App\Components\Common\DTO\PriceDTO;
 
 class ProductViewModel
 {
@@ -17,7 +17,7 @@ class ProductViewModel
         public readonly bool     $isVegetarian,
         public readonly bool     $isSpicy,
         public readonly bool     $isAvailable,
-        public readonly string   $categoryUuid,
+        public readonly ?string   $categoryUuid,
     )
     {
     }

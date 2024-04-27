@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Components\Common\PriceDTO;
+namespace App\Components\Common\DTO;
 
 use Akaunting\Money\Money;
 
