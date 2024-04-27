@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Components\Cart\Domain\DTO;
+namespace App\Components\Product\Domain\DTO;
 
-class CartProductReloadDTO
+class ProductAvailableDTO
 {
     public function __construct(
         public readonly int $stock,

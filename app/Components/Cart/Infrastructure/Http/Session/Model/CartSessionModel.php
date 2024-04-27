@@ -2,30 +2,38 @@
 
 declare(strict_types=1);
 
-namespace App\Components\Cart\Infrastructure\Http\Session;
+namespace App\Components\Cart\Infrastructure\Http\Session\Model;
 
 use App\Components\Cart\Domain\DTO\CartDTO;
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
 use App\Components\Cart\Domain\Enum\CartAttributeEnum;
-use App\Components\Cart\Infrastructure\Factory\CartDTOFactory;
-use App\Components\Cart\Infrastructure\Service\CartService;
-use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Collection;
 
-class Cart
+class CartSessionModel
 {
-    private const SESSION_CART = 'cart';
 
+    /**
+     * @param Collection<CartItemSessionModel> $sessionCartItems
+     */
     public function __construct(
-        private readonly Session        $session,
-        private readonly CartService    $cartService,
-        private readonly CartDTOFactory $factory,
+        public readonly Collection $sessionCartItems,
     )
     {
     }
 
+    public function toArray()
+    {
+        return [
+            'items' => $this->sessionCartItems->toArray(),
+        ];
+    }
+
+    //dodaje i laczy,
+    //
+
     public function addItem(CartItemFormableDTO $cartDTO): bool
     {
-        $cart = $this->session->get(self::SESSION_CART, []);
+        $cart = $this->session->getCart();
 
         $cart[$cartDTO->productUuid] = [CartAttributeEnum::QUANTITY->value => $cartDTO->quantity];
 
@@ -34,10 +42,7 @@ class Cart
 
     public function removeItem(string $productUuid): bool
     {
-        $this->session->forget($productUuid);
-        $cart = $this->session->get(self::SESSION_CART, []);
-
-        return ! empty($cart) && ! array_key_exists($productUuid, $this->reloadItems($cart));
+        return $this->session->removeItem($productUuid);
     }
 
     public function showItems(): ?CartDTO
@@ -51,15 +56,13 @@ class Cart
 
     public function removeItems(): bool
     {
-        $this->session->forget(self::SESSION_CART);
-
-        return empty($this->session->get(self::SESSION_CART, []));
+        return $this->session->destroyCart();
     }
 
     private function reloadItems(array $cart): array
     {
         $cartItems = $this->cartService->getValidatedItems($cart);
-        $this->session->put(self::SESSION_CART, $cartItems);
+        $this->session->addItem($cartItems);
 
         return $cartItems;
     }

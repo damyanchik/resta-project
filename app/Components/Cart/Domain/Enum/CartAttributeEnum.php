@@ -7,4 +7,5 @@ namespace App\Components\Cart\Domain\Enum;
 enum CartAttributeEnum: string
 {
     case QUANTITY = 'quantity';
+    case PRODUCT_UUID = 'product_uuid';
 }

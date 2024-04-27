@@ -19,7 +19,7 @@ class AddCartHandler
 
     public function __invoke(string $uuid, CartRequest $request): JsonResponse
     {
-        $this->facade->addToCart($uuid, $request);
+        $this->facade->addItemToCart($uuid, $request);
 
         return $this->jsonResponse->setData(['success'], );
     }

@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Components\Cart\Test\Unit;
 
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
-use App\Components\Cart\Infrastructure\Mapper\CartItemsMapper;
+use App\Components\Cart\Infrastructure\Mapper\CartDTOMapper;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
 
 class CartItemsMapperTest extends TestCase
 {
-    private CartItemsMapper $mapper;
+    private CartDTOMapper $mapper;
 
     public function testToCartFormableDTOs(): void
     {
@@ -37,7 +37,7 @@ class CartItemsMapperTest extends TestCase
             new CartItemFormableDTO(10, Str::uuid()->toString()),
         ]);
 
-        $cartItems = $this->mapper->fromCartFormableDTOs($itemDTOs);
+        $cartItems = $this->mapper->toCartSession($itemDTOs);
 
         $this->assertSame($itemDTOs->first()->quantity, array_values($cartItems)[0]['quantity']);
         $this->assertSame($itemDTOs->last()->quantity, array_values($cartItems)[1]['quantity']);
@@ -50,6 +50,6 @@ class CartItemsMapperTest extends TestCase
     {
         parent::setUp();
 
-        $this->mapper = new CartItemsMapper();
+        $this->mapper = new CartDTOMapper();
     }
 }

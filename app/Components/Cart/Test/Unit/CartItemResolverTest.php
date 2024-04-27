@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Components\Cart\Test\Unit;
 
+use App\Components\Product\Domain\DTO\ProductAvailableDTO;
 use App\Components\Product\Domain\DTO\ProductShortDTO;
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
-use App\Components\Cart\Infrastructure\Resolver\CartItemResolver;
+use App\Components\Cart\Infrastructure\Resolver\CartResolver;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +16,7 @@ class CartItemResolverTest extends TestCase
 {
     public function testBetweenRepositoryAndSession(): void
     {
-        $resolver = new CartItemResolver();
+        $resolver = new CartResolver();
 
         $firstProductUuid = Str::uuid()->toString();
         $secondProductUuid = Str::uuid()->toString();
@@ -26,11 +27,11 @@ class CartItemResolverTest extends TestCase
         ]);
 
         $productDTOs = Collection::make([
-            $firstProductUuid => new ProductShortDTO(50,true, true),
-            $secondProductUuid => new ProductShortDTO(100, false, false),
+            $firstProductUuid => new ProductAvailableDTO(50,true, true),
+            $secondProductUuid => new ProductAvailableDTO(100, false, false),
         ]);
 
-        $resolved = $resolver->betweenRepositoryAndSession($cartDTOs, $productDTOs);
+        $resolved = $resolver->resolveBetweenRepositoryAndSession($cartDTOs, $productDTOs);
 
         dd($resolved);
     }

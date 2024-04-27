@@ -7,32 +7,57 @@ namespace App\Components\Cart\Infrastructure\Facade;
 use App\Components\Cart\Application\DTO\CartFormable;
 use App\Components\Cart\Domain\DTO\CartDTO;
 use App\Components\Cart\Infrastructure\Factory\CartDTOFactory;
-use App\Components\Cart\Infrastructure\Http\Session\Cart;
+use App\Components\Cart\Infrastructure\Factory\CartItemDTOFactory;
+use App\Components\Cart\Infrastructure\Http\Session\CartSession;
+use App\Components\Cart\Infrastructure\Resolver\CartResolver;
+use App\Components\Cart\Infrastructure\Service\CartService;
 
 class CartFacade
 {
     public function __construct(
-        private readonly Cart           $cart,
-        private readonly CartDTOFactory $factory,
+        private readonly CartDTOFactory     $cartDTOFactory,
+        private readonly CartItemDTOFactory $cartItemDTOFactory,
+        private readonly CartResolver       $cartResolver,
+        private readonly CartSession        $session,
+        private readonly CartService        $cartService,
     )
     {
     }
 
-    public function addToCart(string $uuid, CartFormable $cartFormable): bool
+    public function addItemToCart(string $uuid, CartFormable $cartFormable): bool
     {
-        return $this->cart->addItem($this->factory->createCartItemFormableDTO(
-            quantity: $cartFormable->quantity(),
-            productUuid: $uuid,
-        ));
+        $cartItems = $this->cartResolver->resolveAssigningNewItemToCartItems(
+            itemFormableDTO: $this->cartItemDTOFactory->createCartItemFormableDTO(
+                productUuid: $uuid,
+                quantity: $cartFormable->quantity(),
+            ),
+            cartItems: $this->session->getCart(),
+        );
+
+        return $this->session->addCartItems($this->cartService->getValidatedItems($cartItems));
     }
 
-    public function displayCartItems(): ?CartDTO
+    public function getCartItems(): ?CartDTO
     {
-        return $this->cart->showItems();
+        $this->reloadCartItems();
+
+        return $this->cartDTOFactory->createCartDTO($this->session->getCart());
     }
 
-    public function removeFromCart(string $uuid): void
+    public function removeItemFromCart(string $uuid): bool
     {
-        $this->cart->removeItem($uuid);
+        $this->reloadCartItems();
+
+        return $this->session->removeCartItem($uuid);
+    }
+
+    public function destroyCart(): bool
+    {
+        return $this->session->destroyCart();
+    }
+
+    public function reloadCartItems(): bool
+    {
+        return $this->session->addCartItems($this->cartService->getValidatedItems($this->session->getCart()));
     }
 }

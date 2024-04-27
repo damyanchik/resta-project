@@ -7,8 +7,8 @@ namespace App\Components\Cart\Domain\DTO;
 class CartItemFormableDTO
 {
     public function __construct(
-        public readonly int $quantity,
         public readonly string $productUuid,
+        public readonly int $quantity,
     )
     {
     }
