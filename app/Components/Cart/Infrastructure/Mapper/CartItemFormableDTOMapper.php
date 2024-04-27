@@ -7,7 +7,7 @@ namespace App\Components\Cart\Infrastructure\Mapper;
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
 use App\Components\Cart\Infrastructure\Http\Session\Model\CartItemSessionModel;
 use App\Components\Cart\Infrastructure\Http\Session\Model\CartSessionModel;
-use Ramsey\Collection\Collection;
+use Illuminate\Support\Collection;
 
 class CartItemFormableDTOMapper
 {

@@ -40,8 +40,13 @@ class CartFacade
     public function getCartItems(): ?CartDTO
     {
         $this->reloadCartItems();
+        $cart = $this->session->getCart();
 
-        return $this->cartDTOFactory->createCartDTO($this->session->getCart());
+        if (empty($cart->first())) {
+            return null;
+        }
+
+        return $this->cartDTOFactory->createCartDTO($cart);
     }
 
     public function removeItemFromCart(string $uuid): bool

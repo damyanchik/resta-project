@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Components\Cart\Infrastructure\Validation;
 
+use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
 use App\Components\Cart\Domain\Exception\CartException;
-use App\Components\Cart\Infrastructure\Http\Session\Model\CartItemSessionModel;
 use App\Components\Product\Domain\DTO\ProductAvailableDTO;
 
 class CartValidation
@@ -25,7 +25,7 @@ class CartValidation
     }
 
     public static function isProductStockHigherOrEqual(
-        CartItemSessionModel $cartItem,
+        CartItemFormableDTO $cartItem,
         ProductAvailableDTO $productAvailableDTO,
     ): void
     {
@@ -35,7 +35,7 @@ class CartValidation
     }
 
     private static function stockNotEnough(
-        CartItemSessionModel $cartItem,
+        CartItemFormableDTO $cartItem,
         ProductAvailableDTO $productAvailableDTO,
     ): bool
     {

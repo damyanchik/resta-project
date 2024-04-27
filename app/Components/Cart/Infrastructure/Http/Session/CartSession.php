@@ -12,19 +12,24 @@ use Illuminate\Support\Collection;
 class CartSession
 {
     private const SESSION_CART = 'cart';
+    private const SESSION_ITEMS = 'items';
 
     public function __construct(
         private readonly CartSessionMapper $cartSessionMapper,
-        private readonly Session $session
+        private readonly Session           $session
     )
     {
     }
 
     public function getCart(): Collection
     {
-        return $this->cartSessionMapper->toCartItemFormableDTOs(
-            cartItems: new Collection($this->session->get(self::SESSION_CART, []))
-        );
+        $cartItems = $this->session->get(self::SESSION_CART, []);
+
+        return empty($cartItems[self::SESSION_ITEMS])
+            ? new Collection()
+            : $this->cartSessionMapper->toCartItemFormableDTOs(
+                cartItems: new Collection($cartItems[self::SESSION_ITEMS])
+            );
     }
 
     public function destroyCart(): bool
