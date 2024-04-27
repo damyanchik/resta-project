@@ -25,7 +25,7 @@ class CartResolver
             $product = $productAvailableDTOs->get($item->productUuid);
 
             try {
-                CartValidation::isProduct($product);
+                CartValidation::issetProduct($product);
                 CartValidation::isAvailableProduct($product);
                 CartValidation::isProductStockHigherOrEqual($item, $product);
             } catch (CartException) {
@@ -51,10 +51,5 @@ class CartResolver
         return $cartItems
             ->filter(fn ($cartItem) => $cartItem->productUuid !== $itemFormableDTO->productUuid)
             ->push($itemFormableDTO);
-    }
-
-    public function resolveItemInCart()
-    {
-
     }
 }

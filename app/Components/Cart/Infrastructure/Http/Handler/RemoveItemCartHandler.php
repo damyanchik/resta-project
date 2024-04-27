@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Components\Cart\Infrastructure\Http\Handler;
 
 use App\Components\Cart\Infrastructure\Facade\CartFacade;
-use App\Components\Cart\Infrastructure\Http\Request\CartRequest;
 use Illuminate\Http\JsonResponse;
 
-class AddCartHandler
+class RemoveItemCartHandler
 {
     public function __construct(
         private readonly JsonResponse $jsonResponse,
@@ -17,10 +16,10 @@ class AddCartHandler
     {
     }
 
-    public function __invoke(string $uuid, CartRequest $request): JsonResponse
+    public function __invoke(string $uuid): JsonResponse
     {
-        $this->facade->addItemToCart($uuid, $request);
-
-        return $this->jsonResponse->setData(['success'], );
+        return $this->facade->removeItemFromCart($uuid)
+            ? $this->jsonResponse->setData(['success'])
+            : $this->jsonResponse->setData(['failure']);
     }
 }

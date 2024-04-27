@@ -10,7 +10,7 @@ use App\Components\Product\Domain\DTO\ProductAvailableDTO;
 
 class CartValidation
 {
-    public static function isProduct(?ProductAvailableDTO $productAvailableDTO): void
+    public static function issetProduct(?ProductAvailableDTO $productAvailableDTO): void
     {
         if ($productAvailableDTO === null) {
             throw CartException::notFound('Product not found.');
