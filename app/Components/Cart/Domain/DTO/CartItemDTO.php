@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Components\Cart\Domain\DTO;
 
 use Akaunting\Money\Money;
+use App\Components\Common\DTO\PriceDTO;
 
 class CartItemDTO
 {
     public function __construct(
         public readonly string $name,
         public readonly int $quantity,
-        public readonly Money $nettPrice,
-        public readonly Money $grossPrice,
+        public readonly PriceDTO $price,
         public readonly bool $isVegetarian,
         public readonly bool $isSpicy,
     )
@@ -21,11 +21,11 @@ class CartItemDTO
 
     public function sumNettPrice(): Money
     {
-        return $this->nettPrice->multiply($this->quantity);
+        return $this->price->nett->multiply($this->quantity);
     }
 
     public function sumGrossPrice(): Money
     {
-        return $this->grossPrice->multiply($this->quantity);
+        return $this->price->gross->multiply($this->quantity);
     }
 }

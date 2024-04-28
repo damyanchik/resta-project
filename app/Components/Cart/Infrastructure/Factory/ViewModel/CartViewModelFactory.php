@@ -30,8 +30,7 @@ class CartViewModelFactory
         return new CartItemViewModel(
             name: $itemDTO->name,
             quantity: $itemDTO->quantity,
-            nettPrice: $itemDTO->nettPrice,
-            grossPrice: $itemDTO->grossPrice,
+            price: $itemDTO->price,
             isVegetarian: $itemDTO->isVegetarian,
             isSpicy: $itemDTO->isSpicy,
             sumNettPrice: $itemDTO->sumNettPrice(),

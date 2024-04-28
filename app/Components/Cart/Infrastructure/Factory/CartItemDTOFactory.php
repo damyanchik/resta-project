@@ -6,12 +6,15 @@ namespace App\Components\Cart\Infrastructure\Factory;
 
 use App\Components\Cart\Domain\DTO\CartItemDTO;
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
+use App\Components\Common\DTO\PriceDTO;
+use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Product\Application\Repository\ProductRepository;
 use Illuminate\Support\Collection;
 
 class CartItemDTOFactory
 {
     public function __construct(
+        private readonly PriceCalculator   $priceCalculator,
         private readonly ProductRepository $productRepository,
     )
     {
@@ -33,7 +36,7 @@ class CartItemDTOFactory
     {
         $products = $this->productRepository->getByUuids(
             uuids: $cartItems->map(fn($item) => $item->productUuid)->toArray(),
-            columns: ['uuid', 'name', 'price', 'is_vegetarian', 'is_spicy'],
+            columns: ['uuid', 'name', 'price', 'rate', 'is_vegetarian', 'is_spicy'],
         );
 
         return $products->mapWithKeys(
@@ -41,8 +44,11 @@ class CartItemDTOFactory
                 name: $product->name,
                 quantity: $cartItems->firstWhere(fn($item) => $item->productUuid === $product->uuid)
                     ->quantity,
-                nettPrice: $product->price,
-                grossPrice: $product->price,
+                price: new PriceDTO(
+                    nett: $this->priceCalculator->calculateNettFromGross($product->price, $product->rate),
+                    gross: $product->price,
+                    rate: $product->rate,
+                ),
                 isVegetarian: $product->is_vegetarian,
                 isSpicy: $product->is_spicy,
             )]);

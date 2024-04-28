@@ -21,7 +21,7 @@ class ShowProductHandler
     public function __invoke(string $uuid): JsonResponse
     {
         return $this->jsonResponse->setData($this->viewModelFactory->createByProductDTO(
-            productDTO: $this->productFacade->getProductByUuid($uuid)
+            productDTO: $this->productFacade->getProductByUuid($uuid),
         )->toArray());
     }
 }
