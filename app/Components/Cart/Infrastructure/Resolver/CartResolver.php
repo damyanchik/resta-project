@@ -13,16 +13,16 @@ use Illuminate\Support\Collection;
 class CartResolver
 {
     /**
-     * @param Collection<CartItemFormableDTO> $formableItems
+     * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
      * @param Collection<ProductAvailableDTO> $productAvailableDTOs
      * @return Collection<CartItemFormableDTO>
      */
     public function resolveItemsBetweenRepositoryAndSession(
-        Collection $formableItems,
+        Collection $cartItemFormableDTOs,
         Collection $productAvailableDTOs,
     ): Collection
     {
-        return $formableItems->map(function ($item) use ($productAvailableDTOs) {
+        return $cartItemFormableDTOs->map(function ($item) use ($productAvailableDTOs) {
             $product = $productAvailableDTOs->get($item->productUuid);
 
             try {
@@ -44,17 +44,17 @@ class CartResolver
     }
 
     /**
-     * @param CartItemFormableDTO $itemFormableDTO
-     * @param Collection<CartItemFormableDTO> $cartItems
+     * @param CartItemFormableDTO $cartItemFormableDTO
+     * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
      * @return Collection<CartItemFormableDTO>
      */
     public function resolveAssigningNewItemToCartItems(
-        CartItemFormableDTO $itemFormableDTO,
-        Collection $cartItems
+        CartItemFormableDTO $cartItemFormableDTO,
+        Collection $cartItemFormableDTOs
     ): Collection
     {
-        return $cartItems
-            ->filter(fn ($cartItem) => $cartItem->productUuid !== $itemFormableDTO->productUuid)
-            ->push($itemFormableDTO);
+        return $cartItemFormableDTOs
+            ->filter(fn ($cartItem) => $cartItem->productUuid !== $cartItemFormableDTO->productUuid)
+            ->push($cartItemFormableDTO);
     }
 }

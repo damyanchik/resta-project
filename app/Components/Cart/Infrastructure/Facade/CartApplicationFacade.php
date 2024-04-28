@@ -32,7 +32,7 @@ class CartApplicationFacade implements CartFacade
         return $this->session->addCartItems(
             cartSession: $this->cartSessionFactory->createCartSession(
                 cartItemFormableDTOs: $this->cartService->getValidatedItems(
-                    cartItems: $this->cartService->joinItemToCartItemFormableDTOs(
+                    cartItemFormableDTOs: $this->cartService->joinItemToCartItemFormableDTOs(
                         uuid: $uuid,
                         cartFormable: $cartFormable,
                         cartItemFormableDTOs: $cartFormableDTO->cartFormableItems,

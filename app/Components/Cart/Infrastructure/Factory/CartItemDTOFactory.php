@@ -29,13 +29,13 @@ class CartItemDTOFactory
     }
 
     /**
-     * @param Collection<CartItemFormableDTO> $formableItems
+     * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
      * @return Collection<CartItemDTO>
      */
-    public function createCartItemDTOs(Collection $formableItems): Collection
+    public function createCartItemDTOs(Collection $cartItemFormableDTOs): Collection
     {
         $products = $this->productRepository->getByUuids(
-            uuids: $formableItems->map(fn($item) => $item->productUuid)->toArray(),
+            uuids: $cartItemFormableDTOs->map(fn($item) => $item->productUuid)->toArray(),
             columns: ['uuid', 'name', 'price', 'rate', 'is_vegetarian', 'is_spicy'],
         );
 
@@ -43,7 +43,7 @@ class CartItemDTOFactory
             fn($product) => [
                 $product->uuid => new CartItemDTO(
                     name: $product->name,
-                    quantity: $formableItems->firstWhere(fn($item) => $item->productUuid === $product->uuid)
+                    quantity: $cartItemFormableDTOs->firstWhere(fn($item) => $item->productUuid === $product->uuid)
                         ->quantity,
                     price: new PriceDTO(
                         nett: $this->priceCalculator->calculateNettFromGross($product->price, $product->rate),

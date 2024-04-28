@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Components\Cart\Infrastructure\Service;
 
 use App\Components\Cart\Application\DTO\CartFormable;
-use App\Components\Cart\Domain\DTO\CartFormableDTO;
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
 use App\Components\Cart\Infrastructure\Factory\CartItemDTOFactory;
 use App\Components\Cart\Infrastructure\Mapper\CartItemFormableDTOMapper;
@@ -16,7 +15,7 @@ use Illuminate\Support\Collection;
 class CartService
 {
     public function __construct(
-        private readonly CartItemDTOFactory $cartItemDTOFactory,
+        private readonly CartItemDTOFactory        $cartItemDTOFactory,
         private readonly CartItemFormableDTOMapper $itemFormableDTOMapper,
         private readonly CartResolver              $cartResolver,
         private readonly ProductRepository         $productRepository,
@@ -31,17 +30,17 @@ class CartService
      * @return Collection<CartItemFormableDTO>
      */
     public function joinItemToCartItemFormableDTOs(
-        string $uuid,
+        string       $uuid,
         CartFormable $cartFormable,
-        Collection $cartItemFormableDTOs,
+        Collection   $cartItemFormableDTOs,
     ): Collection
     {
         return $this->cartResolver->resolveAssigningNewItemToCartItems(
-            itemFormableDTO: $this->cartItemDTOFactory->createCartItemFormableDTO(
+            cartItemFormableDTO: $this->cartItemDTOFactory->createCartItemFormableDTO(
                 productUuid: $uuid,
                 quantity: $cartFormable->quantity(),
             ),
-            cartItems: $cartItemFormableDTOs,
+            cartItemFormableDTOs: $cartItemFormableDTOs,
         );
     }
 
@@ -51,7 +50,7 @@ class CartService
      * @return Collection<CartItemFormableDTO>
      */
     public function removeItemFromCartItemFormableDTOs(
-        string $uuid,
+        string     $uuid,
         Collection $cartItemFormableDTOs,
     ): Collection
     {
@@ -59,18 +58,18 @@ class CartService
     }
 
     /**
-     * @param Collection<CartItemFormableDTO> $cartItems
+     * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
      * @return Collection<CartItemFormableDTO>
      */
-    public function getValidatedItems(Collection $cartItems): Collection
+    public function getValidatedItems(Collection $cartItemFormableDTOs): Collection
     {
-        $resolvedCart = $this->cartResolver->resolveItemsBetweenRepositoryAndSession(
-            $cartItems,
-            $this->productRepository->getProductAvailabilityDTOs(
-                uuids: $cartItems->map(fn($item) => $item->productUuid)->toArray(),
+        return $this->itemFormableDTOMapper->toCartSessionItems(
+            cartItemFormableDTOs: $this->cartResolver->resolveItemsBetweenRepositoryAndSession(
+                cartItemFormableDTOs: $cartItemFormableDTOs,
+                productAvailableDTOs: $this->productRepository->getProductAvailabilityDTOs(
+                    uuids: $cartItemFormableDTOs->map(fn($item) => $item->productUuid)->toArray(),
+                ),
             ),
         );
-
-        return $this->itemFormableDTOMapper->toCartSessionItems($resolvedCart);
     }
 }
