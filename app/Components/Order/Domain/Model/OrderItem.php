@@ -21,20 +21,21 @@ class OrderItem extends Model
     protected $table = 'order_items';
     protected $casts = [
         'status' => OrderItemStatusEnum::class,
-        'subtotal_unit_price' => MoneyCast::class,
-        'total_unit_price' => MoneyCast::class,
-        'subtotal_price' => MoneyCast::class,
-        'total_price' => MoneyCast::class,
+        'unit_nett_price' => MoneyCast::class,
+        'unit_gross_price' => MoneyCast::class,
+        'sum_nett_price' => MoneyCast::class,
+        'sum_gross_price' => MoneyCast::class,
     ];
     protected $fillable = [
         'product_uuid',
-        'subtotal_unit_price',
-        'total_unit_price',
-        'subtotal_price',
-        'total_price',
+        'unit_nett_price',
+        'unit_gross_price',
+        'sum_nett_price',
+        'sum_gross_price',
+        'rate',
         'quantity',
         'status',
-        'annotation',
+        'message',
         'order_nr',
     ];
 

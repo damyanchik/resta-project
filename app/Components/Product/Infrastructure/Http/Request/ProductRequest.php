@@ -19,10 +19,10 @@ class ProductRequest extends FormRequest implements ProductFormable
     {
         return [
             'name' => ['string', 'required'],
-            'description' => ['string', 'required'],
+            'description' => ['string', 'nullable'],
             'stock' => ['integer', 'required', 'min:0'],
             'price' => ['integer', 'required', 'min:0'],
-            'rate' => ['integer', 'required', 'min:0', 'max:99'],
+            'rate' => ['integer', 'nullable', 'min:0', 'max:99'],
             'is_unlimited' => ['integer', 'nullable', 'min:0', 'max:1'],
             'is_vegetarian' => ['integer', 'nullable', 'min:0', 'max:1'],
             'is_spicy' => ['integer', 'nullable', 'min:0', 'max:1'],

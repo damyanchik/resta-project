@@ -171,6 +171,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         \App\Components\Product\Infrastructure\ServiceProvider\ProductServiceProvider::class,
         \App\Components\Finance\Infrastructure\ServiceProvider\FinanceServiceProvider::class,
+        \App\Components\Cart\Infrastructure\ServiceProvider\CartServiceProvider::class,
         ListingProvider::class,
     ])->toArray(),
 

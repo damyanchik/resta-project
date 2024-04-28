@@ -9,8 +9,13 @@ use Illuminate\Support\Collection;
 
 class CartDTO
 {
+    /**
+     * @param Collection<CartItemDTO> $items
+     * @param object|null $discount
+     */
     public function __construct(
         public readonly Collection $items,
+        public readonly ?object $discount = null,
     )
     {
     }

@@ -10,9 +10,11 @@ class CartSessionModel
 {
     /**
      * @param Collection<CartItemSessionModel> $sessionCartItems
+     * @param object|null $discount
      */
     public function __construct(
         public readonly Collection $sessionCartItems,
+        public readonly ?object $discount = null,
     )
     {
     }
@@ -21,6 +23,7 @@ class CartSessionModel
     {
         return [
             'items' => $this->sessionCartItems->map(fn($item) => $item->toArray())->toArray(),
+            'discount'
         ];
     }
 }

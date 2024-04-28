@@ -13,14 +13,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_items', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('subtotal_unit_price');
-            $table->unsignedInteger('total_unit_price');
-            $table->unsignedInteger('subtotal_price');
-            $table->unsignedInteger('total_price');
+            $table->uuid();
+            $table->unsignedInteger('unit_nett_price');
+            $table->unsignedInteger('unit_gross_price');
+            $table->unsignedInteger('sum_nett_price');
+            $table->unsignedInteger('sum_gross_price');
+            $table->unsignedTinyInteger('rate');
             $table->unsignedInteger('quantity');
             $table->enum('status', OrderItemStatusEnum::values())->default(OrderItemStatusEnum::PREPARING->value);
-            $table->text('annotation')->nullable();
+            $table->text('message')->nullable();
             $table->integer('order_nr')->default(0);
             $table->foreignUuid('product_uuid');
             $table->timestamps();

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Infrastructure\Facade;
 
+use App\Components\Cart\Application\Facade\CartFacade;
 use App\Components\Order\Application\DTO\OrderFormable;
-use App\Components\Order\Domain\DTO\OrderDTO;
 use App\Components\Order\Domain\Exception\OrderItemException;
 use App\Components\Order\Infrastructure\Factory\OrderDTOFactory;
 use App\Components\Order\Infrastructure\Repository\OrderRepository;
@@ -13,6 +13,7 @@ use App\Components\Order\Infrastructure\Repository\OrderRepository;
 class OrderFacade
 {
     public function __construct(
+        private readonly CartFacade $cartFacade,
         private readonly OrderRepository $orderRepository,
         private readonly OrderDTOFactory $orderDTOFactory,
     )
@@ -22,27 +23,29 @@ class OrderFacade
     /**
      * @throws OrderItemException
      */
-    public function getPreviewByFormable(OrderFormable $orderFormable): OrderDTO
-    {
-        return $this->orderDTOFactory->createOrderDTOForPreview(
-            type: $orderFormable->type(),
-            items: $orderFormable->items(),
-            annotation: $orderFormable->annotation(),
-        );
-    }
-
-    /**
-     * @throws OrderItemException
-     */
     public function createByFormable(OrderFormable $orderFormable): bool
     {
         return $this->orderRepository->create(
             $this->orderDTOFactory->createOrderFormableDTO(
+                status: $orderFormable->status(),
                 type: $orderFormable->type(),
                 items: $orderFormable->items(),
                 paymentMethod: $orderFormable->paymentMethod(),
                 annotation: $orderFormable->annotation(),
+                isPaid: $orderFormable->isPaid(),
             ),
         );
+
+        //service do zapisu order i osobno items
+    }
+
+    public function showOrderByUuid(string $uuid)
+    {
+
+    }
+
+    public function createBySelfCartSession()
+    {
+
     }
 }

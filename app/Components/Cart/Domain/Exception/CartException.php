@@ -8,18 +8,8 @@ use Exception;
 
 class CartException extends Exception
 {
-    public static function notFound(string $message): static
+    public static function emptyCart(): static
     {
-        return new static($message, 404);
-    }
-
-    public static function unavailable(): static
-    {
-        return new static('Product is unavailable.', 406);
-    }
-
-    public static function notEnoughOnStock(): static
-    {
-        return new static('Not enough product on stock.', 406);
+        return new static('Cart is empty.', 404);
     }
 }

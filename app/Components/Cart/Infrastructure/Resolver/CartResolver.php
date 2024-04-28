@@ -5,30 +5,35 @@ declare(strict_types=1);
 namespace App\Components\Cart\Infrastructure\Resolver;
 
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
-use App\Components\Cart\Domain\Exception\CartException;
-use App\Components\Cart\Infrastructure\Http\Session\Model\CartItemSessionModel;
-use App\Components\Cart\Infrastructure\Validation\CartValidation;
 use App\Components\Product\Domain\DTO\ProductAvailableDTO;
+use App\Components\Product\Domain\Exception\ProductAvailabilityException;
+use App\Components\Product\Infrastructure\Validation\ProductValidation;
 use Illuminate\Support\Collection;
 
 class CartResolver
 {
-
     /**
-     * @param Collection<CartItemSessionModel> $cartItems
+     * @param Collection<CartItemFormableDTO> $formableItems
      * @param Collection<ProductAvailableDTO> $productAvailableDTOs
-     * @return Collection<CartItemSessionModel>
+     * @return Collection<CartItemFormableDTO>
      */
-    public function resolveBetweenRepositoryAndSession(Collection $cartItems, Collection $productAvailableDTOs): Collection
+    public function resolveItemsBetweenRepositoryAndSession(
+        Collection $formableItems,
+        Collection $productAvailableDTOs,
+    ): Collection
     {
-        return $cartItems->map(function ($item) use ($productAvailableDTOs) {
+        return $formableItems->map(function ($item) use ($productAvailableDTOs) {
             $product = $productAvailableDTOs->get($item->productUuid);
 
             try {
-                CartValidation::issetProduct($product);
-                CartValidation::isAvailableProduct($product);
-                CartValidation::isProductStockHigherOrEqual($item, $product);
-            } catch (CartException) {
+                ProductValidation::issetProduct($product);
+                ProductValidation::isAvailableProduct($product->isAvailable);
+                ProductValidation::isProductStockHigherOrEqual(
+                    needed: $item->quantity,
+                    stock: $product->stock,
+                    isUnlimited: $product->isUnlimited,
+                );
+            } catch (ProductAvailabilityException) {
                 return null;
             }
 

@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Components\Cart\Infrastructure\Factory;
 
 use App\Components\Cart\Domain\DTO\CartDTO;
-use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
-use Illuminate\Support\Collection;
+use App\Components\Cart\Domain\DTO\CartFormableDTO;
 
 class CartDTOFactory
 {
@@ -17,11 +16,14 @@ class CartDTOFactory
     }
 
     /**
-     * @param Collection<CartItemFormableDTO> $cartItems
+     * @param CartFormableDTO $cartFormableDTO
      * @return CartDTO
      */
-    public function createCartDTO(Collection $cartItems): CartDTO
+    public function createCartDTO(CartFormableDTO $cartFormableDTO): CartDTO
     {
-        return new CartDTO($this->cartItemDTOFactory->createCartItemDTOs($cartItems));
+        return new CartDTO(
+            items: $this->cartItemDTOFactory->createCartItemDTOs($cartFormableDTO->cartFormableItems),
+            discount: $cartFormableDTO->discount,
+        );
     }
 }

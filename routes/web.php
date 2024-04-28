@@ -22,8 +22,14 @@ Route::post('/api/cart/destroy', \App\Components\Cart\Infrastructure\Http\Handle
     ->name('cart.destroy');
 
 
+Route::get('/api/product/listing', \App\Components\Product\Infrastructure\Http\Handler\ListingProductHandler::class)
+    ->name('product.listing');
+
 Route::post('/api/product/create', \App\Components\Product\Infrastructure\Http\Handler\CreateProductHandler::class)
     ->name('product.create');
 
 Route::get('/api/product/{uuid}', \App\Components\Product\Infrastructure\Http\Handler\ShowProductHandler::class)
     ->name('product.show');
+
+Route::post('/api/product/delete/{uuid}', \App\Components\Product\Infrastructure\Http\Handler\DeleteProductHandler::class)
+    ->name('product.delete');

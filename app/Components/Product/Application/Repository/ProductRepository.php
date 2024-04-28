@@ -11,5 +11,6 @@ use Illuminate\Support\Collection;
 interface ProductRepository extends RepositoryContract
 {
     public function getProductAvailabilityDTOs(array $uuids): Collection;
+    public function getProductBasicDTOs(array $uuids): Collection;
     public function getProductDTO(string $uuid): ?ProductDTO;
 }

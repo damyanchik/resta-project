@@ -6,22 +6,19 @@ namespace App\Components\Cart\Infrastructure\Mapper;
 
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
 use App\Components\Cart\Infrastructure\Http\Session\Model\CartItemSessionModel;
-use App\Components\Cart\Infrastructure\Http\Session\Model\CartSessionModel;
 use Illuminate\Support\Collection;
 
 class CartItemFormableDTOMapper
 {
     /**
      * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
-     * @return CartSessionModel
+     * @return Collection<CartItemSessionModel>
      */
-    public function manyToCartSession(Collection $cartItemFormableDTOs): CartSessionModel
+    public function toCartSessionItems(Collection $cartItemFormableDTOs): Collection
     {
-        return new CartSessionModel(
-            sessionCartItems: $cartItemFormableDTOs->map(fn($itemForm) => new CartItemSessionModel(
+        return $cartItemFormableDTOs->map(fn($itemForm) => new CartItemSessionModel(
                 productUuid: $itemForm->productUuid,
                 quantity: $itemForm->quantity,
-            ))
-        );
+        ));
     }
 }

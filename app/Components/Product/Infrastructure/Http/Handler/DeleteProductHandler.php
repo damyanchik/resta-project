@@ -18,8 +18,6 @@ class DeleteProductHandler
 
     public function __invoke(string $uuid): JsonResponse
     {
-        $this->productFacade->deleteByUuid($uuid);
-
         return $this->productFacade->deleteByUuid($uuid)
             ? $this->jsonResponse->setData([
                 'status' => 'success',

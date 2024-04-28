@@ -29,28 +29,31 @@ class CartItemDTOFactory
     }
 
     /**
-     * @param Collection<CartItemFormableDTO> $cartItems
+     * @param Collection<CartItemFormableDTO> $formableItems
      * @return Collection<CartItemDTO>
      */
-    public function createCartItemDTOs(Collection $cartItems): Collection
+    public function createCartItemDTOs(Collection $formableItems): Collection
     {
         $products = $this->productRepository->getByUuids(
-            uuids: $cartItems->map(fn($item) => $item->productUuid)->toArray(),
+            uuids: $formableItems->map(fn($item) => $item->productUuid)->toArray(),
             columns: ['uuid', 'name', 'price', 'rate', 'is_vegetarian', 'is_spicy'],
         );
 
         return $products->mapWithKeys(
-            fn($product) => [$product->uuid => new CartItemDTO(
-                name: $product->name,
-                quantity: $cartItems->firstWhere(fn($item) => $item->productUuid === $product->uuid)
-                    ->quantity,
-                price: new PriceDTO(
-                    nett: $this->priceCalculator->calculateNettFromGross($product->price, $product->rate),
-                    gross: $product->price,
-                    rate: $product->rate,
+            fn($product) => [
+                $product->uuid => new CartItemDTO(
+                    name: $product->name,
+                    quantity: $formableItems->firstWhere(fn($item) => $item->productUuid === $product->uuid)
+                        ->quantity,
+                    price: new PriceDTO(
+                        nett: $this->priceCalculator->calculateNettFromGross($product->price, $product->rate),
+                        gross: $product->price,
+                        rate: $product->rate,
+                    ),
+                    isVegetarian: $product->is_vegetarian,
+                    isSpicy: $product->is_spicy,
                 ),
-                isVegetarian: $product->is_vegetarian,
-                isSpicy: $product->is_spicy,
-            )]);
+            ],
+        );
     }
 }

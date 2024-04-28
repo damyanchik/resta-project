@@ -34,7 +34,7 @@ class CartItemViewModel
             'is_vegetarian' => $this->isVegetarian,
             'is_spicy' => $this->isSpicy,
             'sum_nett_price' => $this->sumNettPrice->format(),
-            'sum_gross_price' => $this->sumNettPrice->format(),
+            'sum_gross_price' => $this->sumGrossPrice->format(),
         ];
     }
 }

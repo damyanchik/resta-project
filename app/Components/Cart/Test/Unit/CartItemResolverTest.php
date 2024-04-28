@@ -33,7 +33,7 @@ class CartItemResolverTest extends TestCase
             $thirdProductUuid => new ProductAvailableDTO(40,false, true),
         ]);
 
-        $resolved = $resolver->resolveBetweenRepositoryAndSession($cartDTOs, $productDTOs);
+        $resolved = $resolver->resolveItemsBetweenRepositoryAndSession($cartDTOs, $productDTOs);
         dd($resolved);
     }
 }

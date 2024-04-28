@@ -27,9 +27,17 @@ class ProductApplicationRepository extends AbstractRepository implements Product
      */
     public function getProductAvailabilityDTOs(array $uuids): Collection
     {
-        return $this->productModelMapper->toProductAvailabilityDTO($this->getByUuids(
+        return $this->productModelMapper->toProductAvailabilityDTOs($this->getByUuids(
             uuids: $uuids,
             columns: ['uuid', 'stock', 'is_available', 'is_unlimited'],
+        ));
+    }
+
+    public function getProductBasicDTOs(array $uuids): Collection
+    {
+        return $this->productModelMapper->toProductBasicDTOs($this->getByUuids(
+            uuids: $uuids,
+            columns: ['uuid', 'price', 'rate', 'stock', 'is_available', 'is_unlimited', 'category_uuid'],
         ));
     }
 
