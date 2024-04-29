@@ -11,8 +11,8 @@ use App\Components\Cart\Domain\DTO\CartFormableDTO;
 interface CartFacade
 {
     public function addItemToCart(string $uuid, CartFormable $cartFormable): bool;
-    public function getCartItems(): CartDTO;
-    public function getFormableCartItems(): CartFormableDTO;
+    public function getCart(): CartDTO;
+    public function getFormableCart(): CartFormableDTO;
     public function removeItemFromCart(string $uuid): bool;
     public function destroyCart(): bool;
     public function reloadCartItems(): bool;

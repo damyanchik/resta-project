@@ -13,7 +13,7 @@ use App\Components\Order\Infrastructure\Repository\OrderRepository;
 class OrderFacade
 {
     public function __construct(
-        private readonly CartFacade $cartFacade,
+        private readonly CartFacade      $cartFacade,
         private readonly OrderRepository $orderRepository,
         private readonly OrderDTOFactory $orderDTOFactory,
     )
@@ -37,6 +37,8 @@ class OrderFacade
         );
 
         //service do zapisu order i osobno items
+        //builder?
+        //usuniecie z DTO obliczanie?
     }
 
     public function showOrderByUuid(string $uuid)
@@ -46,6 +48,12 @@ class OrderFacade
 
     public function createBySelfCartSession()
     {
+        $this->cartFacade->getFormableCart();
 
+        //quantity
+        //productUuid
+        //discount - do liczenia - najpierw zwykle liczenie? a potem to?
+
+        //
     }
 }

@@ -17,6 +17,8 @@ class OrderDTOFactory
     {
     }
 
+    //moze przeniesc builder
+
     /**
      * @throws OrderItemException
      */

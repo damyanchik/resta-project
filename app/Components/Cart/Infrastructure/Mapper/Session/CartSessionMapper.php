@@ -19,7 +19,7 @@ class CartSessionMapper
     public function toCartItemFormableDTOs(Collection $cartItems, ?array $discount = null): CartFormableDTO
     {
         return new CartFormableDTO(
-            cartFormableItems: $cartItems->map(fn($item) => new CartItemFormableDTO(
+            cartFormableItemDTOs: $cartItems->map(fn($item) => new CartItemFormableDTO(
                 productUuid: $item[CartItemAttributeEnum::PRODUCT_UUID->value],
                 quantity: $item[CartItemAttributeEnum::QUANTITY->value],
             )),

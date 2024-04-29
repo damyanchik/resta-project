@@ -21,7 +21,7 @@ class DisplayCartHandler
     public function __invoke(): JsonResponse
     {
         return $this->jsonResponse->setData(
-            data: $this->viewModelFactory->createByCartDTO($this->facade->getCartItems())?->toArray(),
+            data: $this->viewModelFactory->createByCartDTO($this->facade->getCart())?->toArray(),
         );
     }
 }

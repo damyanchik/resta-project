@@ -7,6 +7,7 @@ namespace App\Components\Product\Infrastructure\Repository;
 use App\Components\Common\EloquentRepository\AbstractRepository;
 use App\Components\Product\Application\Repository\ProductRepository;
 use App\Components\Product\Domain\DTO\ProductAvailableDTO;
+use App\Components\Product\Domain\DTO\ProductBasicDTO;
 use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Product\Domain\Model\Product;
 use App\Components\Product\Infrastructure\Mapper\ProductModelMapper;
@@ -33,6 +34,10 @@ class ProductApplicationRepository extends AbstractRepository implements Product
         ));
     }
 
+    /**
+     * @param array $uuids
+     * @return Collection<ProductBasicDTO>
+     */
     public function getProductBasicDTOs(array $uuids): Collection
     {
         return $this->productModelMapper->toProductBasicDTOs($this->getByUuids(

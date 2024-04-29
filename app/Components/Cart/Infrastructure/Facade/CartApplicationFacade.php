@@ -35,7 +35,7 @@ class CartApplicationFacade implements CartFacade
                     cartItemFormableDTOs: $this->cartService->joinItemToCartItemFormableDTOs(
                         uuid: $uuid,
                         cartFormable: $cartFormable,
-                        cartItemFormableDTOs: $cartFormableDTO->cartFormableItems,
+                        cartItemFormableDTOs: $cartFormableDTO->cartFormableItemDTOs,
                     ),
                 ),
                 discount: $cartFormableDTO->discount,
@@ -43,12 +43,12 @@ class CartApplicationFacade implements CartFacade
         );
     }
 
-    public function getCartItems(): CartDTO
+    public function getCart(): CartDTO
     {
         $this->reloadCartItems();
         $cartFormableDTO = $this->session->getCart();
 
-        if (empty($cartFormableDTO->cartFormableItems->first())) {
+        if (empty($cartFormableDTO->cartFormableItemDTOs->first())) {
             $this->destroyCart();
             throw CartException::emptyCart();
         }
@@ -57,12 +57,12 @@ class CartApplicationFacade implements CartFacade
     }
 
     /** @throws CartException */
-    public function getFormableCartItems(): CartFormableDTO
+    public function getFormableCart(): CartFormableDTO
     {
         $this->reloadCartItems();
         $cartFormableDTO = $this->session->getCart();
 
-        return empty($cartFormableDTO->cartFormableItems->first())
+        return empty($cartFormableDTO->cartFormableItemDTOs->first())
             ? throw CartException::emptyCart()
             : $cartFormableDTO;
     }
@@ -81,7 +81,7 @@ class CartApplicationFacade implements CartFacade
             cartSession: $this->cartSessionFactory->createCartSession(
                 cartItemFormableDTOs: $this->cartService->removeItemFromCartItemFormableDTOs(
                     uuid: $uuid,
-                    cartItemFormableDTOs: $cartFormableDTO->cartFormableItems,
+                    cartItemFormableDTOs: $cartFormableDTO->cartFormableItemDTOs,
                 ),
                 discount: $cartFormableDTO->discount,
             ),
@@ -99,7 +99,7 @@ class CartApplicationFacade implements CartFacade
 
         return $this->session->addCartItems(
             cartSession: $this->cartSessionFactory->createCartSession(
-                cartItemFormableDTOs: $this->cartService->getValidatedItems($cartFormableDTO->cartFormableItems),
+                cartItemFormableDTOs: $this->cartService->getValidatedItems($cartFormableDTO->cartFormableItemDTOs),
                 discount: $cartFormableDTO->discount,
             ),
         );

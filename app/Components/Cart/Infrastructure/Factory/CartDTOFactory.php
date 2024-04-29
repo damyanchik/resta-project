@@ -22,7 +22,7 @@ class CartDTOFactory
     public function createCartDTO(CartFormableDTO $cartFormableDTO): CartDTO
     {
         return new CartDTO(
-            items: $this->cartItemDTOFactory->createCartItemDTOs($cartFormableDTO->cartFormableItems),
+            items: $this->cartItemDTOFactory->createCartItemDTOs($cartFormableDTO->cartFormableItemDTOs),
             discount: $cartFormableDTO->discount,
         );
     }
