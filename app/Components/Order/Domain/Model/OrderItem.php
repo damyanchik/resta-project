@@ -17,7 +17,9 @@ class OrderItem extends Model
     use HasFactory;
     use HasUuids;
 
+    public $incrementing = false;
     protected $primaryKey = 'uuid';
+    protected $keyType = 'string';
     protected $table = 'order_items';
     protected $casts = [
         'status' => OrderItemStatusEnum::class,
@@ -28,6 +30,7 @@ class OrderItem extends Model
     ];
     protected $fillable = [
         'product_uuid',
+        'order_uuid',
         'unit_nett_price',
         'unit_gross_price',
         'sum_nett_price',
@@ -41,7 +44,7 @@ class OrderItem extends Model
 
     public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_uuid', 'uuid');
     }
 
     public function product(): BelongsTo

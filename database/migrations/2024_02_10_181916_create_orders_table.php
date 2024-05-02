@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid()->primary();
             $table->string('status');
             $table->string('type');
-            $table->unsignedInteger('subtotal_amount');
-            $table->unsignedInteger('total_amount');
+            $table->unsignedInteger('nett_amount');
+            $table->unsignedInteger('gross_amount');
             $table->string('payment_method')->nullable();
             $table->boolean('is_paid')->default(false);
             $table->text('annotation')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
     }
         // +delivery model + instruction
         // +customer model
-        // +orderDirection items model +
+        // +orderDirection orderEntryItemDTOs model +
     /**
      * Reverse the migrations.
      */

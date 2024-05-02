@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_items', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid()->primary();
             $table->unsignedInteger('unit_nett_price');
             $table->unsignedInteger('unit_gross_price');
             $table->unsignedInteger('sum_nett_price');
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('message')->nullable();
             $table->integer('order_nr')->default(0);
             $table->foreignUuid('product_uuid');
+            $table->foreignUuid('order_uuid');
             $table->timestamps();
         });
     }

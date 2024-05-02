@@ -20,14 +20,4 @@ class OrderItemDTO
     )
     {
     }
-
-    public function subtotalPrice(): Money
-    {
-        return $this->subtotalUnitPrice->multiply($this->quantity);
-    }
-
-    public function totalPrice(): Money
-    {
-        return $this->totalUnitPrice->multiply($this->quantity);
-    }
 }

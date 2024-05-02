@@ -37,7 +37,7 @@ class ProductFormableDTO implements EloquentDataBag
             'is_vegetarian' => $this->isVegetarian,
             'is_spicy' => $this->isSpicy,
             'is_available' => $this->isAvailable,
-            'category_id' => $this->categoryUuid,
+            'category_uuid' => $this->categoryUuid,
             'order_nr' => $this->orderNr,
         ];
     }

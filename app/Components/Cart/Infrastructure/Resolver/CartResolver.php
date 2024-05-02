@@ -13,9 +13,9 @@ use Illuminate\Support\Collection;
 class CartResolver
 {
     /**
-     * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
-     * @param Collection<ProductAvailableDTO> $productAvailableDTOs
-     * @return Collection<CartItemFormableDTO>
+     * @param Collection<int, CartItemFormableDTO> $cartItemFormableDTOs
+     * @param Collection<string, ProductAvailableDTO> $productAvailableDTOs
+     * @return Collection<int, CartItemFormableDTO>
      */
     public function resolveItemsBetweenRepositoryAndSession(
         Collection $cartItemFormableDTOs,

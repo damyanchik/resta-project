@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 class CartSession
 {
     private const SESSION_CART = 'cart';
-    private const SESSION_ITEMS = 'items';
+    private const SESSION_ITEMS = 'orderEntryItemDTOs';
     private const SESSION_DISCOUNT = 'discount';
 
     public function __construct(

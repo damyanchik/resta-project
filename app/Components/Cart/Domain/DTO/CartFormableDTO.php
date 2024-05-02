@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class CartFormableDTO
 {
     /**
-     * @param Collection<CartItemFormableDTO> $cartFormableItemDTOs
+     * @param Collection<int, CartItemFormableDTO> $cartFormableItemDTOs
      * @param object|null $discount
      */
     public function __construct(

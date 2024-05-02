@@ -74,6 +74,7 @@ class CartApplicationFacade implements CartFacade
         $cartFormableDTO = $this->session->getCart();
 
         if (empty($cart->cartFormableItems->first())) {
+            $this->destroyCart();
             throw CartException::emptyCart();
         }
 

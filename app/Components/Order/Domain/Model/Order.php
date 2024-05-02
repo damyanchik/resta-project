@@ -17,20 +17,22 @@ class Order extends Model
     use HasFactory;
     use HasUuids;
 
+    public $incrementing = false;
     protected $primaryKey = 'uuid';
+    protected $keyType='string';
     protected $table = 'orders';
     protected $casts = [
         'status' => OrderStatusEnum::class,
         'type' => OrderTypeEnum::class,
         'is_paid' => 'boolean',
-        'subtotal_amount' => MoneyCast::class,
-        'total_amount' => MoneyCast::class,
+        'nett_amount' => MoneyCast::class,
+        'gross_amount' => MoneyCast::class,
     ];
     protected $fillable = [
         'status',
         'type',
-        'subtotal_amount',
-        'total_amount',
+        'nett_amount',
+        'gross_amount',
         'payment_method',
         'is_paid',
         'annotation',
@@ -38,6 +40,6 @@ class Order extends Model
 
     public function orderItems(): HasMany
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasMany(OrderItem::class, 'order_uuid', 'uuid');
     }
 }

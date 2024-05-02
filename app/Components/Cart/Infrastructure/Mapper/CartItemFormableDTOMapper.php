@@ -11,8 +11,8 @@ use Illuminate\Support\Collection;
 class CartItemFormableDTOMapper
 {
     /**
-     * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
-     * @return Collection<CartItemSessionModel>
+     * @param Collection<int, CartItemFormableDTO> $cartItemFormableDTOs
+     * @return Collection<int, CartItemSessionModel>
      */
     public function toCartSessionItems(Collection $cartItemFormableDTOs): Collection
     {

@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Infrastructure\Http\Handler;
 
+use App\Components\Order\Application\DTO\OrderFormable;
 use App\Components\Order\Infrastructure\Facade\OrderFacade;
 use App\Components\Order\Infrastructure\Http\Request\OrderRequest;
 use Illuminate\Http\JsonResponse;
+use Throwable;
 
-class CreateOrderHandler
+class CreateFromCartOrderHandler
 {
     public function __construct(
         private readonly JsonResponse $jsonResponse,
@@ -17,10 +19,11 @@ class CreateOrderHandler
     {
     }
 
-    public function __invoke(OrderRequest $orderRequest)//: JsonResponse
+    /** @throws Throwable */
+    public function __invoke(OrderRequest $orderRequest): JsonResponse
     {
-        $this->orderFacade->createByFormable($orderRequest);
+        $this->orderFacade->createByFormableAndSelfCartSession($orderRequest);
 
-        //return $this->jsonResponse->setData(['test' => 'test']);
+        return $this->jsonResponse->setData(['test' => 'test']);
     }
 }

@@ -14,9 +14,14 @@ abstract class AbstractRepository
         return $this->model->find($uuid, $columns);
     }
 
-    public function create(EloquentDataBag $data): bool
+    public function create(EloquentDataBag $data): string
     {
-        return (bool)$this->model->create($data->toArray());
+        return $this->model->create($data->toArray())->getKey();
+    }
+
+    public function insert(array $data): bool
+    {
+        return (bool) $this->model->insert($data);
     }
 
     public function update(EloquentDataBag $data, string $uuid): bool

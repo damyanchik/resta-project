@@ -18,7 +18,7 @@ class CartSessionFactory
     }
 
     /**
-     * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
+     * @param Collection<int, CartItemFormableDTO> $cartItemFormableDTOs
      * @param object|null $discount
      * @return CartSessionModel
      */

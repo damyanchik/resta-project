@@ -22,7 +22,7 @@ class CartSessionModel
     public function toArray()
     {
         return [
-            'items' => $this->sessionCartItems->map(fn($item) => $item->toArray())->toArray(),
+            'orderEntryItemDTOs' => $this->sessionCartItems->map(fn($item) => $item->toArray())->toArray(),
             'discount'
         ];
     }

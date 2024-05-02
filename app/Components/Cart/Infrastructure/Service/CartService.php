@@ -26,8 +26,8 @@ class CartService
     /**
      * @param string $uuid
      * @param CartFormable $cartFormable
-     * @param Collection<CartItemFormableDTO> $cartItemFormableDTOs
-     * @return Collection<CartItemFormableDTO>
+     * @param Collection<int, CartItemFormableDTO> $cartItemFormableDTOs
+     * @return Collection<int, CartItemFormableDTO>
      */
     public function joinItemToCartItemFormableDTOs(
         string       $uuid,

@@ -2,13 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('/api/order', \App\Components\Order\Infrastructure\Http\Handler\CreateOrderHandler::class)
-    ->name('order.create');
-
-Route::get('/api/order/preview', \App\Components\Order\Infrastructure\Http\Handler\PreviewOrderHandler::class)
-    ->name('order.preview');
-
-
 Route::post('/api/cart/add/{uuid}', \App\Components\Cart\Infrastructure\Http\Handler\AddItemCartHandler::class)
     ->name('cart.add');
 
@@ -33,3 +26,10 @@ Route::get('/api/product/{uuid}', \App\Components\Product\Infrastructure\Http\Ha
 
 Route::post('/api/product/delete/{uuid}', \App\Components\Product\Infrastructure\Http\Handler\DeleteProductHandler::class)
     ->name('product.delete');
+
+
+Route::post('/api/order/create/cart', \App\Components\Order\Infrastructure\Http\Handler\CreateFromCartOrderHandler::class)
+    ->name('order.createFromCart');
+
+Route::post('/api/order/create', \App\Components\Order\Infrastructure\Http\Handler\CreateExtendedOrderHandler::class)
+    ->name('order.create');

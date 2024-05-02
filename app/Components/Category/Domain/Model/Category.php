@@ -13,6 +13,7 @@ class Category extends Model
     use HasFactory;
     use HasUuids;
 
+    public $incrementing = false;
     protected $primaryKey = 'uuid';
     protected $table = 'categories';
     protected $casts = [

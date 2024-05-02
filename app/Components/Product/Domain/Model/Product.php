@@ -16,7 +16,9 @@ class Product extends Model
     use HasFactory;
     use HasUuids;
 
+    public $incrementing = false;
     protected $primaryKey = 'uuid';
+    protected $keyType='string';
     protected $table = 'products';
     protected $casts = [
         'price' => MoneyCast::class,
