@@ -6,17 +6,31 @@
 
     <title>Restaurant</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    @vite('resources')
-</head>
-<body>
-    <div id="app"></div>
+    <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Marcellus+SC&display=swap"
+        rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+    @vite('resources/js/app.js')
+</head>
+
+<body>
+    <div class="logo__block" style="text-align: center">
+        <h1 class="logo__name">Deluxe Restaurant</h1>
+    </div>
+
+    <div class="background__block" style='
+        background-image:
+            linear-gradient(to bottom, black 1%, transparent 10%),
+            linear-gradient(to top, black 1%, transparent 12%),
+            linear-gradient(to left, black 1%, transparent 9%),
+            url("{{ asset('images/background.jpg') }}");
+            '>
+    </div>
+
+    <div class="start__block">
+        <button class="start__button">Make an order</button>
+    </div>
 </body>

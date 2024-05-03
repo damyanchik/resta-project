@@ -1,5 +1,5 @@
 <template>
- <h1>EXAMPLE</h1>
+ <h1>EXAMPLE lol kek</h1>
 </template>
 
 <script>
