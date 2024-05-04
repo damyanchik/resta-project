@@ -12,25 +12,12 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Marcellus+SC&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    @vite('resources/js/app.js')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-    <div class="logo__block" style="text-align: center">
-        <h1 class="logo__name">Deluxe Restaurant</h1>
-    </div>
-
-    <div class="background__block" style='
-        background-image:
-            linear-gradient(to bottom, black 1%, transparent 10%),
-            linear-gradient(to top, black 1%, transparent 12%),
-            linear-gradient(to left, black 1%, transparent 9%),
-            url("{{ asset('images/background.jpg') }}");
-            '>
-    </div>
-
-    <div class="start__block">
-        <button class="start__button">Make an order</button>
-    </div>
+    <div id="app"></div>
 </body>

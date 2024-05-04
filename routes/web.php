@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('index'));
 
+Route::get('/admin', fn() => view('admin'));
+
 Route::post('/api/cart/add/{uuid}', \App\Components\Cart\Infrastructure\Http\Handler\AddItemCartHandler::class)
     ->name('cart.add');
 
