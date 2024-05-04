@@ -36,10 +36,10 @@ body {
     background-size: 100vh;
     background-position: 95% 0;
     background-image:
-    linear-gradient(to bottom, black 1%, transparent 10%),
-    linear-gradient(to top, black 1%, transparent 12%),
-    linear-gradient(to left, black 1%, transparent 9%),
-    url('images/background.jpg');
+        linear-gradient(to bottom, black 1%, transparent 10%),
+        linear-gradient(to top, black 1%, transparent 12%),
+        linear-gradient(to left, black 1%, transparent 9%),
+        url('images/background.jpg');
 }
 
 .start__block {
