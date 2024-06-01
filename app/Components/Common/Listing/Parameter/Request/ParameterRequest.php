@@ -5,32 +5,35 @@ declare(strict_types=1);
 namespace App\Components\Common\Listing\Parameter\Request;
 
 use App\Components\Common\Listing\Parameter\Enum\QueryOrderEnum;
+use App\Components\Common\Listing\Parameter\Enum\QueryParameterEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ParameterRequest extends FormRequest implements ParametersBag
 {
+    private const DEFAULT_PER_PAGE = 15;
+
     public function rules(): array
     {
         return [
-            'selected' => [
+            QueryParameterEnum::SELECT_COLUMN->value => [
                 'nullable',
             ],
-            'in' => [
+            QueryParameterEnum::SEARCH_IN_COLUMN->value => [
                 'nullable',
             ],
-            'search' => [
+            QueryParameterEnum::SEARCH_TERM->value => [
                 'nullable',
                 'string',
             ],
-            'by' => [
+            QueryParameterEnum::ORDER_BY->value => [
                 'nullable',
                 'string'
             ],
-            'direction' => [
+            QueryParameterEnum::ORDER_BY_DIRECTION->value => [
                 'nullable',
                 'string',
             ],
-            'per' => [
+            QueryParameterEnum::PER_PAGE->value => [
                 'nullable',
                 'integer',
             ],
@@ -39,42 +42,40 @@ class ParameterRequest extends FormRequest implements ParametersBag
 
     public function getSelectedColumns(): array
     {
-        $selectedColumns = $this->input('selected');
+        $selectedColumns = $this->input(QueryParameterEnum::SELECT_COLUMN->value);
 
-        if (! is_array($selectedColumns)) {
-            return [];
-        }
-
-        return $selectedColumns;    }
+        return is_array($selectedColumns)
+            ? $selectedColumns
+            : [];
+    }
 
     public function getSearchColumns(): array
     {
-        $searchColumns = $this->input('in');
+        $searchColumns = $this->input(QueryParameterEnum::SEARCH_IN_COLUMN->value );
 
-        if (! is_array($searchColumns)) {
-            return [];
-        }
-
-        return $searchColumns;
+        return is_array($searchColumns)
+            ? $searchColumns
+            : [];
     }
 
     public function getSearchTerm(): string
     {
-        return $this->string('search', '')->toString();
+        return $this->string(QueryParameterEnum::SEARCH_TERM->value , '')->toString();
     }
 
     public function getOrderColumn(): string
     {
-        return $this->string('by', '')->toString();
+        return $this->string(QueryParameterEnum::ORDER_BY->value , '')->toString();
     }
 
     public function getOrderDirection(): QueryOrderEnum
     {
-        return $this->enum('direction', QueryOrderEnum::class) ?? QueryOrderEnum::ASC;
+        return $this->enum(QueryParameterEnum::ORDER_BY_DIRECTION->value, QueryOrderEnum::class)
+            ?? QueryOrderEnum::ASC;
     }
 
     public function getPerPage(): int
     {
-        return max(0, $this->integer('per')) ?: 15;
+        return max(0, $this->integer(QueryParameterEnum::PER_PAGE->value)) ?: self::DEFAULT_PER_PAGE;
     }
 }

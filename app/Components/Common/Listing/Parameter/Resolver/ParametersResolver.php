@@ -12,10 +12,11 @@ class ParametersResolver
     {
         return $columns
             ->filter(function ($item, $key) use ($bag) {
-            return
-                !$item[ListingParameterEnum::IS_REMOVAL->value] ||
-                $item[ListingParameterEnum::IS_VISIBLE->value] ||
-                in_array($key, $bag->getSelectedColumns());
+                return (
+                    ! $item[ListingParameterEnum::IS_REMOVAL->value] ||
+                    $item[ListingParameterEnum::IS_VISIBLE->value] ||
+                    in_array($key, $bag->getSelectedColumns())
+                );
             })
             ->keys()
             ->toArray();
