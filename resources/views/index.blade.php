@@ -6,7 +6,6 @@
 
     <title>Restaurant</title>
 
-    <link rel="stylesheet" href="{{ asset('css/stylesheet.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,9 +19,9 @@
         referrerpolicy="no-referrer"
     />
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/main.css', 'resources/js/main.js'])
 </head>
 
-<body>
-    <div id="app"></div>
+<body class="background-img">
+    <div id="main"></div>
 </body>

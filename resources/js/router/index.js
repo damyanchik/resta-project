@@ -1,7 +1,8 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import MenuView from '../views/MenuView.vue'
-import ServiceView from '../views/ServiceView.vue'
+import {createRouter, createWebHistory} from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import MenuView from "../views/MenuView.vue";
+import ReceiveView from '../views/ReceiveView.vue';
+import SummaryView from "../views/SummaryView.vue";
 
 const router = createRouter({
         history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,9 +18,14 @@ const router = createRouter({
                 component: () => MenuView,
             },
             {
-                path: '/service',
-                name: 'service',
-                component: () => ServiceView,
+                path: '/receive',
+                name: 'receive',
+                component: () => ReceiveView,
+            },
+            {
+                path: '/summary',
+                name: 'summary',
+                component: () => SummaryView,
             },
         ],
     });

@@ -1,0 +1,52 @@
+{
+    "products": [
+        {
+            "name": "Product A",
+            "price": "30 PLN",
+            "quantity": 20,
+            "order_nr": 1,
+            "category": "dish",
+            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "name": "Product B",
+            "price": "20 PLN",
+            "quantity": 2,
+            "order_nr": 2,
+            "category": "dish",
+            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+            "name": "Product C",
+            "price": "10 PLN",
+            "quantity": 20,
+            "order_nr": 3,
+            "category": "dish",
+            "description": "There are five breakpoints by default, inspired by common device resolutions."
+        },
+        {
+            "name": "Squashazzi",
+            "price": "40 PLN",
+            "quantity": 1,
+            "order_nr": 4,
+            "category": "drink",
+            "description": "Using responsive utility variants to build adaptive user interfaces."
+        },
+        {
+            "name": "Bleb",
+            "price": "5 PLN",
+            "quantity": 1,
+            "order_nr": 5,
+            "category": "drink",
+            "description": "Here’s a simple example of a marketing page component t."
+        },
+        {
+            "name": "Owsianka",
+            "price": "6 PLN",
+            "quantity": 25,
+            "order_nr": 6,
+            "category": "dish",
+            "description": "a given breakpoint — even things like letter spacing or cursor styles."
+        }
+    ]
+}

@@ -1,21 +1,13 @@
-<template>
-    <Logo />
-    <Background />
-    <router-view />
-</template>
-
 <script>
-    import Logo from './components/logo.vue';
-    import Background from './components/background.vue';
 
-    export default {
-        components: {
-            Background,
-            Logo,
-        },
-    };
 </script>
 
+<template>
+    <div class="text-center mt-5 mb-4">
+        <h1 class="uppercase text-4xl md:text-6xl text-regal-gold">Deluxe Restaurant</h1>
+    </div>
+    <RouterView/>
+</template>
+
 <style>
-    @import 'assets/main.css';
 </style>
