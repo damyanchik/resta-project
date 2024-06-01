@@ -12,7 +12,7 @@ export default {
         };
     },
     created() {
-        fetch('http://localhost:3001/products')
+        fetch('http://127.0.0.1:8000/api/product/listing')
             .then(response => response.json())
             .then(products => (
                 this.products = products

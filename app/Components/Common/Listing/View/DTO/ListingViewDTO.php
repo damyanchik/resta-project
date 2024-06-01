@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Components\Common\Listing\View\DTO;
 
-use Illuminate\Support\Collection;
-
-class ViewDTO
+class ListingViewDTO
 {
     public function __construct(
-        readonly public object     $data,
-        readonly public Collection $flags,
+        readonly public array $items,
+        readonly public array $flags,
     )
     {
     }
@@ -18,7 +16,7 @@ class ViewDTO
     public function toArray(): array
     {
         return [
-            'data' => $this->data,
+            'items' => $this->items,
             'flags' => $this->flags,
         ];
     }

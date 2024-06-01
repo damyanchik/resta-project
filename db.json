@@ -9,10 +9,18 @@
             "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {
+            "name": "XXXX",
+            "price": "0 PLN",
+            "quantity": 22,
+            "order_nr": 1,
+            "category": "dish",
+            "description": "xxxxxx."
+        },
+        {
             "name": "Product B",
             "price": "20 PLN",
             "quantity": 2,
-            "order_nr": 2,
+            "order_nr": 0,
             "category": "dish",
             "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },

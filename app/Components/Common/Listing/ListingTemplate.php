@@ -8,7 +8,8 @@ use App\Components\Common\Listing\Parameter\DTO\ParametersDTO;
 use App\Components\Common\Listing\Parameter\Factory\ParametersFactory;
 use App\Components\Common\Listing\Parameter\Request\ParametersBag;
 use App\Components\Common\Listing\Query\Factory\EloquentQueryFactory\QueryFactoryInterface;
-use App\Components\Common\Listing\View\DTO\ViewDTO;
+use App\Components\Common\Listing\View\DTO\ListingViewDTO;
+use App\Components\Common\Listing\View\Resolver\EloquentModelResolver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -26,13 +27,14 @@ abstract class ListingTemplate
     {
     }
 
-    public function create(ParametersBag $bag): ViewDTO
+    public function create(ParametersBag $bag): ListingViewDTO
     {
         $parameters = $this->parametersFactory->createParameters($bag, $this->prepareColumns());
+        $eloquentModel = EloquentModelResolver::setModel($this->getDataFromQuery($parameters));
 
-        return new ViewDTO(
-            data: $this->getDataFromQuery($parameters),
-            flags: $this->getColumnViewFlags(),
+        return new ListingViewDTO(
+            items: $eloquentModel->resolveItems(),
+            flags: $this->getColumnViewFlags()->toArray(),
         );
     }
 

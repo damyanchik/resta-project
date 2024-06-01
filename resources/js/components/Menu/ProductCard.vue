@@ -17,7 +17,7 @@ export default {
             <small>{{ product.description }}</small>
         </div>
         <div class="text-regal-gold grid grid-rows-2 gap-1 text-center items-center">
-            <span>{{ product.price }}</span>
+            <span>{{ product.price.value }}</span>
             <div>
                 <button class="text-red-700 p-1">
                     <i class="fa-solid fa-minus"></i>
