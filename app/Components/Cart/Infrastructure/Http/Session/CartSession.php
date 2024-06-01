@@ -6,6 +6,7 @@ namespace App\Components\Cart\Infrastructure\Http\Session;
 
 use App\Components\Cart\Domain\DTO\CartFormableDTO;
 use App\Components\Cart\Domain\Enum\CartItemAttributeEnum;
+use App\Components\Cart\Domain\Exception\CartException;
 use App\Components\Cart\Infrastructure\Http\Session\Model\CartSessionModel;
 use App\Components\Cart\Infrastructure\Mapper\Session\CartSessionMapper;
 use Illuminate\Contracts\Session\Session;
@@ -14,7 +15,7 @@ use Illuminate\Support\Collection;
 class CartSession
 {
     private const SESSION_CART = 'cart';
-    private const SESSION_ITEMS = 'orderEntryItemDTOs';
+    private const SESSION_ITEMS = 'items';
     private const SESSION_DISCOUNT = 'discount';
 
     public function __construct(
@@ -26,13 +27,13 @@ class CartSession
 
     public function getCart(): CartFormableDTO
     {
-        $cartItems = $this->session->get(self::SESSION_CART, []);
+        $cart = $this->session->get(self::SESSION_CART, []);
 
-        return empty($cartItems[self::SESSION_ITEMS])
-            ? new CartFormableDTO(new Collection())
+        return empty($cart[self::SESSION_ITEMS])
+            ? new CartFormableDTO(new Collection([]))
             : $this->cartSessionMapper->toCartItemFormableDTOs(
-                cartItems: new Collection($cartItems[self::SESSION_ITEMS]),
-                discount: $cartItems[self::SESSION_DISCOUNT] ?? null,
+                cartItems: new Collection($cart[self::SESSION_ITEMS]),
+                discount: $cart[self::SESSION_DISCOUNT] ?? null,
             );
     }
 
@@ -40,13 +41,20 @@ class CartSession
     {
         $this->session->forget(self::SESSION_CART);
 
-        return empty($this->session->get(self::SESSION_CART, []));
+        return $this->session->get(self::SESSION_CART) === null;
     }
 
     public function addCartItems(CartSessionModel $cartSession): bool
     {
         $this->session->put(self::SESSION_CART, $cartSession->toArray());
 
-        return ! empty($cartSession->sessionCartItems->toArray());
+        return $cartSession->sessionCartItems->toArray() !== null;
+    }
+
+    public function findCartItem(string $uuid): bool
+    {
+        $cart = $this->session->get(self::SESSION_CART, []);
+
+        return in_array($uuid, array_column($cart[self::SESSION_ITEMS], CartItemAttributeEnum::PRODUCT_UUID->value));
     }
 }

@@ -21,7 +21,7 @@ class CartViewModel
     public function toArray(): array
     {
         return [
-            'orderEntryItemDTOs' => $this->items->toArray(),
+            'items' => $this->items->toArray(),
             'positions' => $this->positions,
             'subtotal' => $this->subtotal->format(),
             'total' => $this->total->format(),

@@ -29,7 +29,7 @@ class CartApplicationFacade implements CartFacade
     {
         $cartFormableDTO = $this->session->getCart();
 
-        return $this->session->addCartItems(
+        $this->session->addCartItems(
             cartSession: $this->cartSessionFactory->createCartSession(
                 cartItemFormableDTOs: $this->cartService->getValidatedItems(
                     cartItemFormableDTOs: $this->cartService->joinItemToCartItemFormableDTOs(
@@ -41,6 +41,8 @@ class CartApplicationFacade implements CartFacade
                 discount: $cartFormableDTO->discount,
             ),
         );
+
+        return $this->session->findCartItem($uuid);
     }
 
     /** @throws CartException */
@@ -79,7 +81,7 @@ class CartApplicationFacade implements CartFacade
             throw CartException::emptyCart();
         }
 
-        return $this->session->addCartItems(
+        $this->session->addCartItems(
             cartSession: $this->cartSessionFactory->createCartSession(
                 cartItemFormableDTOs: $this->cartService->removeItemFromCartItemFormableDTOs(
                     uuid: $uuid,
@@ -88,6 +90,8 @@ class CartApplicationFacade implements CartFacade
                 discount: $cartFormableDTO->discount,
             ),
         );
+
+        return $this->session->findCartItem($uuid);
     }
 
     public function destroyCart(): bool

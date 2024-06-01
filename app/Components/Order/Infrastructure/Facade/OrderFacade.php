@@ -34,8 +34,8 @@ class OrderFacade
         $orderItemFormableDTOs = $this->orderItemBuilder
             ->setOrderEntryItems($orderFormable->items()->map(
                 fn($item) => $this->orderItemDTOFactory->createOrderItemBasicDTO(
-                    productUuid: $item[OrderItemAttributeEnum::PRODUCT_UUID],
-                    quantity: $item[OrderItemAttributeEnum::QUANTITY],
+                    productUuid: $item[OrderItemAttributeEnum::PRODUCT_UUID->value],
+                    quantity: $item[OrderItemAttributeEnum::QUANTITY->value],
                 ),
             ))
             ->setDiscount('')
@@ -81,6 +81,8 @@ class OrderFacade
                 orderItemFormableDTOs: $orderItemFormableDTOs,
             );
         });
+
+        $this->cartFacade->destroyCart();
     }
 
     public function showOrderByUuid(string $uuid)
