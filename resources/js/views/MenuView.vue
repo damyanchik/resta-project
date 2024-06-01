@@ -1,10 +1,10 @@
 <script>
-import BottomButtons from "../components/BottomButtons.vue";
-import ProductList from "../components/Menu/ProductList.vue";
+import BottomButtons from '../components/BottomButtons.vue';
+import ProductList from '../components/Menu/ProductList.vue';
 
 export default {
     name: 'MenuView',
-    components: {ProductList, BottomButtons},
+    components: { ProductList, BottomButtons },
     data() {
         return {
             products: [],
@@ -31,22 +31,6 @@ export default {
 </script>
 
 <template>
-    <div class="fixed top-30 w-full">
-        <select class="
-        bg-regal-blue text-regal-gold
-        mx-auto block px-4
-        text-lg rounded
-        border border-regal-gold
-        appearance-none
-        text-center"
-        v-model="currentCategory"
-        >
-            <option value="none">Category</option>
-            <option value="dish">Dish</option>
-            <option value="drink">Drink</option>
-        </select>
-    </div>
-
     <ProductList :products="filteredProducts"/>
 
     <div class="mt-2">
