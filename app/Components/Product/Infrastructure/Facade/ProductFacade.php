@@ -20,7 +20,9 @@ class ProductFacade
 
     public function createByFormable(ProductFormable $productFormable): bool
     {
-        return $this->productRepository->create($this->productDTOFactory->createProductFormableDTO($productFormable));
+        return (bool) $this->productRepository->create(
+            $this->productDTOFactory->createProductFormableDTO($productFormable),
+        );
     }
 
     public function updateByFormable(ProductFormable $productFormable, string $uuid): bool

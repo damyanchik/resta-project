@@ -12,7 +12,6 @@ use App\Components\Common\Listing\Query\ChainOfResponsibility\EloquentQueryChain
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-
 class EloquentQueryFactory implements QueryFactoryInterface
 {
     public function __construct(private readonly QueryChainInterface $queryChain)

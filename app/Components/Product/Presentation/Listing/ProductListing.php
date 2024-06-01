@@ -24,6 +24,7 @@ class ProductListing extends ListingTemplate
             'name' => Column::build()->visible()->sortable()->searchable()->get(),
             'stock' => Column::build()->visible()->sortable()->searchable()->get(),
             'price' => Column::build()->visible()->sortable()->searchable()->get(),
+            'description' => Column::build()->visible()->sortable()->searchable()->get(),
             'is_unlimited' => Column::build()->visible()->sortable()->get(),
             'is_vegetarian' => Column::build()->visible()->sortable()->get(),
             'is_spicy' => Column::build()->visible()->sortable()->get(),

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Components\Common\Listing\View\Builder\ColumnBuilder;
 
+use App\Components\Common\Listing\Parameter\Enum\ListingParameterEnum;
+
 class Column implements ColumnBuilderInterface
 {
     private bool $isVisible = false;
@@ -57,12 +59,12 @@ class Column implements ColumnBuilderInterface
     public function get(): array
     {
         return [
-            'isVisible' => $this->isVisible,
-            'isRemoval' => $this->isRemoval,
-            'isSortable' => $this->isSortable,
-            'isSearchable' => $this->isSearchable,
-            'isFilterable' => $this->isFilterable,
-            'isRangeable' => $this->isRangeable,
+            ListingParameterEnum::IS_VISIBLE->value => $this->isVisible,
+            ListingParameterEnum::IS_REMOVAL->value  => $this->isRemoval,
+            ListingParameterEnum::IS_SORTABLE->value  => $this->isSortable,
+            ListingParameterEnum::IS_SEARCHABLE->value  => $this->isSearchable,
+            ListingParameterEnum::IS_FILTERABLE->value => $this->isFilterable,
+            ListingParameterEnum::IS_RANGEABLE->value => $this->isRangeable,
         ];
     }
 }

@@ -18,12 +18,12 @@ class ParametersFactory
     public function createParameters(ParametersBag $bag, Collection $columnDetails): ParametersDTO
     {
         return new ParametersDTO(
-            $this->resolver->resolveSelectedColumns($bag, $columnDetails),
-            $this->resolver->resolveSearchColumns($bag, $columnDetails),
-            $bag->getSearchTerm(),
-            $bag->getOrderDirection(),
-            $this->resolver->resolveOrderColumn($bag, $columnDetails),
-            $bag->getPerPage(),
+            selectedColumns: $this->resolver->resolveSelectedColumns($bag, $columnDetails),
+            searchColumns: $this->resolver->resolveSearchColumns($bag, $columnDetails),
+            searchTerm: $bag->getSearchTerm(),
+            orderDirection: $bag->getOrderDirection(),
+            orderColumn: $this->resolver->resolveOrderColumn($bag, $columnDetails),
+            perPage: $bag->getPerPage(),
         );
     }
 }

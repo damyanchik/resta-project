@@ -20,10 +20,11 @@ class ProductFactory extends Factory
             'description' => fake()->text(),
             'stock' => fake()->numberBetween(0, 80),
             'price' => fake()->numberBetween(250, 8000),
+            'rate' => fake()->numberBetween(2, 23),
             'is_vegetarian' => fake()->numberBetween(0,1),
             'is_spicy' => fake()->numberBetween(0,1),
             'is_unlimited' => fake()->numberBetween(0,1),
-            'is_available' => fake()->numberBetween(0,1),
+            'is_available' => 1,
             'category_uuid' => null,
         ];
     }
