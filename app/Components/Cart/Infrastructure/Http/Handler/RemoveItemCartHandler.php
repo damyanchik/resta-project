@@ -19,7 +19,7 @@ class RemoveItemCartHandler
     public function __invoke(string $uuid): JsonResponse
     {
         return $this->facade->removeItemFromCart($uuid)
-            ? $this->jsonResponse->setData(['success'])
-            : $this->jsonResponse->setData(['failure']);
+            ? $this->jsonResponse->setData(['failure'])
+            : $this->jsonResponse->setData(['success']);
     }
 }

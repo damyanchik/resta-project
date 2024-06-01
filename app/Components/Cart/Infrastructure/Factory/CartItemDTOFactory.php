@@ -9,6 +9,7 @@ use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
 use App\Components\Common\DTO\PriceDTO;
 use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Product\Application\Repository\ProductRepository;
+use App\Components\Product\Domain\Model\Product;
 use Illuminate\Support\Collection;
 
 class CartItemDTOFactory
@@ -40,11 +41,12 @@ class CartItemDTOFactory
         );
 
         return $products->mapWithKeys(
-            fn($product) => [
+            fn(Product $product) => [
                 $product->uuid => new CartItemDTO(
                     name: $product->name,
-                    quantity: $cartItemFormableDTOs->firstWhere(fn($item) => $item->productUuid === $product->uuid)
-                        ->quantity,
+                    quantity: $cartItemFormableDTOs->firstWhere(
+                        fn(CartItemFormableDTO $item) => $item->productUuid === $product->uuid
+                    )->quantity,
                     price: new PriceDTO(
                         nett: $this->priceCalculator->calculateNettFromGross($product->price, $product->rate),
                         gross: $product->price,

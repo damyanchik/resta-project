@@ -9,15 +9,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CartRequest extends FormRequest implements CartFormable
 {
+    private const QUANTITY = 'quantity';
+
     public function rules(): array
     {
         return [
-            'quantity' => ['required', 'integer', 'min:1'],
+            self::QUANTITY => ['required', 'integer', 'min:1'],
         ];
     }
 
     public function quantity(): int
     {
-        return $this->integer('quantity');
+        return $this->integer(self::QUANTITY);
     }
 }

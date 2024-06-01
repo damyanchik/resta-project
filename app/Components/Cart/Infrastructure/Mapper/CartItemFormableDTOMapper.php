@@ -16,9 +16,11 @@ class CartItemFormableDTOMapper
      */
     public function toCartSessionItems(Collection $cartItemFormableDTOs): Collection
     {
-        return $cartItemFormableDTOs->map(fn($itemForm) => new CartItemSessionModel(
+        return $cartItemFormableDTOs->map(
+            fn($itemForm) => new CartItemSessionModel(
                 productUuid: $itemForm->productUuid,
                 quantity: $itemForm->quantity,
-        ));
+            ),
+        );
     }
 }

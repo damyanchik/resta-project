@@ -43,12 +43,13 @@ class CartApplicationFacade implements CartFacade
         );
     }
 
+    /** @throws CartException */
     public function getCart(): CartDTO
     {
         $this->reloadCartItems();
         $cartFormableDTO = $this->session->getCart();
 
-        if (empty($cartFormableDTO->cartFormableItemDTOs->first())) {
+        if ($cartFormableDTO->cartFormableItemDTOs->first() === null) {
             $this->destroyCart();
             throw CartException::emptyCart();
         }
@@ -62,7 +63,7 @@ class CartApplicationFacade implements CartFacade
         $this->reloadCartItems();
         $cartFormableDTO = $this->session->getCart();
 
-        return empty($cartFormableDTO->cartFormableItemDTOs->first())
+        return $cartFormableDTO->cartFormableItemDTOs->first() === null
             ? throw CartException::emptyCart()
             : $cartFormableDTO;
     }
@@ -73,7 +74,7 @@ class CartApplicationFacade implements CartFacade
         $this->reloadCartItems();
         $cartFormableDTO = $this->session->getCart();
 
-        if (empty($cart->cartFormableItems->first())) {
+        if ($cartFormableDTO->cartFormableItemDTOs->first() === null) {
             $this->destroyCart();
             throw CartException::emptyCart();
         }

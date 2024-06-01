@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Components\Cart\Infrastructure\Http\Handler;
 
+use App\Components\Cart\Domain\Exception\CartException;
 use App\Components\Cart\Infrastructure\Facade\CartApplicationFacade;
 use App\Components\Cart\Infrastructure\Factory\ViewModel\CartViewModelFactory;
 use Illuminate\Http\JsonResponse;
@@ -18,10 +19,11 @@ class DisplayCartHandler
     {
     }
 
+    /** @throws CartException */
     public function __invoke(): JsonResponse
     {
         return $this->jsonResponse->setData(
-            data: $this->viewModelFactory->createByCartDTO($this->facade->getCart())?->toArray(),
+            $this->viewModelFactory->createByCartDTO($this->facade->getCart())?->toArray(),
         );
     }
 }

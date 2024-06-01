@@ -19,7 +19,7 @@ class CartSession
 
     public function __construct(
         private readonly CartSessionMapper $cartSessionMapper,
-        private readonly Session           $session
+        private readonly Session           $session,
     )
     {
     }

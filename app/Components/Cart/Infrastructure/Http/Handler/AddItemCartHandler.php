@@ -21,7 +21,6 @@ class AddItemCartHandler
     {
         $this->facade->addItemToCart($uuid, $request);
 
-        //przekazanie expct
         return $this->jsonResponse->setData(['success?']);
     }
 }

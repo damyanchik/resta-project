@@ -23,7 +23,7 @@ class CartSessionMapper
                 productUuid: $item[CartItemAttributeEnum::PRODUCT_UUID->value],
                 quantity: $item[CartItemAttributeEnum::QUANTITY->value],
             )),
-            discount: null, //obj
+            discount: null, //todo: obj
         );
     }
 }
