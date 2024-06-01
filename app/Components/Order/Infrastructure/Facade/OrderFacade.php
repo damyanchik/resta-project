@@ -6,6 +6,7 @@ namespace App\Components\Order\Infrastructure\Facade;
 
 use App\Components\Cart\Application\Facade\CartFacade;
 use App\Components\Order\Application\DTO\OrderFormable;
+use App\Components\Order\Domain\DTO\OrderDTO;
 use App\Components\Order\Domain\Enum\OrderItemAttributeEnum;
 use App\Components\Order\Domain\Enum\OrderStatusEnum;
 use App\Components\Order\Infrastructure\Builder\OrderBuilder;
@@ -85,8 +86,8 @@ class OrderFacade
         $this->cartFacade->destroyCart();
     }
 
-    public function showOrderByUuid(string $uuid)
+    public function showOrderByUuid(string $uuid): OrderDTO
     {
-
+        return $this->orderService->get($uuid);
     }
 }

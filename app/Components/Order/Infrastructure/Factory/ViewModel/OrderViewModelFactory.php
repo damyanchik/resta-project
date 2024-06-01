@@ -18,8 +18,8 @@ class OrderViewModelFactory
         return new OrderViewModel(
             status: $orderDTO->status->value,
             type: $orderDTO->type->value,
-            subtotalAmount: $orderDTO->subtotalAmount->render(),
-            totalAmount: $orderDTO->totalAmount->render(),
+            subtotalAmount: $orderDTO->nettAmount->render(),
+            totalAmount: $orderDTO->grossAmount->render(),
             paymentMethod: $orderDTO->paymentMethod ?? '',
             isPaid: $orderDTO->isPaid,
             annotation: $orderDTO->annotation ?? '',

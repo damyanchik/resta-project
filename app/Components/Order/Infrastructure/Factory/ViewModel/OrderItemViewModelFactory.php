@@ -13,8 +13,8 @@ class OrderItemViewModelFactory
     {
         return new OrderItemViewModel(
             productUuid: $orderItemDTO->productUuid,
-            subtotalUnitPrice: $orderItemDTO->subtotalUnitPrice->render(),
-            totalUnitPrice: $orderItemDTO->totalUnitPrice->render(),
+            subtotalUnitPrice: $orderItemDTO->sumNettPrice->render(),
+            totalUnitPrice: $orderItemDTO->sumGrossPrice->render(),
             subtotalPrice: $orderItemDTO->subtotalPrice->render(),
             totalPrice: $orderItemDTO->totalPrice->render(),
             quantity: $orderItemDTO->quantity,

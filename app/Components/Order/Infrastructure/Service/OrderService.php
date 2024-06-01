@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Infrastructure\Service;
 
+use App\Components\Order\Domain\DTO\OrderDTO;
 use App\Components\Order\Domain\DTO\OrderFormableDTO;
 use App\Components\Order\Domain\DTO\OrderItemFormableDTO;
+use App\Components\Order\Infrastructure\Mapper\OrderDTOMapper;
 use App\Components\Order\Infrastructure\Repository\OrderItemRepository;
 use App\Components\Order\Infrastructure\Repository\OrderRepository;
 use App\Components\Order\Infrastructure\Resolver\OrderResolver;
@@ -17,6 +19,7 @@ class OrderService
         private readonly OrderRepository     $orderRepository,
         private readonly OrderItemRepository $orderItemRepository,
         private readonly OrderResolver       $orderResolver,
+        private readonly OrderDTOMapper      $orderDTOMapper,
     )
     {
     }
@@ -36,5 +39,14 @@ class OrderService
                 orderItemFormableDTOs: $orderItemFormableDTOs,
             ),
         );
+    }
+
+    public function get(string $orderUuid): OrderDTO
+    {
+        $order = $this->orderRepository->findByUuid($orderUuid);
+
+        $orderItems = $this->orderItemRepository->getBy($order->getKey(), 'uuid');
+
+        return $this->orderDTOMapper->fromOrderModel($order, $orderItems->items());
     }
 }

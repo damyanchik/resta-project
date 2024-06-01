@@ -9,8 +9,8 @@ class OrderViewModel
     public function __construct(
         private readonly string $status,
         private readonly string $type,
-        private readonly string $subtotalAmount,
-        private readonly string $totalAmount,
+        private readonly string $nettAmount,
+        private readonly string $grossAmount,
         private readonly string $paymentMethod,
         private readonly bool $isPaid,
         private readonly string $annotation,
@@ -24,8 +24,8 @@ class OrderViewModel
         return [
             'status' => $this->status,
             'type' => $this->type,
-            'subtotal_amount' => $this->subtotalAmount,
-            'total_amount' => $this->totalAmount,
+            'nett_amount' => $this->nettAmount,
+            'gross_amount' => $this->grossAmount,
             'payment_method' => $this->paymentMethod,
             'is_paid' => $this->isPaid,
             'annotation' => $this->annotation,

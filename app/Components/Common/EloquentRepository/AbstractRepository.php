@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Components\Common\EloquentRepository;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 abstract class AbstractRepository
@@ -52,6 +53,19 @@ abstract class AbstractRepository
             ->newQuery()
             ->select($columns)
             ->whereIn('uuid', $uuids)
+            ->get();
+    }
+
+    public function getBy(
+        string|int|float|array $needle,
+        string $byColumn,
+        array $columns = ['*'],
+    ): Collection
+    {
+        return $this->model
+            ->newQuery()
+            ->select($columns)
+            ->whereIn($byColumn, Arr::wrap($needle))
             ->get();
     }
 }

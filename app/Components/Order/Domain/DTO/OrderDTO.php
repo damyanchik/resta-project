@@ -13,13 +13,13 @@ class OrderDTO
 {
     public function __construct(
         public readonly OrderStatusEnum $status,
-        public readonly OrderTypeEnum $type,
-        public readonly Money $subtotalAmount,
-        public readonly Money $totalAmount,
-        public readonly ?string $paymentMethod,
-        public readonly bool $isPaid,
-        public readonly ?string $annotation,
-        public readonly Collection $orderItems,
+        public readonly OrderTypeEnum   $type,
+        public readonly Money           $nettAmount,
+        public readonly Money           $grossAmount,
+        public readonly ?string         $paymentMethod,
+        public readonly bool            $isPaid,
+        public readonly ?string         $annotation,
+        public readonly Collection      $orderItems,
     )
     {
     }
