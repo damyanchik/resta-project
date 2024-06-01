@@ -14,9 +14,16 @@ class Column implements ColumnBuilderInterface
     private bool $isSearchable = false;
     private bool $isFilterable = false;
     private bool $isRangeable = false;
+    private static string $name;
 
-    public static function build(): ColumnBuilderInterface
+    private function __construct()
     {
+    }
+
+    public static function build(string $name): ColumnBuilderInterface
+    {
+        self::$name = $name;
+
         return new static;
     }
 
@@ -59,12 +66,14 @@ class Column implements ColumnBuilderInterface
     public function get(): array
     {
         return [
-            ListingParameterEnum::IS_VISIBLE->value => $this->isVisible,
-            ListingParameterEnum::IS_REMOVAL->value  => $this->isRemoval,
-            ListingParameterEnum::IS_SORTABLE->value  => $this->isSortable,
-            ListingParameterEnum::IS_SEARCHABLE->value  => $this->isSearchable,
-            ListingParameterEnum::IS_FILTERABLE->value => $this->isFilterable,
-            ListingParameterEnum::IS_RANGEABLE->value => $this->isRangeable,
+            self::$name => [
+                ListingParameterEnum::IS_VISIBLE->value => $this->isVisible,
+                ListingParameterEnum::IS_REMOVAL->value => $this->isRemoval,
+                ListingParameterEnum::IS_SORTABLE->value => $this->isSortable,
+                ListingParameterEnum::IS_SEARCHABLE->value => $this->isSearchable,
+                ListingParameterEnum::IS_FILTERABLE->value => $this->isFilterable,
+                ListingParameterEnum::IS_RANGEABLE->value => $this->isRangeable,
+            ],
         ];
     }
 }

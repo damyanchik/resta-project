@@ -20,17 +20,17 @@ class ProductListing extends ListingTemplate
     protected function prepareColumns(): Collection
     {
         return collect([
-            'uuid' => Column::build()->visible(false)->sortable()->get(),
-            'name' => Column::build()->visible()->sortable()->searchable()->get(),
-            'stock' => Column::build()->visible()->sortable()->searchable()->get(),
-            'price' => Column::build()->visible()->sortable()->searchable()->get(),
-            'description' => Column::build()->visible()->sortable()->searchable()->get(),
-            'is_unlimited' => Column::build()->visible()->sortable()->get(),
-            'is_vegetarian' => Column::build()->visible()->sortable()->get(),
-            'is_spicy' => Column::build()->visible()->sortable()->get(),
-            'is_available' => Column::build()->visible()->sortable()->get(),
-            'category_uuid' => Column::build()->visible()->sortable()->searchable()->get(),
-            'order_nr' => Column::build()->visible()->sortable()->get(),
+            ...Column::build('uuid')->visible(false)->sortable()->get(),
+            ...Column::build('name')->visible()->sortable()->searchable()->get(),
+            ...Column::build('stock')->visible()->sortable()->searchable()->get(),
+            ...Column::build('price')->visible()->sortable()->searchable()->get(),
+            ...Column::build('description')->visible()->sortable()->searchable()->get(),
+            ...Column::build('is_unlimited')->visible()->sortable()->get(),
+            ...Column::build('is_vegetarian')->visible()->sortable()->get(),
+            ...Column::build('is_spicy')->visible()->sortable()->get(),
+            ...Column::build('is_available')->visible()->sortable()->get(),
+            ...Column::build('category_uuid')->visible()->sortable()->searchable()->get(),
+            ...Column::build('order_nr')->visible()->sortable()->get(),
         ]);
     }
 }

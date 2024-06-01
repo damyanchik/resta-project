@@ -23,7 +23,7 @@ class OrderBuilder
 
 
     public function __construct(
-        private OrderAmountCalculator $orderAmountCalculator,
+        private readonly OrderAmountCalculator $orderAmountCalculator,
     )
     {
     }

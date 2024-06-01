@@ -62,7 +62,7 @@ class OrderItemBuilder
         return $this;
     }
 
-    public function build()
+    public function build(): Collection
     {
         $productBasicDTOs = $this->getProductBasicDTOs(
             productUuids: $this->orderResolver->resolveProductUuidsFromOrderEntryItemDTOs($this->orderEntryItemDTOs),
