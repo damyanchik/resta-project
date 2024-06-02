@@ -18,16 +18,13 @@ class OrderViewModelFactory
         return new OrderViewModel(
             status: $orderDTO->status->value,
             type: $orderDTO->type->value,
-            subtotalAmount: $orderDTO->nettAmount->render(),
-            totalAmount: $orderDTO->grossAmount->render(),
+            nettAmount: $orderDTO->nettAmount->render(),
+            grossAmount: $orderDTO->grossAmount->render(),
             paymentMethod: $orderDTO->paymentMethod ?? '',
             isPaid: $orderDTO->isPaid,
             annotation: $orderDTO->annotation ?? '',
             orderItems: $orderDTO->orderItems
-                ->map([
-                    $this->itemViewModelFactory,
-                    'createOrderItemViewModelByOrderItemDTO'
-                ])
+                ->map([$this->itemViewModelFactory, 'createOrderItemViewModelByOrderItemDTO'])
                 ->map(fn($item) => $item->toArray())
                 ->toArray(),
         );

@@ -19,7 +19,7 @@ class Order extends Model
 
     public $incrementing = false;
     protected $primaryKey = 'uuid';
-    protected $keyType='string';
+    protected $keyType ='string';
     protected $table = 'orders';
     protected $casts = [
         'status' => OrderStatusEnum::class,

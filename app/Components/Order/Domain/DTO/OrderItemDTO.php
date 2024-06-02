@@ -17,7 +17,7 @@ class OrderItemDTO
         public readonly PriceDTO            $unitPrice,
         public readonly int                 $quantity,
         public readonly OrderItemStatusEnum $status,
-        public readonly string              $message,
+        public readonly ?string             $message,
         public readonly int                 $orderNr,
     )
     {

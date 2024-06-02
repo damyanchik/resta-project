@@ -45,8 +45,8 @@ class OrderService
     {
         $order = $this->orderRepository->findByUuid($orderUuid);
 
-        $orderItems = $this->orderItemRepository->getBy($order->getKey(), 'uuid');
+        $orderItems = $this->orderItemRepository->getBy($order->getKey(), 'order_uuid');
 
-        return $this->orderDTOMapper->fromOrderModel($order, $orderItems->items());
+        return $this->orderDTOMapper->fromOrderModel($order, $orderItems);
     }
 }

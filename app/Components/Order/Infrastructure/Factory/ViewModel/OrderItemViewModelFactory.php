@@ -13,13 +13,14 @@ class OrderItemViewModelFactory
     {
         return new OrderItemViewModel(
             productUuid: $orderItemDTO->productUuid,
-            subtotalUnitPrice: $orderItemDTO->sumNettPrice->render(),
-            totalUnitPrice: $orderItemDTO->sumGrossPrice->render(),
-            subtotalPrice: $orderItemDTO->subtotalPrice->render(),
-            totalPrice: $orderItemDTO->totalPrice->render(),
+            unitNettPrice: $orderItemDTO->unitPrice->nett->render(),
+            unitGrossPrice: $orderItemDTO->unitPrice->gross->render(),
+            sumNettPrice: $orderItemDTO->sumNettPrice->render(),
+            sumGrossPrice: $orderItemDTO->sumGrossPrice->render(),
+            rate: $orderItemDTO->unitPrice->rate,
             quantity: $orderItemDTO->quantity,
             status: $orderItemDTO->status->value,
-            annotation: $orderItemDTO->annotation,
+            message: $orderItemDTO->message,
             orderNr: $orderItemDTO->orderNr,
         );
     }

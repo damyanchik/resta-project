@@ -31,11 +31,11 @@ class OrderDTOMapper
     {
         return new OrderItemDTO(
             productUuid: $item->product_uuid,
-            sumNettPrice: $item->nett_amount,
-            sumGrossPrice: $item->nett_amount,
+            sumNettPrice: $item->unit_nett_price,
+            sumGrossPrice: $item->unit_nett_price,
             unitPrice: new PriceDTO(
-                nett: $item->nett_amount,
-                gross: $item->nett_amoun,
+                nett: $item->unit_nett_price,
+                gross: $item->unit_nett_price,
                 rate: 0,
             ),
             quantity: $item->quantity,
