@@ -6,7 +6,6 @@ namespace App\Components\Cart\Infrastructure\Http\Session;
 
 use App\Components\Cart\Domain\DTO\CartFormableDTO;
 use App\Components\Cart\Domain\Enum\CartItemAttributeEnum;
-use App\Components\Cart\Domain\Exception\CartException;
 use App\Components\Cart\Infrastructure\Http\Session\Model\CartSessionModel;
 use App\Components\Cart\Infrastructure\Mapper\Session\CartSessionMapper;
 use Illuminate\Contracts\Session\Session;

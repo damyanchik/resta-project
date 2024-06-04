@@ -14,6 +14,8 @@ use Illuminate\Support\Collection;
 
 class CartItemDTOFactory
 {
+    private const PRODUCT_INFO_COLUMNS = ['uuid', 'name', 'price', 'rate', 'is_vegetarian', 'is_spicy'];
+
     public function __construct(
         private readonly PriceCalculator   $priceCalculator,
         private readonly ProductRepository $productRepository,
@@ -37,7 +39,7 @@ class CartItemDTOFactory
     {
         $products = $this->productRepository->getByUuids(
             uuids: $cartItemFormableDTOs->map(fn($item) => $item->productUuid)->toArray(),
-            columns: ['uuid', 'name', 'price', 'rate', 'is_vegetarian', 'is_spicy'],
+            columns: self::PRODUCT_INFO_COLUMNS,
         );
 
         return $products->mapWithKeys(

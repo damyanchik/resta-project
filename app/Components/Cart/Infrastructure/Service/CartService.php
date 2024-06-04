@@ -11,11 +11,12 @@ use App\Components\Cart\Infrastructure\Mapper\CartItemAvailableMapper;
 use App\Components\Cart\Infrastructure\Mapper\CartItemFormableDTOMapper;
 use App\Components\Cart\Infrastructure\Resolver\CartResolver;
 use App\Components\Product\Application\Repository\ProductRepository;
-use App\Components\Product\Domain\Model\Product;
 use Illuminate\Support\Collection;
 
 class CartService
 {
+    private const PRODUCT_AVAILABLE_COLUMNS = ['uuid', 'stock', 'is_available', 'is_unlimited'];
+
     public function __construct(
         private readonly CartItemDTOFactory        $cartItemDTOFactory,
         private readonly CartItemFormableDTOMapper $itemFormableDTOMapper,
@@ -68,7 +69,7 @@ class CartService
     {
         $products = $this->productRepository->getByUuids(
             uuids: $cartItemFormableDTOs->map(fn($item) => $item->productUuid)->toArray(),
-            columns: ['uuid', 'stock', 'is_available', 'is_unlimited'],
+            columns: self::PRODUCT_AVAILABLE_COLUMNS,
         );
         return $this->itemFormableDTOMapper->toCartSessionItems(
             cartItemFormableDTOs: $this->cartResolver->resolveItemsBetweenRepositoryAndSession(
