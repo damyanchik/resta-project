@@ -15,6 +15,8 @@ use Illuminate\Support\Collection;
 
 class OrderService
 {
+    private const ORDER_UUID_COLUMN = 'order_uuid';
+
     public function __construct(
         private readonly OrderRepository     $orderRepository,
         private readonly OrderItemRepository $orderItemRepository,
@@ -45,7 +47,11 @@ class OrderService
     {
         $order = $this->orderRepository->findByUuid($orderUuid);
 
-        $orderItems = $this->orderItemRepository->getBy($order->getKey(), 'order_uuid');
+        //exception
+
+        $orderItems = $this->orderItemRepository->getBy($order->getKey(), self::ORDER_UUID_COLUMN);
+
+        //exception
 
         return $this->orderDTOMapper->fromOrderModel($order, $orderItems);
     }

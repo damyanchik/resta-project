@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Components\Order\Infrastructure\Builder;
 
-use Akaunting\Money\Money;
 use App\Components\Common\DTO\PriceDTO;
-use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Order\Domain\DTO\OrderEntryItemDTO;
 use App\Components\Order\Domain\DTO\OrderItemFormableDTO;
 use App\Components\Order\Domain\Enum\OrderItemStatusEnum;
 use App\Components\Order\Domain\Enum\OrderStatusEnum;
+use App\Components\Order\Infrastructure\Mapper\OrderedProductDTOMapper;
 use App\Components\Order\Infrastructure\Resolver\OrderResolver;
 use App\Components\Order\Infrastructure\Validator\OrderItemValidator;
 use App\Components\Product\Application\Repository\ProductRepository;
-use App\Components\Product\Domain\DTO\ProductBasicDTO;
+use App\Components\Product\Domain\Model\Product;
 use Illuminate\Support\Collection;
 
 class OrderItemBuilder
@@ -24,9 +23,9 @@ class OrderItemBuilder
     private Collection $orderEntryItemDTOs;
 
     public function __construct(
-        private readonly PriceCalculator $priceCalculator,
-        private readonly ProductRepository $productRepository,
-        private readonly OrderResolver $orderResolver,
+        private readonly ProductRepository       $productRepository,
+        private readonly OrderResolver           $orderResolver,
+        private readonly OrderedProductDTOMapper $orderedProductDTOMapper,
     )
     {
     }
@@ -64,39 +63,35 @@ class OrderItemBuilder
 
     public function build(): Collection
     {
-        $productBasicDTOs = $this->getProductBasicDTOs(
-            productUuids: $this->orderResolver->resolveProductUuidsFromOrderEntryItemDTOs($this->orderEntryItemDTOs),
-        );
+        $orderedProductsFromDB = $this->getOrderedProducts();
 
-        return $this->orderEntryItemDTOs->map(function ($entryItemDTO) use ($productBasicDTOs) {
-            $productBasicDTO = $productBasicDTOs->get($entryItemDTO->productUuid);
+        return $this->orderEntryItemDTOs->map(function ($entryItemDTO) use ($orderedProductsFromDB) {
+            $orderedProductFromDB = $orderedProductsFromDB->get($entryItemDTO->productUuid);
 
-            OrderItemValidator::orderItemAvailability($productBasicDTO, $entryItemDTO->quantity);
+            OrderItemValidator::orderItemAvailability($orderedProductFromDB, $entryItemDTO->quantity);
 
             return new OrderItemFormableDTO(
                 status: $this->status,
                 productUuid: $entryItemDTO->productUuid,
                 price: new PriceDTO(
-                    nett: $this->priceCalculator->calculateNettFromGross(
-                        amount: $productBasicDTO->price,
-                        taxRate: $productBasicDTO->rate,
-                    ),
-                    gross: $productBasicDTO->price,
-                    rate: $productBasicDTO->rate,
+                    nett: $orderedProductFromDB->price->nett,
+                    gross: $orderedProductFromDB->price->gross,
+                    rate: $orderedProductFromDB->price->rate,
                 ),
                 quantity: $entryItemDTO->quantity,
             );
         });
     }
 
-    /**
-     * @param array $productUuids
-     * @return Collection<int,ProductBasicDTO>
-     */
-    private function getProductBasicDTOs(array $productUuids): Collection
+    /** @return Collection<string|Product> */
+    private function getOrderedProducts(): Collection
     {
-        return $this->productRepository->getProductBasicDTOs(
-            uuids: $productUuids,
+        $products = $this->productRepository->getByUuids(
+            $this->orderResolver->resolveProductUuidsFromOrderEntryItemDTOs($this->orderEntryItemDTOs)
         );
+
+        return $products->mapWithKeys(fn(Product $product) => [
+            $product->getKey() => $this->orderedProductDTOMapper->fromProductModel($product),
+        ]);
     }
 }

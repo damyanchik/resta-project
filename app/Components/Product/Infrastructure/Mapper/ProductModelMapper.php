@@ -7,7 +7,6 @@ namespace App\Components\Product\Infrastructure\Mapper;
 use App\Components\Common\DTO\PriceDTO;
 use App\Components\Finance\Application\Calculator\PriceCalculator;
 use App\Components\Product\Domain\DTO\ProductAvailableDTO;
-use App\Components\Product\Domain\DTO\ProductBasicDTO;
 use App\Components\Product\Domain\DTO\ProductDTO;
 use App\Components\Product\Domain\Model\Product;
 use Illuminate\Support\Collection;
@@ -18,39 +17,6 @@ class ProductModelMapper
         private readonly PriceCalculator $priceCalculator,
     )
     {
-    }
-
-    /**
-     * @param Collection<Product> $products
-     * @return Collection<ProductAvailableDTO>
-     */
-    public function toProductAvailabilityDTOs(Collection $products): Collection
-    {
-        return $products->mapWithKeys(function ($item) {
-            return [$item->uuid => new ProductAvailableDTO(
-                stock: $item->stock,
-                isUnlimited: $item->is_unlimited,
-                isAvailable: $item->is_available,
-            )];
-        });
-    }
-
-    /**
-     * @param Collection<Product> $products
-     * @return Collection<ProductBasicDTO>
-     */
-    public function toProductBasicDTOs(Collection $products): Collection
-    {
-        return $products->mapWithKeys(function ($item) {
-            return [$item->uuid => new ProductBasicDTO(
-                price: $item->price,
-                rate: $item->rate,
-                stock: $item->stock,
-                isUnlimited: $item->is_unlimited,
-                isAvailable: $item->is_available,
-                categoryUuid: $item->category_uuid,
-            )];
-        });
     }
 
     public function toProductDTO(Product $product): ProductDTO

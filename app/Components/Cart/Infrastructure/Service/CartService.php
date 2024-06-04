@@ -7,9 +7,11 @@ namespace App\Components\Cart\Infrastructure\Service;
 use App\Components\Cart\Application\DTO\CartFormable;
 use App\Components\Cart\Domain\DTO\CartItemFormableDTO;
 use App\Components\Cart\Infrastructure\Factory\CartItemDTOFactory;
+use App\Components\Cart\Infrastructure\Mapper\CartItemAvailableMapper;
 use App\Components\Cart\Infrastructure\Mapper\CartItemFormableDTOMapper;
 use App\Components\Cart\Infrastructure\Resolver\CartResolver;
 use App\Components\Product\Application\Repository\ProductRepository;
+use App\Components\Product\Domain\Model\Product;
 use Illuminate\Support\Collection;
 
 class CartService
@@ -19,6 +21,7 @@ class CartService
         private readonly CartItemFormableDTOMapper $itemFormableDTOMapper,
         private readonly CartResolver              $cartResolver,
         private readonly ProductRepository         $productRepository,
+        private readonly CartItemAvailableMapper   $availableMapper,
     )
     {
     }
@@ -63,11 +66,15 @@ class CartService
      */
     public function getValidatedItems(Collection $cartItemFormableDTOs): Collection
     {
+        $products = $this->productRepository->getByUuids(
+            uuids: $cartItemFormableDTOs->map(fn($item) => $item->productUuid)->toArray(),
+            columns: ['uuid', 'stock', 'is_available', 'is_unlimited'],
+        );
         return $this->itemFormableDTOMapper->toCartSessionItems(
             cartItemFormableDTOs: $this->cartResolver->resolveItemsBetweenRepositoryAndSession(
                 cartItemFormableDTOs: $cartItemFormableDTOs,
-                productAvailableDTOs: $this->productRepository->getProductAvailabilityDTOs(
-                    uuids: $cartItemFormableDTOs->map(fn($item) => $item->productUuid)->toArray(),
+                cartItemAvailableDTOs: $products->mapWithKeys(
+                    fn($product) => [$product->getKey() => $this->availableMapper->fromProductModel($product)],
                 ),
             ),
         );
