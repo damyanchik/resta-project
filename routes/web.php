@@ -35,6 +35,9 @@ Route::post('/api/product/delete/{uuid}', \App\Components\Product\Infrastructure
 Route::get('/api/order/{uuid}', \App\Components\Order\Infrastructure\Http\Handler\ShowOrderHandler::class)
     ->name('order.show');
 
+Route::get('/api/order/listing', \App\Components\Order\Infrastructure\Http\Handler\ListingOrderHandler::class)
+    ->name('order.listing');
+
 Route::post('/api/order/create/cart', \App\Components\Order\Infrastructure\Http\Handler\CreateFromCartOrderHandler::class)
     ->name('order.createFromCart');
 

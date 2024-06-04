@@ -7,6 +7,7 @@ namespace App\Components\Order\Infrastructure\Service;
 use App\Components\Order\Domain\DTO\OrderDTO;
 use App\Components\Order\Domain\DTO\OrderFormableDTO;
 use App\Components\Order\Domain\DTO\OrderItemFormableDTO;
+use App\Components\Order\Domain\Exception\OrderException;
 use App\Components\Order\Infrastructure\Mapper\OrderDTOMapper;
 use App\Components\Order\Infrastructure\Repository\OrderItemRepository;
 use App\Components\Order\Infrastructure\Repository\OrderRepository;
@@ -47,12 +48,13 @@ class OrderService
     {
         $order = $this->orderRepository->findByUuid($orderUuid);
 
-        //exception
+        if ($order === null) {
+            throw OrderException::notFound();
+        }
 
-        $orderItems = $this->orderItemRepository->getBy($order->getKey(), self::ORDER_UUID_COLUMN);
-
-        //exception
-
-        return $this->orderDTOMapper->fromOrderModel($order, $orderItems);
+        return $this->orderDTOMapper->fromOrderModel(
+            order: $order,
+            orderItems: $this->orderItemRepository->getBy($order->getKey(), self::ORDER_UUID_COLUMN),
+        );
     }
 }

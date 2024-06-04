@@ -6,10 +6,10 @@ namespace App\Components\Order\Domain\Exception;
 
 use Exception;
 
-class OrderItemException extends Exception
+class OrderException extends Exception
 {
     public static function notFound(): static
     {
-        return new static('Order item not found.', 404);
+        return new static('Order not found.', 404);
     }
 }

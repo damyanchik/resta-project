@@ -30,7 +30,10 @@ class OrderResolver
     public function resolveUuidAndOrderItemFormableToArray(string $orderUuid, Collection $orderItemFormableDTOs): array
     {
         return $orderItemFormableDTOs
-            ->map(fn ($item) => $item->toArray() + [self::ORDER_UUID_ATTRIBUTE => $orderUuid] + ['uuid' => Str::uuid()->toString()])
+            ->map(
+                fn($item) => $item->toArray() + [self::ORDER_UUID_ATTRIBUTE => $orderUuid] + [
+                        'uuid' => Str::uuid()->toString(),
+                    ])
             ->toArray();
     }
 }
